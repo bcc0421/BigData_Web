@@ -1,0 +1,19 @@
+$def with (page)
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Big Data</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    
+    $:page
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+$def with (pin, userprofile,column_id)
+
+<div class="container-fluid pin">
+    <!--a href="#detail" data-toggle="modal"-->
+            <div class="spiffyfg">
+
+                <center>
+                    <b>Media Server Demo</b>
+
+                    <div id='mediaspace'>This text will be replaced</div>
+                    <script type='text/javascript'>
+                        jwplayer('mediaspace').setup({
+                            'flashplayer': '/static/swf/player.swf',
+                            'file': "$pin['movie_id:']",
+                            'streamer': 'rtmp://192.168.1.165/oflaDemo',
+                            'controlbar': 'bottom',
+                            'width': '848',
+                            'height': '360'
+                        });
+                    </script>
+                    <br/>
+
+                </center>
+
+            <br/>
+            </div>
+
+   
+    <div>$pin['introduction:'][0:125]</div>
+</div>
+<div id="detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:-50px;width:1000px;left:393px;overflow:auto;display:none">
+			<div class="modal-header">
+                <table style="margin:0px auto" border="1px solid red">
+                    <tr>
+                        <td rowspan="2" ><div>Author:$userprofile['user']['username:']</div></td>
+                        <td width="200px"></td>
+                        <td><button name=""  class="btn " type="button" onclick="watchit(this)" id="$userprofile['user']['key']">关注</button></td>
+                        <td><button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button></td>
+                        
+                    </tr>
+                    
+                    <tr>
+                                    <td width="200px" height="40px"></td><td colspan="2">用户介绍</td>
+                        
+                    </tr>
+                    
+                </table>
+                
+                 
+				
+												
+			</div>
+			<div class="modal-body">
+			    <img  src=" " alt="" >
+                
+			</div>
+			<div class="modal-footer">
+				<form id="comment_form" action="" method="post">
+						<div class="show_comment" id="" style="border:1px solid red;height:150px;overflow:auto"></div>
+						<div  class="write_comment" style="display:none" >
+							
+                            <textarea  name="comment_content" rows="2" style="width: 420px" >
+														
+							</textarea>
+													
+												
+						</div>
+					<p style="margin-left:120px;margin-top:10px ">
+					<button  class="btn comment" type="button" onclick="comment(this)">添加评论</button>
+					<button onclick="decide(this)" class="btn btn-info decide" type="button">确认</button>
+                    <!--input style="display:none" id="texthidden" type="text" name="keytext" /-->
+					</p>
+				</form>
+			</div>
+</div>
+ <script type="text/javascript">
+    var flag=true;
+    function watchit(obj){
+
+            
+
+        if (flag){
+
+                     var \$userid=\$(obj).attr("id");
+                       
+                     \$.get("/follow/oneuser",
+            
+                        {
+                            user_id:\$userid
+
+                            },
+                       function(data,textStatus){
+                            
+                            alert(textStatus);
+                           
+                            eval("var relationshipId = " + data + ";");
+                           
+                            \$(obj).attr("name",relationshipId.relationship_id);
+                            
+                            
+                            });
+        
+                     \$(obj).text("取消关注");
+                      flag=false;
+                      
+                 }else{
+                     
+                    \$relationship_id=\$(obj).attr("name");
+            
+                    
+            
+                     \$.get("/unfollow/oneuser",
+            
+                        {
+                            user_id:\$relationship_id
+
+                            },
+                       function(textStatus){
+                
+                            alert("取消成功");
+                            
+                            });
+
+                      \$(obj).text("关注");
+                      flag=true;
+                    }
+        
+           
+    }
+       
+    function getid(obj){
+
+        var \$keyid=\$(obj).attr("id");
+        
+        \$.get("/comment/show",
+    
+                {
+                    img_key_id:\$keyid
+
+                    },
+               function(data,textStatus){
+        
+       
+                    eval("var content = " + data + ";");
+                
+     
+                    for (var i = 0; i < content['comments'].length; i++)
+                    {
+                       
+                        var jhtml = \$(content['comments'][i]);
+                        \$("#show_comment_"+\$keyid+"").append(jhtml);
+                    }
+        
+               }
+
+        );
+	    
+                 
+        
+	    \$("#detail img").attr({"src":"http://192.168.1.165:8080/attachments/source/"+\$keyid+"","id":\$keyid});
+	     \$("#detail .show_comment").attr("id","show_comment_"+\$keyid+"");
+	    \$("#detail .show_comment").html("");
+	   
+	 
+    }
+  function comment(obj) {
+            var \$img_key_id=\$("#detail img").attr("id");
+            
+            var index=\$(".comment").index(\$(obj));
+		    \$("#comment_form textarea").val("");
+             \$(".write_comment").eq(index).fadeIn();
+        
+    }
+  function decide(\$obj) {
+        var \$img_key_id=\$("#detail img").attr("id");
+	    
+	    var \$content=\$("#comment_form textarea").val();
+	   
+        \$(".write_comment").fadeOut();
+	  
+	    \$("#show_comment_"+\$img_key_id+"").fadeIn();
+
+       
+	
+	    var \$p=\$("<p style='text-align:left'>"+\$content+"</p>");
+	    \$("#show_comment_"+\$img_key_id+"").append(\$p);
+    
+        
+        
+        \$.post("/comment/upload",
+                
+                     {
+                        img_key_id:\$img_key_id,
+                        content: \$content
+
+                    }, 
+
+            function(data,textStatus)
+                {
+                    
+                    
+                    }
+            );
+
+	    \$("#comment_form textarea").val("");
+	
+
+        
+    }
+
+
+</script>
+

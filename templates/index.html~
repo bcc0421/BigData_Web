@@ -1,0 +1,191 @@
+$def with (pins)
+
+<style>
+#header
+{
+    background-color: #EFEFEF;
+    padding: 7px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.pin
+{
+    margin-bottom: 20px;
+    border: 1px solid;
+    border-color: #cccccc;
+    padding: 10px;
+    text-align: center;
+}
+#down_menu_1 li{
+
+float:left;
+padding-left:30px
+}
+</style>
+
+<div id="header">
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-user"></i>
+        Test
+        <span class="caret"></span>
+    </button>
+
+    <div class="btn-group">
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-align-justify"></i>
+            <span class="caret"></span>
+        </button>
+         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="width:520px">
+								
+			<li><a tabindex="-1" href="./second.html">最新动态</a></li>
+			<li><a tabindex="./second.html" href="#">校外教育</a></li>
+			<li><a tabindex="-1" href="#">家政辅导</a></li>
+			<li><a tabindex="-1" href="#">职业生涯</a></li>
+			<li><a tabindex="-1" href="#">我的云盘</a></li>
+			<li><a tabindex="-1" href="#">娱乐人生</a></li>
+			<li><a tabindex="-1" href="#">购物天堂</a></li>
+			<li><a tabindex="-1" href="#">远程办公</a></li>
+			<li><a tabindex="-1" href="#">移动应用</a></li>
+			<li><a tabindex="-1" href="#">职业生涯</a></li>
+			<li><a tabindex="-1" href="#">智慧之门</a></li>
+			<li><a tabindex="-1" href="#">社区服务</a></li>
+			<li><a tabindex="-1" href="#">下载专区</a></li>
+			<li><a tabindex="-1" href="#">公共信息</a></li>
+			 <li><a tabindex="-1" href="#">美容美体</a></li>
+			<li><a tabindex="-1" href="#">情感天地</a></li>
+					
+		</ul>
+    </div>
+
+    <a href="#add_new" role="button" class="btn" data-toggle="modal">
+        <i class="icon-plus" style="height: 20px"></i>
+    </a>
+
+    <div id="add_new" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Create a New Pin</h3>
+        </div>
+        <form action="/pin/upload" enctype="multipart/form-data" method="POST">
+            <div class="modal-body">
+                <div style="padding-bottom: 20px;">
+                    <input type="button" value="Upload a picture." class="btn" onclick="upload_pic.click()"/><br />
+                    <input type="file" class="hide input" id="upload_pic" name="upload_pic" />
+                </div>
+                <textarea rows="10" style="width: 420px" name="introduction"></textarea>
+                <select name="board_id">
+                    <option value="1">Volvo</option>
+                    <option value="2">Saab</option>
+                    <option value="3">Fiat</option>
+                    <option value="4">Audi</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="col1">
+            $for pin in pins[0]:
+                $:pin
+        </div>
+        <div class="span3" id="col2">
+            $for pin in pins[1]:
+                $:pin
+        </div>
+        <div class="span3" id="col3">
+            $for pin in pins[2]:
+                $:pin
+        </div>
+        <div class="span3" id="col4">
+            $for pin in pins[3]:
+                $:pin
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+\$(function()
+{
+    var flowLock = false;
+    var page = 2;
+
+    function columnAccumulator()
+    {
+        var col1_h = 0,
+            col2_h = 0,
+            col3_h = 0,
+            col4_h = 0;
+
+        \$("img[column-id=0]").each(function(id, obj)
+        {
+            col1_h += parseInt(\$(obj).attr("height"));
+        });
+
+        \$("img[column-id=1]").each(function(id, obj)
+        {
+            col2_h += parseInt(\$(obj).attr("height"));
+        });
+
+        \$("img[column-id=2]").each(function(id, obj)
+        {
+            col3_h += parseInt(\$(obj).attr("height"));
+        });
+
+        \$("img[column-id=3]").each(function(id, obj)
+        {
+            col4_h += parseInt(\$(obj).attr("height"));
+        });
+
+        return [col1_h, col2_h, col3_h, col4_h];
+    }
+
+    // return index
+    function findMin(array)
+    {
+        var minID = 0, minVal = array[0];
+        for (var i = 1; i < array.length; i++)
+        {
+            if (array[i] < minVal)
+            {
+                minID = i, minVal = array[i];
+            }
+        }
+        return minID;
+    }
+
+    \$(window).scroll(function()
+    {
+        var clientHeight = \$(window).height(),
+            scrollTop = \$(window).scrollTop(),
+            scrollHeight = \$(document).height();
+        
+        if (clientHeight + scrollTop >= scrollHeight)
+        {
+            \$.get("/pin_flow/" + page, {}, function(data)
+            {
+                //alert(data);
+                eval("var json = " + data + ";");
+                //var json=eval"("+data+")";
+               // alert( json.pins.length);
+                
+                for (var i = 0; i < json.pins.length; i++)
+                {
+                    size = columnAccumulator();
+                    var column = findMin(size) + 1;
+
+                    var jhtml = \$(json.pins[i]);
+                    \$("#col" + column).append(jhtml);
+                }
+            });
+        }
+    });
+});
+</script>
+
