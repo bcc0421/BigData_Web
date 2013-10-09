@@ -14,7 +14,7 @@ class UploadPin:
         i = web.input()
         print "1111111."
         print i.board_id
-        boardlist = ['education', 'remotworking', 'intelligence', 'beauty', 'emotion', 'health_management',
+        board_list = ['education', 'remotworking', 'intelligence', 'beauty', 'emotion', 'health_management',
                      'entertainment', 'Domestic_counseling', 'shopping', 'career', 'community_services',
                      'public_information']
 
