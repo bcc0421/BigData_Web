@@ -19,7 +19,6 @@ class UploadPin:
                      'public_information']
 
         board_id = boardlist.index(i.board_id) + 1
-        # buffer
         x = web.input(upload_pic={})
         f = None
         if 'upload_pic' in x:
