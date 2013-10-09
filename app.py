@@ -1,12 +1,12 @@
 import web
-from index import PinFlow,ShowComment ,MyPin
+from index import PinFlow, ShowComment, MyPin
 from login import Login
-from controlskip import ControlSkip,SkipUserMessage,SkipMainPage
+from controlskip import ControlSkip, SkipUserMessage, SkipMainPage
 from register import Register
 from images import Thumbnail, SourceImage
-from upload import UploadPin,UploadComment,UploadVideo
+from upload import UploadPin, UploadComment, UploadVideo
 from mainpage import Mainpage
-from follow_or_not import Follow,UnFollow,GetMyAttention
+from follow_or_not import Follow, UnFollow, GetMyAttention
 from delete import DeleteOwnPin
 
 urls = (

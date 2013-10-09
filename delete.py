@@ -1,16 +1,13 @@
-import conf
 import requests
 import web
-import simplejson
-import os
-import sys
-import locale
+
+import conf
+
 
 class DeleteOwnPin:
     def POST(self):
-        i=web.input()
-        pinid=i.pin_id
-        
-        r = requests.delete(conf.locate('/pin/%s/delete' %pinid))
+        i = web.input()
+        pin_id = i.pin_id
+        r = requests.delete(conf.locate('/pin/%s/delete' % pin_id))
     
         
