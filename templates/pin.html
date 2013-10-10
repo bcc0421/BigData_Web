@@ -7,7 +7,7 @@ $def with (pin, userprofile,presentuser)
     
     <div>$pin['introduction'][0:125]</div>
     <div id="$pin['key']_delete" style="position:relative；left: -103px;display:none">
-        <button  class="btn" type="button" name="$pin['key']" onclick="delete_a_pin(this)">删除</button>
+        <button  class="btn" type="button" name="$pin['key']" onclick="delete_a_pin(this)">删除:所在板块=$pin['board_id']</button>
     </div>
 </div>
 
@@ -30,9 +30,9 @@ $def with (pin, userprofile,presentuser)
                 </table>
  							
 			</div>
-            <div style="height:300px;overflow:auto">
+            <div style="height:300px;">
 			        <div  class="modal-body"  >
-			            <img src="" >
+			            <img style="height: 300px; margin-top: -15px;" src="" >
                         
 			        </div>
             </div>
@@ -201,10 +201,11 @@ function delete_a_pin(obj){
 	  
 	    \$("#show_comment_"+\$img_key_id+"").fadeIn();
 
-	    var \$p=\$("<p style='text-align:left'><span>"+username+"</span>:&nbsp&nbsp"+\$content+"</p>");
+        if(\$content !=""){
+            
+        var \$p=\$("<p style='text-align:left'><span>"+username+"</span>:&nbsp&nbsp"+\$content+"</p>");
 	    \$("#show_comment_"+\$img_key_id+"").append(\$p);
-  
-        \$.post("/comment/upload",
+         \$.post("/comment/upload",
                 
                      {
                         img_key_id:\$img_key_id,
@@ -218,6 +219,11 @@ function delete_a_pin(obj){
                     
                     }
             );
+
+        }
+	    
+  
+       
 
 	    \$("#comment_form textarea").val("");
 	

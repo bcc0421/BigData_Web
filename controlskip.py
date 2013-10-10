@@ -58,6 +58,8 @@ class SkipUserMessage:
         present_user_pin = simplejson.loads(res.text)
         pins = [[], [], [], []]
         for i, p in enumerate(present_user_pin['pins']):
+            print "111111111222222"
+            print p
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
@@ -89,8 +91,11 @@ class SkipUserMessage:
 class SkipMainPage:
     def GET(self):
         return web.seeother('/mainpage')
-
-
+class LoginOut:
+    def GET(self):
+        web.setcookie('token', '', expires=-1)
+       
+        return web.seeother('/login')
 
 
 
