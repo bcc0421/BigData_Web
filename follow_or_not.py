@@ -29,6 +29,8 @@ class Follow:
 class UnFollow:
     def GET(self):
         i = web.input()
+        print "*************************************8"
+        print i.user_id
         headers = {
             'X-Token': web.cookies().get('token')
         }

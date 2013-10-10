@@ -12,13 +12,13 @@ render = web.template.render('templates/', base='base2')
 class UploadPin:
     def POST(self):
         i = web.input()
-        print "1111111."
+        
+        board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
+                      u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
+                      u'社区服务',u'公共信息']
+        print "****************************88"
         print i.board_id
-        board_list = ['education', 'remotworking', 'intelligence', 'beauty', 'emotion', 'health_management',
-                     'entertainment', 'Domestic_counseling', 'shopping', 'career', 'community_services',
-                     'public_information']
-
-        board_id = boardlist.index(i.board_id) + 1
+        board_id = board_list.index(i.board_id) + 1
         x = web.input(upload_pic={})
         f = None
         if 'upload_pic' in x:
@@ -75,9 +75,9 @@ class UploadVideo:
                 upload_res = simplejson.loads(upload_res.text)
 
         key = upload_res['file_name']
-        board_list = ['education', 'remotworking', 'intelligence', 'beauty', 'emotion', 'health_management',
-                      'entertainment', 'Domestic_counseling', 'shopping', 'career', 'community_services',
-                      'public_information']
+        board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
+                      u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
+                      u'社区服务',u'公共信息']
         board_id = board_list.index(i.board_id) + 1
         payload = {
             'introduction': i.introduction,
