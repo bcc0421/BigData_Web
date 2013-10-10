@@ -73,7 +73,8 @@ class UploadVideo:
                 data = {'type': media.type}
                 upload_res = requests.post(conf.media_server('/file_upload/'), files=files, data=data)
                 upload_res = simplejson.loads(upload_res.text)
-
+        print "111111111111111111111111111111111"
+        print upload_res
         key = upload_res['file_name']
         board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                       u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',

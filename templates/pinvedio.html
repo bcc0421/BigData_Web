@@ -28,6 +28,8 @@ $def with (pin, userprofile,presentuser)
     <div>$pin['introduction'][0:125]</div>
     <div id="$pin['key']_delete" style="position:relative；left: -103px;display:none">
         <button  class="btn" type="button" onclick="delete_a_vedio(this)">删除</button>
+        <button  class="btn" type="button" onclick="download()">下载</button>
+        
     </div>
 </div>
 <div id="detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:-50px;width:1000px;left:393px;overflow:auto;display:none">
@@ -77,6 +79,14 @@ $def with (pin, userprofile,presentuser)
 </div>
 
  <script type="text/javascript">
+function download(){
+    
+    alert("123");
+    window.location="http://192.168.1.165:8081/attachment/$pin['movie_id']";
+
+
+
+}
 \$("#$pin['key']_vediodelete").mouseover(function(){
 
      var presentuser=("$presentuser['user']['key']");
