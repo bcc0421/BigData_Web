@@ -1,5 +1,5 @@
 import web
-from index import ShowComment, MyPin
+from index import ShowComment, MyPin, Index
 from login import Login
 from controlskip import ControlSkip, SkipUserMessage, SkipMainPage,LoginOut
 from register import Register

@@ -60,7 +60,9 @@ class MyPin:
             "pins": pin
         })
 
-        
 
+class Index:
+    def GET(self):
+        return pure_render.index()
 
 
