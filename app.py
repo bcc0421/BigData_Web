@@ -1,5 +1,5 @@
 import web
-from index import PinFlow, ShowComment, MyPin
+from index import ShowComment, MyPin
 from login import Login
 from controlskip import ControlSkip, SkipUserMessage, SkipMainPage
 from register import Register
@@ -28,7 +28,6 @@ urls = (
     '/video/upload','UploadVideo',
     '/delete/ownpin','DeleteOwnPin',
     '/skipmainpage','SkipMainPage',
-    '/pin_flow/(\d+)', 'PinFlow'
 )
 
 if __name__ == "__main__":

@@ -21,22 +21,6 @@ class Pin:
         return pure_render.pinvedio(self.data, self.user_profile, self.present_user)
 
 
-class PinFlow:
-    def GET(self, id):
-        res = requests.get(conf.locate('/pin/list?%s' % id))
-        json = simplejson.loads(res.text)
-        pin = []
-        for p in json['pins']:
-            res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
-            profile = simplejson.loads(res.text)
-            pin_obj = Pin(p, profile)
-            pin.append(str(pin_obj.render()))
-
-        return simplejson.dumps({
-            "pins": pin
-        })
-
-
 class ShowComment:
     def GET(self):
         i = web.input()

@@ -77,7 +77,6 @@ padding-left:30px
         <form id="upload_form" action="/pin/upload " enctype="multipart/form-data" method="POST">
             <div class="modal-body">
                 <div style="padding-bottom: 20px;">
-                    <!--input type="button" value="上传图片" class="btn" onclick="upload_pic.click()"/><br /-->
                     <input type="file" class=" input" id="upload_pic" name="upload_pic" />
                 </div>
                 
@@ -129,48 +128,24 @@ padding-left:30px
         </div>
     </div>
 </div>
-<!--script language="JavaScript" type="text/javascript">
-	var TextUtil=new Object();
-	TextUtil.NotMax=function(oTextArea){
-        alert("i am coming");
-		var maxText=oTextArea.getAttribute("maxlength");
-		if(oTextArea.value.length >maxText){
-			oTextArea.value=oTextArea.value.substring(0,maxText);
-			alert("123");
-
-
-		}
-
-
-	}
-	
-</script-->
 
 <script type="text/javascript">
 \$(function()
 {
-
-
     var flowLock = false;
     var page = 1;
-
  function columnAccumulator()
     {
         var col1_h = 0,
             col2_h = 0,
             col3_h = 0,
             col4_h = 0;
-
          col1_h=parseInt(\$("#col1").height());
          col2_h=parseInt(\$("#col2").height());
          col3_h=parseInt(\$("#col3").height());
-
          col4_h=parseInt(\$("#col4").height());
-
-
         return [col1_h, col2_h, col3_h, col4_h];
     }
-    // return index
     function findMin(array)
     {
         var minID = 0, minVal = array[0];
@@ -198,12 +173,10 @@ padding-left:30px
                 eval("var json = " + data + ";");
                 //var json=eval"("+data+")";
                // alert( json.pins.length);
-                
                 for (var i = 0; i < json.pins.length; i++)
                 {
                     size = columnAccumulator();
                     var column = findMin(size) + 1;
-
                     var jhtml = \$(json.pins[i]);
                     \$("#col" + column).append(jhtml);
                 }
