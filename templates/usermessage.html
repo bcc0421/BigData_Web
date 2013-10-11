@@ -1,4 +1,4 @@
-$def with (pins,presentuser,attentions)
+$def with (pins,presentuser,attentions,attentions_len)
 <style>
 #down_menu_1 li{
 
@@ -100,7 +100,7 @@ list-style:none;
 					</div>		
 			    </td>			 			
 				<td align="center" style="padding-left:10px;padding-top:20px">
-                    <input   class="span2" style="width:200px" type="text"  placeholder="Search"></td>
+                    <input   class="span2" style="width:200px" type="text"  placeholder="搜索"></td>
                 <td ><button  style="width: 56px; margin-left: 10px; margin-top: 9px;" class="btn" >搜索</button></td>
 	            <td style="width:820px"></td>
                 <td >
@@ -116,14 +116,14 @@ list-style:none;
 							<li>			
 								<!-- Button to trigger modal -->
 
-								<a href="#myModal" data-toggle="modal" data-target="#myModal">Upload a Pin</a>
+								<a href="#myModal" data-toggle="modal" data-target="#myModal">上传素材</a>
 							</li>
 						</ul>
                         
                         <div id="myModal" class="modal hide fade">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3>Create a New Pin</h3>
+                                <h3>新建素材</h3>
                             </div>
                             <form id="upload_form" action="/pin/upload " enctype="multipart/form-data" method="POST">
                                 <div class="modal-body">
@@ -133,25 +133,25 @@ list-style:none;
                                     </div>
                                     <textarea rows="10" style="width: 420px" name="introduction"></textarea>
                                     <select name="board_id" >
-                                                        <option>education</option>
-                                                        <option >remotworking</option>
-					                                    <option >intelligence</option>
-						                                <option >beauty</option>
-						                                <option >emotion</option>
-                                                        <option>health_management</option>
-                                                        <option >entertainment</option>
-					                                    <option >Domestic_counseling</option>
-						                                <option >shopping</option>
-						                                <option >career</option>
-                                                        <option >community_services</option>
-						                                <option >public_information</option>
+                                                        <option>校外教育</option>
+                                                        <option >远程办公</option>
+					                                    <option >智慧之门</option>
+						                                <option >美容美体</option>
+						                                <option >情感天地</option>
+                                                        <option>健康管理</option>
+                                                        <option >娱乐人生</option>
+					                                    <option >家政辅导</option>
+						                                <option >购物天堂</option>
+						                                <option >职业生涯</option>
+                                                        <option >社区服务</option>
+						                                <option >公共信息</option>
 						
 																																					
                                     </select>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-                                    <button  id="submitdata" type="submit" class="btn btn-primary">Create</button>
+                                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                                    <button  id="submitdata" type="submit" class="btn btn-primary">创建</button>
                                 </div>
                             </form>
                        </div>
@@ -246,8 +246,10 @@ list-style:none;
 			 </div>
 			<div  class="tab-pane fade" id="profile1">
                 <h4>关注列表:</h4>
-                $for attention in attentions:
-                    $:attention
+               $for i in range(attentions_len):
+                    $:attentions[i]
+                $for i in range(attentions_len): 
+                    
                    
 			</div>
 			<div class="tab-pane fade" id="profile2">

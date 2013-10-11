@@ -4,7 +4,7 @@ $def with (pin, userprofile,presentuser)
     </a>
     <div>$pin['introduction'][0:125]</div>
     <div id="$pin['key']_delete" style="position:relative；left: -103px;display:none">
-        <button  class="btn" type="button" name="$pin['key']" onclick="delete_a_pin(this)">删除</button>
+        <button  class="btn" type="button" name="$pin['key']" onclick="delete_a_pin(this)">删除:所在板块=$pin['board_id']</button>
     </div>
 </div>
 
@@ -22,16 +22,16 @@ $def with (pin, userprofile,presentuser)
                     </tr>
                 </table>
 			</div>
-            <div style="height:300px;overflow:auto">
+            <div style="height:300px;">
 			        <div  class="modal-body"  >
-			            <img src="" >
+			            <img style="height: 300px; margin-top: -15px;" src="" >
 			        </div>
             </div>
 			        <div class="modal-footer">
 				        <form id="comment_form" action="" method="post">
-						        <div class="show_comment" id="" style="border:1px solid red;height:100px;overflow:auto"></div>
+						        <div class="show_comment" id="" style="border:1px solid red;height:80px;overflow:auto"></div>
 						        <div  class="write_comment" style="display:none" >
-                                    <textarea  name="comment_content" rows="0" style="width: 420px" >
+                                    <textarea  id="comment_content" name="comment_content" rows="0" style="width: 420px" >
 							        </textarea>
 						        </div>
 					        <p style="margin-left:120px;margin-top:10px ">
@@ -85,6 +85,7 @@ function delete_a_pin(obj){
                  }
         else{
                     \$relationship_id=\$(obj).attr("name");
+                    alert(\$relationship_id);
                      \$.get("/unfollow/oneuser",
                         {
                             user_id:\$relationship_id
@@ -128,12 +129,13 @@ function delete_a_pin(obj){
   function decide(\$obj) {
         var username="$presentuser['user']['username']";
         var \$img_key_id=\$("#detail img").attr("id");
-	    var \$content=\$("#comment_form textarea").val();
+	    var \$content=\$("#comment_content").val();
         \$(".write_comment").fadeOut();
 	    \$("#show_comment_"+\$img_key_id+"").fadeIn();
+
 	    var \$p=\$("<p style='text-align:left'><span>"+username+"</span>:&nbsp&nbsp"+\$content+"</p>");
 	    \$("#show_comment_"+\$img_key_id+"").append(\$p);
-        \$.post("/comment/upload",
+         \$.post("/comment/upload",
                      {
                         img_key_id:\$img_key_id,
                         content: \$content

@@ -23,6 +23,11 @@ float:left;
 padding-left:30px
 }
 </style>
+<link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
+<script src="/static/js/jquery.ui.widget.js"></script>
+<script src="/static/js/jquery.iframe-transport.js"></script>
+<script src="/static/js/jquery.fileupload.js"></script>
+
 
 <div id="header">
     <button class="btn ">
@@ -53,7 +58,7 @@ padding-left:30px
 							        <li><a tabindex="-1" href="/controlskip/9">购物天堂</a></li>
 							        <li><a tabindex="-1" href="/controlskip/2">远程办公</a></li>
 							        <li><a tabindex="-1" href="#">移动应用</a></li>
-							        <li><a tabindex="-1" href="/controlskip/10">职业生涯</a></li>
+							        <li><a tabindex="-1" href="/controlskip/6">健康管理</a></li>
 							        <li><a tabindex="-1" href="/controlskip/3">智慧之门</a></li>
 							        <li><a tabindex="-1" href="/controlskip/11">社区服务</a></li>
 							        <li><a tabindex="-1" href="#">下载专区</a></li>
@@ -68,8 +73,49 @@ padding-left:30px
     <a href="#add_new" role="button" class="btn" data-toggle="modal">
         <i class="icon-plus" style="height: 20px"></i>
     </a>
-
     <div id="add_new" class="modal hide fade">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3>新建素材</h3>
+                    </div>
+                    <form id="upload_pin" action="" enctype="multipart/form-data" method="POST">
+                        <div class="modal-body">
+                            <div style="padding-bottom: 20px;">
+                                
+                                <input type="file" class="input" id="upload_pic" name="upload_pic" />
+                            </div>
+                            <div style="padding-bottom: 20px;" id="id_file_name">
+
+                             </div>
+                                <!-- 进度条 -->
+                                <div id="progress_pic" class="progress progress-striped active">
+                                    <div class="bar"></div>
+                                </div>
+                            <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction"></textarea>
+                            <select name="board_id" id="pin_board_id" >
+                                   <option>校外教育</option>
+                                    <option >远程办公</option>
+					                <option >智慧之门</option>
+						            <option >美容美体</option>
+						            <option >情感天地</option>
+                                    <option>健康管理</option>
+                                    <option >娱乐人生</option>
+					                <option >家政辅导</option>
+						            <option >购物天堂</option>
+						            <option >职业生涯</option>
+                                    <option >社区服务</option>
+						            <option >公共信息</option>
+						
+																																					
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                            <button  id="submitdata" type="button" class="btn btn-primary">创建</button>
+                        </div>
+                    </form>
+                </div>
+    <!--div id="add_new" class="modal hide fade">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Create a New Pin</h3>
@@ -77,33 +123,35 @@ padding-left:30px
         <form id="upload_form" action="/pin/upload " enctype="multipart/form-data" method="POST">
             <div class="modal-body">
                 <div style="padding-bottom: 20px;">
+                    <!--input type="button" value="上传图片" class="btn" onclick="upload_pic.click()"/><br />
                     <input type="file" class=" input" id="upload_pic" name="upload_pic" />
                 </div>
                 
                 <textarea rows="0" style="width: 420px" name="introduction"  id="introduction_pic" maxlength="200"></textarea>
                 <select name="board_id" id="pin_board_id">
-                                    <option>education</option>
-                                    <option >remotworking</option>
-					                <option >intelligence</option>
-						            <option >beauty</option>
-						            <option >emotion</option>
-                                    <option>health_management</option>
-                                    <option >entertainment</option>
-					                <option >Domestic_counseling</option>
-						            <option >shopping</option>
-						            <option >career</option>
-                                    <option >community_services</option>
-						            <option >public_information</option>
+                                    <option>校外教育</option>
+                                    <option >远程办公</option>
+					                <option >智慧之门</option>
+						            <option >美容美体</option>
+						            <option >情感天地</option>
+                                    <option>健康管理</option>
+                                    <option >娱乐人生</option>
+					                <option >家政辅导</option>
+						            <option >购物天堂</option>
+						            <option >职业生涯</option>
+                                    <option >社区服务</option>
+						            <option >公共信息</option>
+						
 						
 																																					
                 </select>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-                <button  id="submitdata" type="submit" class="btn btn-primary">Create</button>
+                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                <button  id="submitdata" type="submit" class="btn btn-primary">创建</button>
             </div>
         </form>
-    </div>
+    </div-->
     <div style="float:right;margin-right:30px"><a href="javascript:history.go(-1);"><button class="btn btn-info">返回上一页</button></a></div>
     <div style="float:right;margin-right:10px"><a href="/skipmainpage"><button class="btn btn-info">返回主页</button></a></div>
 </div>
@@ -128,24 +176,48 @@ padding-left:30px
         </div>
     </div>
 </div>
+<!--script language="JavaScript" type="text/javascript">
+	var TextUtil=new Object();
+	TextUtil.NotMax=function(oTextArea){
+        alert("i am coming");
+		var maxText=oTextArea.getAttribute("maxlength");
+		if(oTextArea.value.length >maxText){
+			oTextArea.value=oTextArea.value.substring(0,maxText);
+			alert("123");
+
+
+		}
+
+
+	}
+	
+</script-->
 
 <script type="text/javascript">
 \$(function()
 {
+
+
     var flowLock = false;
     var page = 1;
+
  function columnAccumulator()
     {
         var col1_h = 0,
             col2_h = 0,
             col3_h = 0,
             col4_h = 0;
+
          col1_h=parseInt(\$("#col1").height());
          col2_h=parseInt(\$("#col2").height());
          col3_h=parseInt(\$("#col3").height());
+
          col4_h=parseInt(\$("#col4").height());
+
+
         return [col1_h, col2_h, col3_h, col4_h];
     }
+    // return index
     function findMin(array)
     {
         var minID = 0, minVal = array[0];
@@ -173,10 +245,12 @@ padding-left:30px
                 eval("var json = " + data + ";");
                 //var json=eval"("+data+")";
                // alert( json.pins.length);
+                
                 for (var i = 0; i < json.pins.length; i++)
                 {
                     size = columnAccumulator();
                     var column = findMin(size) + 1;
+
                     var jhtml = \$(json.pins[i]);
                     \$("#col" + column).append(jhtml);
                 }
@@ -185,6 +259,54 @@ padding-left:30px
     });
 });
 
+</script>
+<script type="text/javascript">
+\$(function () {
+	//文件上传地址
+    var url = '/pin/upload ';
+    
+    
+    //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
+    \$('#upload_pic').fileupload({
+        autoUpload: false,//是否自动上传
+        url: url,//上传地址
+        dataType: 'json',
+        done: function (e, data) {//设置文件上传完毕事件的回调函数
+             var board_index=\$("#pin_board_id").get(0).selectedIndex+1;
+            alert("上传成功！");
+           
+            window.location.href="/controlskip/"+board_index+"";
+        },
+        fail: function (e, data){
+           if (data.jqXHR.status == 406){
+               alert("仅支持上传MP4和FLV文件！");
+            }else{
+                var board_index=\$("#pin_board_id").get(0).selectedIndex+1;
+                alert("上传成功！");
+                
+                window.location.href="/controlskip/"+board_index+"";
+            }
+        },
+        add: function (e, data) {
+            \$("#id_file_name").html(data.files[0].name);
+            \$("#submitdata").click(function () {
+               
+                var intro = \$("#introduction_pic");
+                var board = \$("#pin_board_id");
+                
+                data.formData = {introduction: intro.val(), board_id: board.val()};
+                data.submit();//上传文件
+            });
+        },
+        progressall: function (e, data) {//设置上传进度事件的回调函数
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            \$('#progress_pic .bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    });
+});
 </script>
 
 

@@ -53,9 +53,9 @@ class Pin:
 
 class ControlSkip:
     def GET(self, id):
-        board_list = ['education', 'remotworking', 'intelligence', 'beauty', 'emotion', 'health_management',
-                      'entertainment', 'Domestic_counseling', 'shopping', 'career', 'community_services',
-                      'public_information']
+        board_list = ['校外教育', '远程办公', '智慧之门', '美容美体', '情感天地',
+                      '健康管理', '娱乐人生', '家政辅导', '购物天堂', '职业生涯',
+                      '社区服务','公共信息']
         board_id = int(id) - 1
         board_name = board_list[board_id]
         res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
@@ -88,6 +88,8 @@ class SkipUserMessage:
         present_user_pin = simplejson.loads(res.text)
         pins = [[], [], [], []]
         for i, p in enumerate(present_user_pin['pins']):
+            print "111111111222222"
+            print p
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
@@ -111,14 +113,19 @@ class SkipUserMessage:
         attentions = []
         for attention in result:
             attentions.append(str(pure_render.attention_list(attention)))
-        return render.usermessage(pins, present_user, attentions)
+        attentions_len=len(attentions)
+        
+        return render.usermessage(pins, present_user, attentions,attentions_len)
 
 
 class SkipMainPage:
     def GET(self):
         return web.seeother('/mainpage')
-
-
+class LoginOut:
+    def GET(self):
+        web.setcookie('token', '', expires=-1)
+       
+        return web.seeother('/login')
 
 
 

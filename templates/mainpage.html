@@ -24,14 +24,14 @@ padding-left:30px
 							<li>			
 								<!-- Button to trigger modal -->
 
-								<a href="#add_new" data-toggle="modal" data-target="#add_new">Upload a Pin</a>
-                                <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio">Upload a video</a>
+								<a href="#add_new" data-toggle="modal" data-target="#add_new">上传素材</a>
+                                <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio">上传视频</a>
 							</li>
 						</ul>
                  <div id="add_new" class="modal hide fade">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3>Create a New Pin</h3>
+                        <h3>新建素材</h3>
                     </div>
                     <form id="upload_pin" action="" enctype="multipart/form-data" method="POST">
                         <div class="modal-body">
@@ -43,30 +43,30 @@ padding-left:30px
 
                              </div>
                                 <!-- 进度条 -->
-                                <div id="progress" class="progress progress-striped active">
+                                <div id="progress_pic" class="progress progress-striped active">
                                     <div class="bar"></div>
                                 </div>
                             <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction"></textarea>
                             <select name="board_id" id="pin_board_id" >
-                                   <option>education</option>
-                                    <option >remotworking</option>
-					                <option >intelligence</option>
-						            <option >beauty</option>
-						            <option >emotion</option>
-                                    <option>health_management</option>
-                                    <option >entertainment</option>
-					                <option >Domestic_counseling</option>
-						            <option >shopping</option>
-						            <option >career</option>
-                                    <option >community_services</option>
-						            <option >public_information</option>
+                                   <option>校外教育</option>
+                                    <option >远程办公</option>
+					                <option >智慧之门</option>
+						            <option >美容美体</option>
+						            <option >情感天地</option>
+                                    <option>健康管理</option>
+                                    <option >娱乐人生</option>
+					                <option >家政辅导</option>
+						            <option >购物天堂</option>
+						            <option >职业生涯</option>
+                                    <option >社区服务</option>
+						            <option >公共信息</option>
 						
 																																					
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-                            <button  id="submitdata" type="button" class="btn btn-primary">Create</button>
+                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                            <button  id="submitdata" type="button" class="btn btn-primary">创建</button>
                         </div>
                     </form>
                 </div>
@@ -74,7 +74,7 @@ padding-left:30px
                 <div id="add_new_vedio" class="modal hide fade">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3>Create a New vedio</h3>
+                        <h3>上传视频</h3>
                     </div>
                     <form id="upload_video" action="/video/upload" enctype="multipart/form-data" method="POST">
                         <div class="modal-body">
@@ -85,29 +85,31 @@ padding-left:30px
 
                             <textarea rows="0" style="width: 420px" name="introduction"></textarea>
                             <select name="board_id" >
-                                    <option>education</option>
-                                    <option >remotworking</option>
-					                <option >intelligence</option>
-						            <option >beauty</option>
-						            <option >emotion</option>
-                                    <option>health_management</option>
-                                    <option >entertainment</option>
-					                <option >Domestic_counseling</option>
-						            <option >shopping</option>
-						            <option >career</option>
-                                    <option >community_services</option>
-						            <option >public_information</option>
+                                    <<option>校外教育</option>
+                                    <option >远程办公</option>
+					                <option >智慧之门</option>
+						            <option >美容美体</option>
+						            <option >情感天地</option>
+                                    <option>健康管理</option>
+                                    <option >娱乐人生</option>
+					                <option >家政辅导</option>
+						            <option >购物天堂</option>
+						            <option >职业生涯</option>
+                                    <option >社区服务</option>
+						            <option >公共信息</option>
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-                            <button  id="submitdata" type="submit" class="btn btn-primary">Create</button>
+                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                            <button  id="submitdata" type="submit" class="btn btn-primary">创建</button>
                         </div>
                     </form>
                 </div>
 			</div>
 
-			
+			<div>
+                <a style="float:right" href="/login_out" role="button" class="btn" data-toggle="modal" >退出</a>
+            </div>
             <div>
                 <a style="float:right" href="/skipusermessage" role="button" class="btn" data-toggle="modal" >$:username</a>
             </div>
@@ -151,7 +153,7 @@ padding-left:30px
 						</td>
 							
 					<td align="center"style="padding-left:200px">
-                        <input   style="width:500px" type="text" class="search-query" placeholder="Search">
+                        <input   style="width:500px" type="text" class="search-query" placeholder="搜索">
                     </td>
 					<td align="center" style="padding-left:200px"><a href="#"><button class="btn btn-info">搜索</button>
                     </td>
@@ -275,7 +277,7 @@ padding-left:30px
         },
         progressall: function (e, data) {//设置上传进度事件的回调函数
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            \$('#progress .bar').css(
+            \$('#progress_pic .bar').css(
                 'width',
                 progress + '%'
             );
