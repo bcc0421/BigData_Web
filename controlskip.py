@@ -16,6 +16,8 @@ class Pin:
 
     def render(self):
         return pure_render.pin(self.data, self.user_profile, self.present_user)
+    def render_myself(self):
+        return pure_render.myselfpin(self.data, self.user_profile, self.present_user)
 
     def render_video(self):
         return pure_render.pinvedio(self.data, self.user_profile, self.present_user)
@@ -34,6 +36,10 @@ class ControlSkip:
         json = simplejson.loads(res.text)
         pins = [[], [], [], []]
         for i, p in enumerate(json['pins']):
+            #p['key'] = p['key'] * 100
+            #if p['key'].find('.')!=-1:
+            #p['key']=p['key'].replace('.','_')
+            
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
@@ -41,6 +47,7 @@ class ControlSkip:
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_video())
             elif p['type'] == 'picture':
+                
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 if res.status_code == 200:
                     profile = simplejson.loads(str(res.text))
@@ -58,8 +65,7 @@ class SkipUserMessage:
         present_user_pin = simplejson.loads(res.text)
         pins = [[], [], [], []]
         for i, p in enumerate(present_user_pin['pins']):
-            print "111111111222222"
-            print p
+            
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
@@ -72,7 +78,7 @@ class SkipUserMessage:
                 print profile
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
-                pins[i].append(pin_obj.render())
+                pins[i].append(pin_obj.render_myself())
 
         headers = {
             'X-Token': web.cookies().get('token')
@@ -84,7 +90,7 @@ class SkipUserMessage:
         for attention in result:
             attentions.append(str(pure_render.attention_list(attention)))
         attentions_len=len(attentions)
-        
+       
         return render.usermessage(pins, present_user, attentions,attentions_len)
 
 
@@ -96,7 +102,11 @@ class LoginOut:
         web.setcookie('token', '', expires=-1)
        
         return web.seeother('/login')
-
+class LoginIn:
+        
+    def GET(self):
+  
+        return web.seeother('/login')
 
 
 

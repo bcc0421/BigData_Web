@@ -2,17 +2,11 @@
 import requests
 import web
 import simplejson
-
 import conf
-
-
 render = web.template.render('templates/', base='base2')
-
-
 class UploadPin:
     def POST(self):
         i = web.input()
-        
         board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                       u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
                       u'社区服务',u'公共信息']
@@ -44,10 +38,10 @@ class UploadPin:
 
         return web.seeother('/controlskip/%s' % board_id)
 
-
 class UploadComment:
     def POST(self):
         i = web.input()
+        
         payload = {
             'content': i.content,
         }
@@ -58,8 +52,7 @@ class UploadComment:
         res = requests.post(conf.locate('/comment/%s/create' % i.img_key_id),
                             data=simplejson.dumps(payload),
                             headers=headers)
-
-
+        print res.text
 class UploadVideo:
     def POST(self):
         i = web.input()
@@ -89,7 +82,7 @@ class UploadVideo:
         res = requests.post(conf.locate('/pin/create/%s' % board_id),
                             data=simplejson.dumps(payload),
                             headers=headers)
-      
+        
         return web.seeother('/controlskip/%s' % board_id)
         
         

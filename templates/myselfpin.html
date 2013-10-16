@@ -1,12 +1,14 @@
 $def with (pin, userprofile,presentuser)
 
-<div class="container-fluid pin" id="showdelete_$pin['key']"  username="$userprofile['user']['key']"name="$pin['key']">
-  
+<div class="container-fluid pin" id="showdelete_$pin['key']" onmouseover="show_delete(this)" username="$userprofile['user']['key']"name="$pin['key']">
+    
     <a href="#detail_$pin['key']" data-toggle="modal"><img src="/thumbnail/$pin['key']" userkey="$userprofile['user']['key']" name="$pin['key']" onclick="getid(this)"  width="260px" height="180px" />
     </a>
     
     <div>$pin['introduction'][0:125]</div>
-    
+    <div id="delete_$pin['key']" style="position:relative；left: -103px;" >
+        <button  class="btn" type="button" name="$pin['key']"  onclick="delete_a_pin(this)">删除:所在板块=$pin['board_id']</button>
+    </div>
     
 </div>
 
@@ -14,7 +16,7 @@ $def with (pin, userprofile,presentuser)
 			<div class="modal-header">
                 <table style="margin:0px auto" border="1px solid red">
                     <tr>
-                        <td rowspan="2" ><div>作者:$userprofile['user']['username']</div></td>
+                        <td rowspan="2" ><div>Author:$userprofile['user']['username']</div></td>
                         <td width="200px"></td>
                         <td><button name=""  class="btn attentions" type="button" onclick="watchit(this)" title="$userprofile['user']['key']">关注</button></td>
                         <td><button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button></td>
@@ -55,16 +57,25 @@ $def with (pin, userprofile,presentuser)
 			        </div>
  </div>
  <script type="text/javascript">
+function delete_a_pin(obj){
+    var \$keyid=\$(obj ).attr("name");
+       alert(\$keyid);
+     
+    \$.post("/delete/ownpin",
+        {pin_id:\$keyid},
+        function(data,textStatus){
+        alert(textStatus);
+        \$("#showdelete_"+\$keyid+"").remove();
+  }
+
+    )
+
+    }
   var flag=true;
     function getid(obj){
-        var presentuser=("$presentuser['user']['key']");
+    
         var \$keyid=\$(obj).attr("name");
         var \$userid=\$(obj).attr("userkey");
-        if(presentuser===\$userid){
-            \$(".attentions").hide();
-
-
-            }
      
          \$.get("/follow/oneuser",
             
@@ -80,13 +91,12 @@ $def with (pin, userprofile,presentuser)
                             if(relationshipId.relationship_id=='followed'){
 
                                  \$(".attentions").text("取消关注");
-                                 flag=false;
                                 }
                             
                             });
         
                    
-           
+           flag=false;
        
         \$.get("/comment/show",
     
@@ -113,7 +123,9 @@ $def with (pin, userprofile,presentuser)
 
         );
 
-	    \$(".show_comment").html("");
+	   // \$("#detail_"+\$keyid+" img").attr({"src":"http://192.168.1.165:8080/attachments/source/"+\$keyid+"","id":\$keyid});
+	     //\$("#detail .show_comment").attr("id","show_comment_"+\$keyid+"");
+	   // \$("#detail .show_comment").html("");
 	
     }
 
@@ -218,6 +230,6 @@ function decide(obj){
 
 }
 
- 
+
 </script>
 
