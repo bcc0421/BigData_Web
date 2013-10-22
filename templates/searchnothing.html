@@ -1,0 +1,90 @@
+
+<style>
+#header
+{
+    background-color: #EFEFEF;
+    padding: 7px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.pin
+{
+    margin-bottom: 20px;
+    border: 1px solid;
+    border-color: #cccccc;
+    padding: 10px;
+    text-align: center;
+}
+#down_menu_1 li{
+
+float:left;
+padding-left:30px
+}
+</style>
+<link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
+<script src="/static/js/jquery.ui.widget.js"></script>
+<script src="/static/js/jquery.iframe-transport.js"></script>
+<script src="/static/js/jquery.fileupload.js"></script>
+
+
+<div id="header">
+  
+    <div class="btn-group">
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-align-justify"></i>
+            <span class="caret"></span>
+        </button>
+         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="width:520px">
+			                        <li><a tabindex="-1" href="#">最新动态</a></li>
+							        <li><a tabindex="-1" href="/controlskip/1">校外教育</a></li>
+							        <li><a tabindex="-1" href="/controlskip/8">家政辅导</a></li>
+							        <li><a tabindex="-1" href="/controlskip/10">职业生涯</a></li>
+							        <li><a tabindex="-1" href="#">我的云盘</a></li>
+							        <li><a tabindex="-1" href="/controlskip/7">娱乐人生</a></li>
+							        <li><a tabindex="-1" href="/controlskip/9">购物天堂</a></li>
+							        <li><a tabindex="-1" href="/controlskip/2">远程办公</a></li>
+							        <li><a tabindex="-1" href="#">移动应用</a></li>
+							        <li><a tabindex="-1" href="/controlskip/6">健康管理</a></li>
+							        <li><a tabindex="-1" href="/controlskip/3">智慧之门</a></li>
+							        <li><a tabindex="-1" href="/controlskip/11">社区服务</a></li>
+							        <li><a tabindex="-1" href="#">下载专区</a></li>
+							        <li><a tabindex="-1" href="/controlskip/12">公共信息</a></li>
+							        <li><a tabindex="-1" href="/controlskip/4">美容美体</a></li>
+							        <li><a tabindex="-1" href="/controlskip/5">情感天地</a></li>
+
+    </div>
+    <div style="float:right;margin-right:10px"><a href="/skipmainpage"><button class="btn btn-info">返回主页</button></a></div>
+     <div style="float:right; margin-right: 250px;">
+              <form action="/search/content" method="post">
+                         <input  id="search_cont" style="width:500px" type="text" class="search-query" placeholder="搜索" name="content_search">  
+                         <button type="submit" class="btn btn-info" onclick="search_content()">搜索</button>
+              </form>
+                        
+     </div>
+    
+</div>
+<div>
+    <span><font color="red"> 没有你要搜索到的内容请重新搜索</font></span>
+</div>
+<script>
+function search_content(){
+        var search_key=\$("#search_cont").val();
+        \$.post("/search/content",
+    
+                {
+                    keyword:search_key
+
+                    },
+               function(data,textStatus){
+                    alert(textStatus);
+                   
+                    alert(data);
+                    
+               }
+
+        );
+
+        }
+</script>
+
