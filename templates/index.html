@@ -1,201 +1,311 @@
-$def with (pins)
-
-<style>
-#header
-{
-    background-color: #EFEFEF;
-    padding: 7px;
-    margin-bottom: 10px;
-    padding-left: 20px;
-}
-
-.pin
-{
-    margin-bottom: 20px;
-    border: 1px solid;
-    border-color: #cccccc;
-    padding: 10px;
-    text-align: center;
-}
-#down_menu_1 li{
-
-float:left;
-padding-left:30px
-}
-</style>
-
-<div id="header">
-    <button class="btn dropdown-toggle" data-toggle="dropdown">
-        <i class="icon-user"></i>
-        Test
-        <span class="caret"></span>
-    </button>
-
-    <div class="btn-group">
-        <button class="btn dropdown-toggle" data-toggle="dropdown">
-            <i class="icon-align-justify"></i>
-            <span class="caret"></span>
-        </button>
-         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="width:520px">
-								
-			<li><a tabindex="-1" href="./second.html">最新动态</a></li>
-			<li><a tabindex="./second.html" href="#">校外教育</a></li>
-			<li><a tabindex="-1" href="#">家政辅导</a></li>
-			<li><a tabindex="-1" href="#">职业生涯</a></li>
-			<li><a tabindex="-1" href="#">我的云盘</a></li>
-			<li><a tabindex="-1" href="#">娱乐人生</a></li>
-			<li><a tabindex="-1" href="#">购物天堂</a></li>
-			<li><a tabindex="-1" href="#">远程办公</a></li>
-			<li><a tabindex="-1" href="#">移动应用</a></li>
-			<li><a tabindex="-1" href="#">职业生涯</a></li>
-			<li><a tabindex="-1" href="#">智慧之门</a></li>
-			<li><a tabindex="-1" href="#">社区服务</a></li>
-			<li><a tabindex="-1" href="#">下载专区</a></li>
-			<li><a tabindex="-1" href="#">公共信息</a></li>
-			 <li><a tabindex="-1" href="#">美容美体</a></li>
-			<li><a tabindex="-1" href="#">情感天地</a></li>
-					
-		</ul>
-    </div>
-
-    <a href="#add_new" role="button" class="btn" data-toggle="modal">
-        <i class="icon-plus" style="height: 20px"></i>
-    </a>
-
-    <div id="add_new" class="modal hide fade">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Create a New Pin</h3>
-        </div>
-        <form action="/pin/upload" enctype="multipart/form-data" method="POST">
-            <div class="modal-body">
-                <div style="padding-bottom: 20px;">
-                    <input type="button" value="Upload a picture." class="btn" onclick="upload_pic.click()"/><br />
-                    <input type="file" class="hide input" id="upload_pic" name="upload_pic" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>大数居</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/carousel.css" rel="stylesheet">
+</head>
+<!-- NAVBAR
+================================================== -->
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/login">大数居</a>
                 </div>
-                <textarea rows="10" style="width: 420px" name="introduction"></textarea>
-                <select name="board_id">
-                    <option>校外教育</option>
-                    <option>远程办公</option>
-					<option>智慧之门</option>
-					<option>美容美体</option>
-					<option>情感天地</option>
-					<option>健康管理</option>
-					<option>娱乐人生</option>
-					<option>家政辅导</option>
-					<option>购物天堂</option>
-					<option>职业生涯</option>
-					<option>社区服务</option>
-                    <option>公共信息</option>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">超宽频互联网</a></li>
+                        <li><a href="#">超高速云盘</a></li>
+                        <li><a href="#">高清视频</a></li>
+                        <li><a href="#">IP电话</a></li>
+                        <li><a href="#">我的账户</a></li>
+                        <li><a href="#">物业管理</a></li>
+                        <li><a href="#">居委会</a></li>
+                        <li><a href="#">购物车</a></li>
+                        <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b-->
+                        <!--class="caret"></b></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li><a href="#">Something else here</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li class="dropdown-header">Nav header</li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                        <!--<li><a href="#">One more separated link</a></li>-->
+                        <!--</ul>-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-																																									
-                </select>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-                <button type="submit" class="btn btn-primary">Create</button>
-            </div>
-        </form>
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span3" id="col1">
-            $for pin in pins[0]:
-                $:pin
+<!-- Carousel ================================================== -->
+<div id="myCarousel" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:First slide"
+                 alt="First slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Example headline.</h1>
+
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
+                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                    <p><a class="btn btn-large btn-primary" href="#">Sign up today</a></p>
+                </div>
+            </div>
         </div>
-        <div class="span3" id="col2">
-            $for pin in pins[1]:
-                $:pin
+        <div class="item">
+            <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Second slide"
+                 alt="Second slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Another example headline.</h1>
+
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
+                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                    <p><a class="btn btn-large btn-primary" href="#">Learn more</a></p>
+                </div>
+            </div>
         </div>
-        <div class="span3" id="col3">
-            $for pin in pins[2]:
-                $:pin
-        </div>
-        <div class="span3" id="col4">
-            $for pin in pins[3]:
-                $:pin
+        <div class="item">
+            <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Third slide"
+                 alt="Third slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>One more for good measure.</h1>
+
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
+                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                    <p><a class="btn btn-large btn-primary" href="#">Browse gallery</a></p>
+                </div>
+            </div>
         </div>
     </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span
+            class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span
+            class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
+<!-- /.carousel -->
 
-<script type="text/javascript">
-\$(function()
-{
-    var flowLock = false;
-    var page = 2;
 
-    function columnAccumulator()
-    {
-        var col1_h = 0,
-            col2_h = 0,
-            col3_h = 0,
-            col4_h = 0;
+<div class="container marketing">
 
-        \$("img[column-id=0]").each(function(id, obj)
-        {
-            col1_h += parseInt(\$(obj).attr("height"));
-        });
+    <!-- Three columns of text below the carousel -->
+    <div class="row" style="text-align: center;">
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
 
-        \$("img[column-id=1]").each(function(id, obj)
-        {
-            col2_h += parseInt(\$(obj).attr("height"));
-        });
+            <h2>超宽频互联网</h2>
 
-        \$("img[column-id=2]").each(function(id, obj)
-        {
-            col3_h += parseInt(\$(obj).attr("height"));
-        });
+            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
+                vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
+                cursus magna.</p>
 
-        \$("img[column-id=3]").each(function(id, obj)
-        {
-            col4_h += parseInt(\$(obj).attr("height"));
-        });
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
 
-        return [col1_h, col2_h, col3_h, col4_h];
-    }
+            <h2>超高速云盘</h2>
 
-    // return index
-    function findMin(array)
-    {
-        var minID = 0, minVal = array[0];
-        for (var i = 1; i < array.length; i++)
-        {
-            if (array[i] < minVal)
-            {
-                minID = i, minVal = array[i];
-            }
+            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh.</p>
+
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>高清视频</h2>
+
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.</p>
+
+        </div>
+
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>IP电话</h2>
+
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.</p>
+
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>我的账户</h2>
+
+            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
+                vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
+                cursus magna.</p>
+
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>物业管理</h2>
+
+            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh.</p>
+
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>居委会</h2>
+
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.</p>
+
+        </div>
+
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>购物车</h2>
+
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.</p>
+
+        </div>
+        <!-- /.col-lg-3 -->
+    </div>
+    <!-- /.row -->
+
+    <!-- START THE FEATURETTES -->
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">First featurette heading. <span
+                    class="text-muted">It'll blow your mind.</span></h2>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+                 alt="Generic placeholder image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+                 alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span>
+            </h2>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+                 alt="Generic placeholder image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+    <!-- /END THE FEATURETTES -->
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+
+        <p>&copy; 2013 SFI, Inc.</p>
+    </footer>
+
+</div>
+<!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/holder.js"></script>
+
+<script type="application/javascript">
+    $$('.nav li').click(function (e) {
+        $$('.nav li.active').removeClass('active');
+        var $$this = $$(this);
+        if (!$$this.hasClass('active')) {
+            $$this.addClass('active');
         }
-        return minID;
-    }
-
-    \$(window).scroll(function()
-    {
-        var clientHeight = \$(window).height(),
-            scrollTop = \$(window).scrollTop(),
-            scrollHeight = \$(document).height();
-        
-        if (clientHeight + scrollTop >= scrollHeight)
-        {
-            \$.get("/pin_flow/" + page, {}, function(data)
-            {
-                //alert(data);
-                eval("var json = " + data + ";");
-                //var json=eval"("+data+")";
-               // alert( json.pins.length);
-                
-                for (var i = 0; i < json.pins.length; i++)
-                {
-                    size = columnAccumulator();
-                    var column = findMin(size) + 1;
-
-                    var jhtml = \$(json.pins[i]);
-                    \$("#col" + column).append(jhtml);
-                }
-            });
-        }
+        e.preventDefault();
     });
-});
 </script>
 
+</body>
+</html>

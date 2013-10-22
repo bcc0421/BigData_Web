@@ -21,13 +21,9 @@ class Pin:
         return pure_render.pinvedio(self.data, self.user_profile, self.present_user)
 
 
-
-
 class ShowComment:
     def GET(self):
         i = web.input()
-        print"@@@@@@@@@@@@@@@222"
-        print i.img_key_id
         res = requests.get(conf.locate('/comment/%s' % i.img_key_id))
         json = simplejson.loads(res.text)
         res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
@@ -64,7 +60,9 @@ class MyPin:
             "pins": pin
         })
 
-        
 
+class Index:
+    def GET(self):
+        return pure_render.index()
 
 
