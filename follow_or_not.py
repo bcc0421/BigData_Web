@@ -30,7 +30,6 @@ class Follow:
 class UnFollow:
     def GET(self):
         i = web.input()
-
         headers = {
             'X-Token': web.cookies().get('token')
         }
@@ -60,7 +59,6 @@ class CheckFollow:
         }
         res = requests.get(conf.locate('/following/%s' % web.cookies().get('key')), headers=headers)
         result = simplejson.loads(res.text)
-
         if len(result):
             for attention in result:
 
@@ -76,5 +74,6 @@ class CheckFollow:
             return simplejson.dumps({
                 "attentions": 'unfollowd'
             })
+
 
 

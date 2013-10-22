@@ -1,7 +1,7 @@
 import web
-from index import ShowComment, MyPin
+from index import ShowComment, MyPin, Index
 from login import Login
-from controlskip import ControlSkip, SkipUserMessage, SkipMainPage,LoginOut, LoginIn,SearchContent,SkipOwnMessage
+from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg
 from register import Register,CheckEmail,CheckName
 from images import Thumbnail, SourceImage
 from upload import UploadPin, UploadComment, UploadVideo
@@ -38,8 +38,8 @@ urls = (
     '/search/content','SearchContent',
     '/skip/ownmessage/(.*)','SkipOwnMessage',
     '/modify/message','ModifyUpdate',
+    '/skip/bigimg/(.*)','SkipBigImg',
     '/login_out','LoginOut'
-    
 )
 
 if __name__ == "__main__":

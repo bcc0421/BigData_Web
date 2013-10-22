@@ -189,6 +189,62 @@ class SearchContent:
             return render.searchshowboard(pins, present_user)
         else:
             return render.searchnothing()
+
+
+class SkipMainPage:
+    def GET(self):
+        return web.seeother('/mainpage')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SkipBigImg:
+    def GET(self,imgkey):
+        return render.showbigimg(imgkey) 
+
         
 
 

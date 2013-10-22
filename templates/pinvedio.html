@@ -28,7 +28,7 @@ $def with (pin, userprofile,presentuser)
     <div>$pin['introduction'][0:125]</div>
     <div id="$pin['key']_delete" style="position:relative；left: -103px;display:none">
         <button  class="btn" type="button" onclick="delete_a_vedio(this)">删除</button>
-        <button  class="btn" type="button" onclick="download()">下载</button>
+        <button  class="btn" type="button" onclick="download(this)" name="$pin['movie_id']">下载</button>
         
     </div>
 </div>
@@ -79,11 +79,12 @@ $def with (pin, userprofile,presentuser)
 </div>
 
  <script type="text/javascript">
-function download(){
-    
-    alert("123");
-    window.location="http://192.168.1.165:8081/attachment/$pin['movie_id']";
-
+function download(obj){
+ 
+    var filename=\$(obj).attr("name");
+  
+    window.location="http://192.168.1.165:8081/attachment/"+filename+"";
+//192.168.1.165:8081/attachment/dd2dbd88-36fc-11e3-9126-000c29fb62b6.flv
 
 
 }
