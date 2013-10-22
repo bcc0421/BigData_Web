@@ -1,2 +1,0 @@
-$def with (attention)
-<p style="padding-left:60px">name:$attention['username:'] </p>
