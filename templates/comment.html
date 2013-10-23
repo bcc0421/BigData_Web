@@ -1,18 +1,21 @@
 $def with (comment,presentuser)
-<p style='text-align:left' name="$comment['author']['username']">$comment['author']['username']::$comment['content']&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="response_comment(this)"><font size="1" color="red">回复</font ></a> </p>
-<div id="response_comment_area" style="text-align:left;display:none"><textarea rows="0" style="width: 220px;height:20px" ></textarea>
+<p style='text-align:left' name="$comment['author']['username']">
+    $comment['author']['username']::$comment['content']&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="response_comment(this)"><font
+        size="1" color="red">回复</font></a></p>
+<div id="response_comment_area" style="text-align:left;display:none"><textarea rows="0"
+                                                                               style="width: 220px;height:20px"></textarea>
     <a href="#" onclick="submitdata(this)"><span><font size="1" color="red">发表</font></span></a>
 </div>
 
 <script type="text/javascript">
-    function response_comment(obj){
-        $$(obj ).parent().next().show();
-        }
-    function submitdata(obj){
-          $$(obj ).parent().hide();
-          var comment_author=$$(obj).parent().prev().attr("name");
-        var $$content=$$(obj).prev().val()
-	    var $$p=$$("<p style='text-align:left;margin-left:50px'><span>$presentuser['user']['username']<font size='2' color='red'>@</font >"+comment_author+"</span>:&nbsp&nbsp"+$$content+"</p>");
-	    $$(obj).parent().prev().after($$p);
-        }
+    function response_comment(obj) {
+        $$(obj).parent().next().show();
+    }
+    function submitdata(obj) {
+        $$(obj).parent().hide();
+        var comment_author = $$(obj).parent().prev().attr("name");
+        var $$content = $$(obj).prev().val()
+        var $$p = $$("<p style='text-align:left;margin-left:50px'><span>$presentuser['user']['username']<font size='2' color='red'>@</font >" + comment_author + "</span>:&nbsp&nbsp" + $$content + "</p>");
+        $$(obj).parent().prev().after($$p);
+    }
 </script>

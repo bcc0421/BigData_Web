@@ -33,20 +33,20 @@ class Login:
         headers = {
             'Content-Type': 'application/json'
         }
-        res = requests.post(conf.locate("/user/token"),
-                            data=simplejson.dumps(payload),
-                            headers=headers)
+        res = requests.post(
+            conf.locate("/user/token"),
+            data=simplejson.dumps(payload),
+            headers=headers
+        )
         response = simplejson.loads(res.text)
-    
         # Process the cookie
-      
         if response.has_key('error'):
             return simplejson.dumps({
                 "status": 'error'
             })
 
         else:
-            
+
             web.setcookie('token', response['token'], expires=3600 * 24 * 30)
             web.setcookie('key', response['user']['key'], expires=3600 * 24 * 30)
             return simplejson.dumps({

@@ -1,95 +1,103 @@
 $def with(email,password)
 <style>
-#login
-{
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #9E9F77;
-}
+    #login {
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: #9E9F77;
+    }
 
-#picture
-{
-    margin-top: -20px;
-    background-color: #C9CCDA;
-    background-image: url(/static/img/1.jpg);
-    background-repeat: no-repeat;
-    height: 430px;
-    background-position: 45%;
-}
-.onError
-{
-    color:red;
+    #picture {
+        margin-top: -20px;
+        background-color: #C9CCDA;
+        background-image: url(/static/img/1.jpg);
+        background-repeat: no-repeat;
+        height: 430px;
+        background-position: 45%;
+    }
 
- }
+    .onError {
+        color: red;
+
+    }
 </style>
 
-	<div id="register" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-						
-			<div class="wrap">
-            <form class="main form-horizontal" onsubmit="return check()" action="/register" method="post" onsubmit="return check();">
-															
-					<fieldset>
-					<legend>用户注册</legend>
-                   
-                    <div class="control-group">
-                    <label class="control-label">
-                        邮箱</label>
-                    <div class="controls">
-                        <input onblur="checkemail(this)" name="email" type="email" placeholder="必填项" class="input-xlarge"  title="邮箱正确格式：xxx@xxx.xxx" required>
-                       
-                    </div>
-                 </div>
-                     <div class="control-group">
-					<label class="control-label">用户名</label>			
-				        <div class="controls">
-							<input name="register_username" type="text" placeholder="必填项" onblur="checkname(this)" class="input-xlarge" required>
-						</div>
-				    </div>
-               
-					
-					<div class="control-group">
-					    <label class="control-label">密码</label>
-																		
-						<div class="controls" >
-							<input id="pwd" name="register_pwd" type="password" placeholder="必填项" class="input-xlarge"
-																			required onchange="checkPasswords()">
-                            <span><font color="red" >(>=6位)</font></span>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">确认密码</label>
-					    <div class="controls" >
-						    <input style="margin-left:0px" id="pwd1" name="pwd1" type="password" placeholder="必填项" class="input-xlarge"
-																			    required onchange="checkPasswords()">
-					    </div>
-					</div>
-                    
-                    
+<div id="register" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+        <div class="wrap">
+            <form class="main form-horizontal" onsubmit="return check()" action="/register" method="post"
+                  onsubmit="return check();">
+
+                <fieldset>
+                    <legend>用户注册</legend>
 
                     <div class="control-group">
-						<label class="control-label"></label>
-						<div class="controls">
-						    <button class="btn" type="submit" id="ok">注册</button>
-							<button class="btn" type="reset">重置</button>
-																			
-						</div>
-					 </div>
-	               </fieldset>
-                </form>
-	        </div>
+                        <label class="control-label">
+                            邮箱</label>
+
+                        <div class="controls">
+                            <input onblur="checkemail(this)" name="email" type="email" placeholder="必填项"
+                                   class="input-xlarge" title="邮箱正确格式：xxx@xxx.xxx" required>
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">用户名</label>
+
+                        <div class="controls">
+                            <input name="register_username" type="text" placeholder="必填项" onblur="checkname(this)"
+                                   class="input-xlarge" required>
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <label class="control-label">密码</label>
+
+                        <div class="controls">
+                            <input id="pwd" name="register_pwd" type="password" placeholder="必填项" class="input-xlarge"
+                                   required onchange="checkPasswords()">
+                            <span><font color="red">(>=6位)</font></span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">确认密码</label>
+
+                        <div class="controls">
+                            <input style="margin-left:0px" id="pwd1" name="pwd1" type="password" placeholder="必填项"
+                                   class="input-xlarge"
+                                   required onchange="checkPasswords()">
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <label class="control-label"></label>
+
+                        <div class="controls">
+                            <button class="btn" type="submit" id="ok">注册</button>
+                            <button class="btn" type="reset">重置</button>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
         </div>
-	 </div>
+    </div>
+</div>
 
 <div id="login">
-    <form class="form-inline" action="" method="POST" >
+    <form class="form-inline" action="" method="POST">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-envelope"></i></span>
-           <input id="checkemail" type="text" class="input" placeholder="Email" name="email" onblur="check_email(this)" error="" value="$:email" />
+            <input id="checkemail" type="text" class="input" placeholder="Email" name="email" onblur="check_email(this)"
+                   error="" value="$:email"/>
         </div>
-        <input id="pass_word"type="password" class="input-small" placeholder="Password" name="password" value="$:password" />
+        <input id="pass_word" type="password" class="input-small" placeholder="Password" name="password"
+               value="$:password"/>
         <label class="checkbox">
             <input type="checkbox" value="keep" name="remember"> 记住用户
         </label>
@@ -102,139 +110,95 @@ $def with(email,password)
 
 </div>
 <script type="text/javascript">
-function submit_message(){
-    var email=\$("#checkemail").val();
-    var password=\$("#pass_word").val();
-         \$.post("/login",
-                
-                     {
-                        email:email,
-                        password: password,
-                        remember:"keep"
-
-                    }, 
-
-            function(data,textStatus)
+    function submit_message() {
+        var email = $$("#checkemail").val();
+        var password = $$("#pass_word").val();
+        $$.post("/login",
                 {
-                   
+                    email: email,
+                    password: password,
+                    remember: "keep"
+                },
+                function (data, textStatus) {
                     eval("var att = " + data + ";");
-                            //alert(att.attentions);
-                            if(att.status=="error"){
-                                 alert("邮箱错误或密码错误");
-                                }
-                            else {
-                                    window.location.href="/mainpage";
-                            }
-                   
+                    //alert(att.attentions);
+                    if (att.status == "error") {
+                        alert("邮箱错误或密码错误");
                     }
-            );
-
-
-}
-        function checkname(obj){
-            valu=\$(obj).val();
-               
-                \$.get("/check/name",
-    
-                {
-                    name:valu
-
-                    },
-               function(data,textStatus){
-                   
-                    eval("var statu= " + data + ";");
-                            
-                            if(statu.status!='pass'){
-
-                                 alert("该用户明已使用");
-                                
-                                }
-                             
-                    
-               }
-
+                    else {
+                        window.location.href = "/mainpage";
+                    }
+                }
         );
-
-      }
-        function checkemail(obj){
-        
-         valu=\$(obj).val();
-          
-         \$.get("/check/email",
-    
+    }
+    function checkname(obj) {
+        valu = $$(obj).val();
+        $$.get("/check/name",
                 {
-                    email:valu
-
-                    },
-               function(data,textStatus){
-                   
+                    name: valu
+                },
+                function (data, textStatus) {
                     eval("var statu= " + data + ";");
-                            
-                            if(statu.status!='pass'){
-
-                                 alert("该邮箱已被注册");
-                                
-                                }
-                             
-                    
-               }
-
+                    if (statu.status != 'pass') {
+                        alert("该用户明已使用");
+                    }
+                }
         );
-    
-        }
-
-function check_email(obj){
-         valu=\$(obj).val();
-        
-         \$.get("/check/email",
-    
+    }
+    function checkemail(obj) {
+        valu = $$(obj).val();
+        $$.get("/check/email",
                 {
-                    email:valu
-
-                    },
-               function(data,textStatus){
-                   
+                    email: valu
+                },
+                function (data, textStatus) {
                     eval("var statu= " + data + ";");
-                            
-                            if(statu.status=='pass'){
-
-                                 alert("该邮箱错误");
-                                 \$(obj).attr('error','1');
-                                //\$(obj).parent().append('<span class="onError">邮箱不可用</span>');
-                                }
-                            else{
-                                    \$(obj).attr('error','2');
-                                  }
-                    
-               }
-
+                    if (statu.status != 'pass') {
+                        alert("该邮箱已被注册");
+                    }
+                }
         );
-}
+    }
 
-        function checkPasswords() {
-            var passl = document.getElementById("pwd");
-            var pass2 = document.getElementById("pwd1");
-            if (passl.value != pass2.value)
-                passl.setCustomValidity("两次密码必须输入一致！");
-            else
-                passl.setCustomValidity('');
+    function check_email(obj) {
+        valu = $$(obj).val();
+        $$.get("/check/email",
+                {
+                    email: valu
+                },
+                function (data, textStatus) {
+                    eval("var statu= " + data + ";");
+                    if (statu.status == 'pass') {
+                        alert("该邮箱错误");
+                        $$(obj).attr('error', '1');
+                    }
+                    else {
+                        $$(obj).attr('error', '2');
+                    }
+                }
+        );
+    }
+
+    function checkPasswords() {
+        var passl = document.getElementById("pwd");
+        var pass2 = document.getElementById("pwd1");
+        if (passl.value != pass2.value)
+            passl.setCustomValidity("两次密码必须输入一致！");
+        else
+            passl.setCustomValidity('');
+    }
+
+
+    function check() {
+        var reg = /^[a-zA-Z]\w{6,15}$$/;
+        var password1 = document.getElementById("pwd");
+
+        if (!reg.test(password1.value)) {
+            password1.setCustomValidity("密码长度大于6位，第一个字符必须为字母！");
+            return false;
+        } else {
+            password1.setCustomValidity('');
+            alert("注册成功")
         }
-
-
-        function check() {
-            var reg = /^[a-zA-Z]\w{6,15}\$/;
-            var password1 = document.getElementById("pwd");
-            
-            if (!reg.test(password1.value)) {
-                password1.setCustomValidity("密码长度大于6位，第一个字符必须为字母！");
-                return false;
-            }else{
-                password1.setCustomValidity('');
-                alert("注册成功")
-                
-            }
-  
-            
-
-        }
- </script>
+    }
+</script>
