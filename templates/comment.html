@@ -6,29 +6,13 @@ $def with (comment,presentuser)
 
 <script type="text/javascript">
     function response_comment(obj){
-
-        \$(obj ).parent().next().show();
-
-
+        $$(obj ).parent().next().show();
         }
     function submitdata(obj){
-          //alert("$presentuser['user']['username']");
-          \$(obj ).parent().hide();
-          var comment_author=\$(obj).parent().prev().attr("name");
-          //alert("111");
-         // alert(comment_author);
-          
-        //var username="$presentuser['user']['username']";
-        var \$content=\$(obj).prev().val()
-        //alert(\$content);
-	    var \$p=\$("<p style='text-align:left;margin-left:50px'><span>$presentuser['user']['username']<font size='2' color='red'>@</font >"+comment_author+"</span>:&nbsp&nbsp"+\$content+"</p>");
-       // alert(\$p);
-	    \$(obj).parent().prev().after(\$p);
-  
-        
-
-        }  
-
-
-  
+          $$(obj ).parent().hide();
+          var comment_author=$$(obj).parent().prev().attr("name");
+        var $$content=$$(obj).prev().val()
+	    var $$p=$$("<p style='text-align:left;margin-left:50px'><span>$presentuser['user']['username']<font size='2' color='red'>@</font >"+comment_author+"</span>:&nbsp&nbsp"+$$content+"</p>");
+	    $$(obj).parent().prev().after($$p);
+        }
 </script>
