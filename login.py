@@ -24,8 +24,7 @@ class Login:
             if (i.remember == "keep"):
                 web.setcookie('email', i.email, expires=3600 * 24 * 30)
                 web.setcookie('password', i.password, expires=3600 * 24 * 30)
-
-        # Get the data
+            # Get the data
         payload = {
             'email': i.email,
             'password': i.password
@@ -44,9 +43,7 @@ class Login:
             return simplejson.dumps({
                 "status": 'error'
             })
-
         else:
-
             web.setcookie('token', response['token'], expires=3600 * 24 * 30)
             web.setcookie('key', response['user']['key'], expires=3600 * 24 * 30)
             return simplejson.dumps({
