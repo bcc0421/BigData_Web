@@ -122,30 +122,23 @@ $def with (username)
                         </a>
                         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel"
                             style="width:520px">
-                            <li><a tabindex="0" href="#">最新动态</a></li>
                             <li><a tabindex="1" href="/controlskip/1">校外教育</a></li>
-                            <li><a tabindex="2" href="/controlskip/8">家政辅导</a></li>
-                            <li><a tabindex="3" href="/controlskip/10">职业生涯</a></li>
-                            <li><a tabindex="4" href="#">我的云盘</a></li>
-                            <li><a tabindex="5" href="/controlskip/7">娱乐人生</a></li>
-                            <li><a tabindex="6" href="/controlskip/9">购物天堂</a></li>
-                            <li><a tabindex="7" href="/controlskip/2">远程办公</a></li>
-                            <li><a tabindex="8" href="#">移动应用</a></li>
-                            <li><a tabindex="9" href="/controlskip/6">健康管理</a></li>
-                            <li><a tabindex="10" href="/controlskip/3">智慧之门</a></li>
+                            <li><a tabindex="2" href="/controlskip/2">远程办公</a></li>
+                            <li><a tabindex="3" href="/controlskip/3">智慧之门</a></li>
+                            <li><a tabindex="4" href="/controlskip/4">美容美体</a></li>
+                            <li><a tabindex="5" href="/controlskip/5">情感天地</a></li>
+                            <li><a tabindex="6" href="/controlskip/6">健康管理</a></li>
+                            <li><a tabindex="7" href="/controlskip/7">娱乐人生</a></li>
+                            <li><a tabindex="8" href="/controlskip/8">家政辅导</a></li>
+                            <li><a tabindex="9" href="/controlskip/9">购物天堂</a></li>
+                            <li><a tabindex="10" href="/controlskip/10">职业生涯</a></li>
                             <li><a tabindex="11" href="/controlskip/11">社区服务</a></li>
-                            <li><a tabindex="12" href="#">下载专区</a></li>
-                            <li><a tabindex="13" href="/controlskip/12">公共信息</a></li>
-                            <li><a tabindex="14" href="/controlskip/4">美容美体</a></li>
-                            <li><a tabindex="15" href="/controlskip/5">情感天地</a></li>
-
+                            <li><a tabindex="12" href="/controlskip/12">公共信息</a></li>
                         </ul>
                     </div>
                 </td>
-
-
-                <td align="center" style="padding-left:200px">
-                    <form action="/search/content" method="post">
+        <td align="center" style="padding-left:200px">
+                    <form action="/search/content" method="post" onsubmit="return check()">
                         <input id="search_cont" style="width:500px" type="text" class="search-query" placeholder="搜索"
                                name="content_search">
                         <button type="submit" class="btn btn-info" onclick="search_content()">搜索</button>
@@ -273,7 +266,7 @@ $def with (username)
             }
         });
     });
-    function search_content() {
+    /*function search_content() {
         var search_key = $$("#search_cont").val();
         $$.post("/search/content",
                 {
@@ -284,6 +277,13 @@ $def with (username)
                     alert(data);
                 }
         );
+    }*/
+    function check(){
+    
+        var search_key = $$("#search_cont").val();
+        if(search_key.length==0)
+        return false;
+
     }
 </script>
 

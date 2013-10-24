@@ -91,7 +91,7 @@ $def with(email,password)
         </div>
         <input id="pass_word"type="password" class="input-small" placeholder="Password" name="password" value="$:password" />
         <label class="checkbox">
-            <input type="checkbox" value="keep" name="remember"> 记住用户
+            <input id="check" type="checkbox" value="keep" name="remember"> 记住用户
         </label>
         <button type="button" class="btn" id="send" onclick="submit_message()">登录</button>
         <a href="#register" role="button" class="btn btn-info" data-toggle="modal">注册</a>
@@ -105,6 +105,10 @@ $def with(email,password)
 function submit_message(){
     var email=\$("#checkemail").val();
     var password=\$("#pass_word").val();
+    var keep=null;
+    if($$("#check").is(":checked")){
+            keep="keep";
+        }
          \$.post("/login",
                 
                      {

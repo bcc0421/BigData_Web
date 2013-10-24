@@ -111,30 +111,32 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len)
                         </a>
                         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel"
                             style="width:520px">
-                            <li><a tabindex="-1" href="#">最新动态</a></li>
-                            <li><a tabindex="-1" href="/controlskip/1">校外教育</a></li>
-                            <li><a tabindex="-1" href="/controlskip/8">家政辅导</a></li>
-                            <li><a tabindex="-1" href="/controlskip/10">职业生涯</a></li>
-                            <li><a tabindex="-1" href="#">我的云盘</a></li>
-                            <li><a tabindex="-1" href="/controlskip/7">娱乐人生</a></li>
-                            <li><a tabindex="-1" href="/controlskip/9">购物天堂</a></li>
-                            <li><a tabindex="-1" href="/controlskip/2">远程办公</a></li>
-                            <li><a tabindex="-1" href="#">移动应用</a></li>
-                            <li><a tabindex="-1" href="/controlskip/10">职业生涯</a></li>
-                            <li><a tabindex="-1" href="/controlskip/3">智慧之门</a></li>
-                            <li><a tabindex="-1" href="/controlskip/11">社区服务</a></li>
-                            <li><a tabindex="-1" href="#">下载专区</a></li>
-                            <li><a tabindex="-1" href="/controlskip/12">公共信息</a></li>
-                            <li><a tabindex="-1" href="/controlskip/4">美容美体</a></li>
-                            <li><a tabindex="-1" href="/controlskip/5">情感天地</a></li>
+                            <li><a tabindex="1" href="/controlskip/1">校外教育</a></li>
+                            <li><a tabindex="2" href="/controlskip/2">远程办公</a></li>
+                            <li><a tabindex="3" href="/controlskip/3">智慧之门</a></li>
+                            <li><a tabindex="4" href="/controlskip/4">美容美体</a></li>
+                            <li><a tabindex="5" href="/controlskip/5">情感天地</a></li>
+                            <li><a tabindex="6" href="/controlskip/6">健康管理</a></li>
+                            <li><a tabindex="7" href="/controlskip/7">娱乐人生</a></li>
+                            <li><a tabindex="8" href="/controlskip/8">家政辅导</a></li>
+                            <li><a tabindex="9" href="/controlskip/9">购物天堂</a></li>
+                            <li><a tabindex="10" href="/controlskip/10">职业生涯</a></li>
+                            <li><a tabindex="11" href="/controlskip/11">社区服务</a></li>
+                            <li><a tabindex="12" href="/controlskip/12">公共信息</a></li>
                         </ul>
                     </div>
                 </td>
-                <td align="center" style="padding-left:10px;padding-top:20px">
-                    <input class="span2" style="width:200px" type="text" placeholder="搜索"></td>
-                <td>
-                    <button style="width: 56px; margin-left: 10px; margin-top: 9px;" class="btn">搜索</button>
+                <td align="center" style="padding-left:10px;padding-top:20px;width:600px">
+                     <div >
+                        <form action="/search/content" method="post" onsubmit="return checkmessage()">
+                            <input id="search_cont" style="width:300px; margin-top: 4px" type="text" class="search-query" placeholder="搜索"
+                                   name="content_search">
+                            <button type="submit" class="btn btn-info" onclick="search_content()"style="float: right;">搜索</button>
+                        </form>
+
+                    </div>
                 </td>
+                
                 <td style="width:820px"></td>
                 <td>
                     <a href="#modify_message" role="button" class="btn btn-info" data-toggle="modal" style="width:90px">修改个人资料</a>
@@ -323,6 +325,13 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len)
                     alert(data);
                 }
         );
+    }
+function checkmessage(){
+    
+        var search_key = $$("#search_cont").val();
+        if(search_key.length==0)
+        return false;
+
     }
 
     $$(function () {

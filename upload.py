@@ -25,8 +25,6 @@ class UploadPin:
                                    headers=headers2)
         uuid = simplejson.loads(upload_res.text)
         uuid = uuid['id']
-        print "@@@@@@@@@@@@@@@@";
-        print uuid
         payload = {
             'introduction': i.introduction
         }

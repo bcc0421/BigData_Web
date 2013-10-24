@@ -1,4 +1,4 @@
-$def with (pins,presentuser,board_name)
+$def with (pins,presentuser,board_name,id)
 
 <style>
 #header
@@ -49,22 +49,18 @@ padding-left:30px
         </button>
          <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="width:520px">
 								
-			                        
-							        <li><a tabindex="-1" href="/controlskip/1">校外教育</a></li>
-							        <li><a tabindex="-1" href="/controlskip/8">家政辅导</a></li>
-							        <li><a tabindex="-1" href="/controlskip/10">职业生涯</a></li>
-							        
-							        <li><a tabindex="-1" href="/controlskip/7">娱乐人生</a></li>
-							        <li><a tabindex="-1" href="/controlskip/9">购物天堂</a></li>
-							        <li><a tabindex="-1" href="/controlskip/2">远程办公</a></li>
-							       
-							        <li><a tabindex="-1" href="/controlskip/6">健康管理</a></li>
-							        <li><a tabindex="-1" href="/controlskip/3">智慧之门</a></li>
-							        <li><a tabindex="-1" href="/controlskip/11">社区服务</a></li>
-							       
-							        <li><a tabindex="-1" href="/controlskip/12">公共信息</a></li>
-							        <li><a tabindex="-1" href="/controlskip/4">美容美体</a></li>
-							        <li><a tabindex="-1" href="/controlskip/5">情感天地</a></li>
+			                 <li><a tabindex="1" href="/controlskip/1">校外教育</a></li>
+                            <li><a tabindex="2" href="/controlskip/2">远程办公</a></li>
+                            <li><a tabindex="3" href="/controlskip/3">智慧之门</a></li>
+                            <li><a tabindex="4" href="/controlskip/4">美容美体</a></li>
+                            <li><a tabindex="5" href="/controlskip/5">情感天地</a></li>
+                            <li><a tabindex="6" href="/controlskip/6">健康管理</a></li>
+                            <li><a tabindex="7" href="/controlskip/7">娱乐人生</a></li>
+                            <li><a tabindex="8" href="/controlskip/8">家政辅导</a></li>
+                            <li><a tabindex="9" href="/controlskip/9">购物天堂</a></li>
+                            <li><a tabindex="10" href="/controlskip/10">职业生涯</a></li>
+                            <li><a tabindex="11" href="/controlskip/11">社区服务</a></li>
+                            <li><a tabindex="12" href="/controlskip/12">公共信息</a></li>
 		
 					
 		</ul>
@@ -162,78 +158,10 @@ padding-left:30px
                 </div>
 			</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        
-    <!--a href="#add_new" role="button" class="btn" data-toggle="modal">
-        <i class="icon-plus" style="height: 20px"></i>
-    </a>
-    <div id="add_new" class="modal hide fade">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3>新建素材</h3>
-                    </div>
-                    <form id="upload_pin" action="" enctype="multipart/form-data" method="POST">
-                        <div class="modal-body">
-                            <div style="padding-bottom: 20px;">
-                                
-                                <input type="file" class="input" id="upload_pic" name="upload_pic" />
-                            </div>
-                            <div style="padding-bottom: 20px;" id="id_file_name">
-
-                             </div>
-                                <!-- 进度条 >
-                                <div id="progress_pic" class="progress progress-striped active">
-                                    <div class="bar"></div>
-                                </div>
-                            <textarea rows="0" style="width: 420px" id="introduction_pic" maxlength="250" name="introduction"></textarea>
-                            <select name="board_id" id="pin_board_id" >
-                                   <option>校外教育</option>
-                                    <option >远程办公</option>
-					                <option >智慧之门</option>
-						            <option >美容美体</option>
-						            <option >情感天地</option>
-                                    <option>健康管理</option>
-                                    <option >娱乐人生</option>
-					                <option >家政辅导</option>
-						            <option >购物天堂</option>
-						            <option >职业生涯</option>
-                                    <option >社区服务</option>
-						            <option >公共信息</option>
-						
-																																					
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
-                            <button  id="submitdata" type="button" class="btn btn-primary">创建</button>
-                        </div>
-                    </form>
-                </div-->
-    
     <div style="float:right;margin-right:30px"><a href="javascript:history.go(-1);"><button class="btn btn-info">返回上一页</button></a></div>
     <div style="float:right;margin-right:10px"><a href="/skipmainpage"><button class="btn btn-info">返回主页</button></a></div>
     <div style="float: right; margin-top: -31px; margin-right: 324px;">
-              <form action="/search/content" method="post">
+              <form action="/search/content" method="post" onsubmit="return check()">
                          <input  id="search_cont" style="width:500px" type="text" class="search-query" placeholder="搜索" name="content_search">  
                          <button type="submit" class="btn btn-info" onclick="search_content()">搜索</button>
               </form>
@@ -265,7 +193,8 @@ padding-left:30px
 <script type="text/javascript">
 \$(function()
 {
-
+    var idx=$:id-1;
+    $$("#pin_board_id option").eq(idx).attr("selected","selected");
 
     var flowLock = false;
     var page = 1;
@@ -330,6 +259,13 @@ padding-left:30px
 
 </script>
 <script type="text/javascript">
+function check(){
+    
+        var search_key = $$("#search_cont").val();
+        if(search_key.length==0)
+        return false;
+
+    }
 \$(function () {
 	//文件上传地址
     var url = '/pin/upload ';

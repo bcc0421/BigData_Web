@@ -18,7 +18,7 @@ $def with (pin, userprofile,presentuser)
                 </td>
                 <td width="200px"></td>
                 <td>
-                    <button name="" class="btn attentions" type="button" onclick="watchit(this)"
+                    <button id=attentions_$pin['key'] name="" class="btn attentions" type="button" onclick="watchit(this)"
                             title="$userprofile['user']['key']">关注
                     </button>
                 </td>
@@ -35,17 +35,19 @@ $def with (pin, userprofile,presentuser)
     </div>
     <div style="height:300px;">
         <div class="modal-body">
-            <img style="height: 300px; margin-top: -15px;"
-                 src="http://192.168.1.165:8080/attachments/source/$pin['key']">
-        </div>
+            <a href="/skip/bigimg/$pin['key']"><img style="height: 300px; margin-top: -15px;"
+                 src="http://192.168.1.165:8080/attachments/source/$pin['key']"/>
+            </a>
+        <span>$pin['introduction'][0:125]</span>
+        </div>  
+         
     </div>
     <div class="modal-footer">
         <form id="comment_form_$pin['key']" action="" method="post">
             <div class="show_comment" id="show_comment_$pin['key']"
                  style="border:1px solid red;height:80px;overflow:auto"></div>
             <div class="write_comment" style="display:none">
-                <textarea id="comment_content_$pin['key']" class="comment_content" rows="0" style="width: 420px">
-                </textarea>
+                <textarea id="comment_content_$pin['key']" class="comment_content" rows="0" style="width: 420px"></textarea>
             </div>
             <p style="margin-left:120px;margin-top:10px ">
                 <button class="btn comment" type="button" onclick="comment(this)">添加评论</button>
@@ -61,7 +63,7 @@ $def with (pin, userprofile,presentuser)
         var $$keyid = $$(obj).attr("name");
         var $$userid = $$(obj).attr("userkey");
         if (presentuser === $$userid) {
-            $$(".attentions").hide();
+            $$("#attentions_" + $$keyid + "").hide();
         }
 
         $$.get("/follow/oneuser",
@@ -71,7 +73,7 @@ $def with (pin, userprofile,presentuser)
                 function (data, textStatus) {
                     eval("var relationshipId = " + data + ";");
                     if (relationshipId.relationship_id == 'followed') {
-                        $$(".attentions").text("取消关注");
+                        $$("#attentions_" + $$keyid + "").text("取消关注");
                         flag = false;
                     }
                 });

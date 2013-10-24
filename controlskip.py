@@ -51,7 +51,7 @@ class ControlSkip:
                     i %= 4
                     pin_obj = Pin(p, profile, present_user)
                     pins[i].append(pin_obj.render())
-        return render.showboard(pins, present_user, board_name)
+        return render.showboard(pins, present_user, board_name,id)
 
 
 class SkipUserMessage:
