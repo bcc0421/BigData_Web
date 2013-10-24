@@ -62,6 +62,11 @@ class UploadVideo:
         upload_res = None
         media = x.get('upload_video', None)
         if media is not None:
+            type = media.filename.split('.')[-1]
+            if type == 'flv':
+                media.type = 'video/x-flv'
+            elif type == 'mp4':
+                media.type = 'video/mp4'
             if media.type == 'video/mp4' or media.type == 'video/x-flv':
                 files = {'file': media.value}
                 data = {'type': media.type}

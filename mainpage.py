@@ -5,7 +5,6 @@ import requests
 
 import conf
 
-
 render = web.template.render('templates/', base='base')
 
 
