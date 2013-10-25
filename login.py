@@ -3,10 +3,7 @@ import requests
 import simplejson
 import web
 import conf
-
 render = web.template.render('templates/', base='base')
-
-
 class Login:
     def GET(self):
         if (web.cookies().get('email')):

@@ -1,6 +1,6 @@
 $def with (pin, userprofile,presentuser)
 <script type="text/javascript" src="/static/js/jwplayer.js"></script>
-<div class="container-fluid pin" id="$pin['key']_vediodelete">
+<div class="container-fluid pin" id="vediodelete_$pin['key']" onmouseover="showbutton(this)" onmouseout="hidebutton(this)" name="$pin['key']"  pinauthor="$userprofile['user']['key']">
     <center>
         <b>Media Server Demo</b>
 
@@ -17,11 +17,14 @@ $def with (pin, userprofile,presentuser)
         </script>
     </center>
     <div>$pin['introduction'][0:125]</div>
-    <div id="$pin['key']_delete" style="position:relative;left: -103px;display:none">
-        <button class="btn" type="button" onclick="delete_a_vedio(this)">删除</button>
-        <button class="btn" type="button" onclick="download(this)" name="$pin['movie_id']">下载</button>
 
+    <div id="delete_$pin['key']" style="float:left; display:none;">
+        <button class="btn" style="margin-left:30px;" type="button" onclick="delete_a_vedio(this)" name="$pin['key']" >删除</button>
     </div>
+    <div id="download" style="top:30px;width:300px">
+        <button class="btn" type="button" onclick="download(this)" name="$pin['movie_id']">下载</button>
+     </div>
+
 </div>
 <div id="detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
      style="margin-top:-50px;width:1000px;left:393px;overflow:auto;display:none">
@@ -70,20 +73,31 @@ $def with (pin, userprofile,presentuser)
         var filename = $$(obj).attr("name");
         window.location = "http://192.168.1.165:8081/attachment/" + filename + "";
     }
-    $$("#$pin['key']_vediodelete").mouseover(function () {
+
+    function showbutton(obj){
         var presentuser = ("$presentuser['user']['key']");
-        var pinauthor = ("$userprofile['user']['key']");
-        if (presentuser == pinauthor) {
-            $$("#$pin['key']_delete").show();
+        var pinauthor =  $$(obj).attr("pinauthor");
+        var keyid= $$(obj).attr("name");
+         if (presentuser == pinauthor) {
+            $$("#delete_" +keyid + "").show();
         }
-    }).mouseout(function () {
-                $$("#$pin['key']_delete").hide();
-            });
+
+      }
+    function hidebutton(obj){
+        var presentuser = ("$presentuser['user']['key']");
+        var pinauthor =  $$(obj).attr("pinauthor");
+        var keyid= $$(obj).attr("name");
+         if (presentuser == pinauthor) {
+            $$("#delete_" +keyid + "").hide();
+        }
+
+      }
     function delete_a_vedio(obj) {
+        var keyid= $$(obj).attr("name");
         $$.post("/delete/ownpin",
                 {pin_id: "$pin['key']"},
                 function (data, textStatus) {
-                    $$("#$pin['key']_vediodelete").hide();
+                    $$("#vediodelete_" +keyid + "").remove();
                 }
         )
     }

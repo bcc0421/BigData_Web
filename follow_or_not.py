@@ -11,7 +11,6 @@ class Follow:
     def GET(self):
         i = web.input()
         headers = {
-
             'X-Token': web.cookies().get('token')
         }
         res = requests.get(conf.locate('/fo/%s' % i.user_id), headers=headers)

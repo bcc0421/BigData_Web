@@ -6,8 +6,7 @@ $def with(email,password)
         padding-bottom: 20px;
         background-color: #9E9F77;
     }
-
-    #picture {
+   #picture {
         margin-top: -20px;
         background-color: #C9CCDA;
         background-image: url(/static/img/1.jpg);
@@ -15,7 +14,6 @@ $def with(email,password)
         height: 430px;
         background-position: 45%;
     }
-
     .onError {
         color: red;
 
@@ -52,16 +50,16 @@ $def with(email,password)
                                    class="input-xlarge" required>
                         </div>
                     </div>
-
-
                     <div class="control-group">
                         <label class="control-label">密码</label>
 
                         <div class="controls">
                             <input id="pwd" name="register_pwd" type="password" placeholder="必填项" class="input-xlarge"
                                    required onchange="checkPasswords()">
-                            <span><font color="red">(>=6位)</font></span>
                         </div>
+                    </div>
+                    <div style="margin-left: 209px; margin-top: -21px;">
+                        <span><font color="red" size="2px">**密码长度大于6位，第一个字符必须为字母！</font></span>
                     </div>
                     <div class="control-group">
                         <label class="control-label">确认密码</label>
@@ -72,8 +70,6 @@ $def with(email,password)
                                    required onchange="checkPasswords()">
                         </div>
                     </div>
-
-
                     <div class="control-group">
                         <label class="control-label"></label>
 

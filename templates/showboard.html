@@ -26,8 +26,6 @@ $def with (pins,presentuser,board_name,id)
 <script src="/static/js/jquery.ui.widget.js"></script>
 <script src="/static/js/jquery.iframe-transport.js"></script>
 <script src="/static/js/jquery.fileupload.js"></script>
-
-
 <div id="header">
     <button class="btn ">
         所在板块：$:board_name
@@ -39,15 +37,13 @@ $def with (pins,presentuser,board_name,id)
             <span class="caret"></span>
         </button>
     </a>
-
     <div class="btn-group">
         <button class="btn dropdown-toggle" data-toggle="dropdown">
             <i class="icon-align-justify"></i>
             <span class="caret"></span>
         </button>
          <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="width:520px">
-								
-			                 <li><a tabindex="1" href="/controlskip/1">校外教育</a></li>
+			                <li><a tabindex="1" href="/controlskip/1">校外教育</a></li>
                             <li><a tabindex="2" href="/controlskip/2">远程办公</a></li>
                             <li><a tabindex="3" href="/controlskip/3">智慧之门</a></li>
                             <li><a tabindex="4" href="/controlskip/4">美容美体</a></li>
@@ -59,12 +55,10 @@ $def with (pins,presentuser,board_name,id)
                             <li><a tabindex="10" href="/controlskip/10">职业生涯</a></li>
                             <li><a tabindex="11" href="/controlskip/11">社区服务</a></li>
                             <li><a tabindex="12" href="/controlskip/12">公共信息</a></li>
-		
-					
 		</ul>
     </div>
 
-    <div style="float:right" class="dropdown">
+    <div style="float:left;" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <button class="btn btn-info"><i style="height:20px" class="icon-plus"></i></button>
         </a>
@@ -126,7 +120,7 @@ $def with (pins,presentuser,board_name,id)
                         <input type="file" class="input" id="upload_video" name="upload_video"/>
                     </div>
                     <textarea rows="0" style="width: 420px" name="introduction"></textarea>
-                    <select name="board_id">
+                    <select name="board_id" id="vedio_board_id">
                         <option>校外教育</option>
                         <option>远程办公</option>
                         <option>智慧之门</option>
@@ -156,10 +150,10 @@ $def with (pins,presentuser,board_name,id)
         <button class="btn btn-info">返回主页</button>
     </a></div>
     <div style="float: right; margin-top: -31px; margin-right: 324px;">
-        <form action="/search/content" method="post">
+        <form action="/search/content" method="post" onsubmit="return check()">
             <input id="search_cont" style="width:500px" type="text" class="search-query" placeholder="搜索"
                    name="content_search">
-            <button type="submit" class="btn btn-info" onclick="search_content()">搜索</button>
+            <button type="submit" class="btn btn-info" >搜索</button>
         </form>
 
     </div>
@@ -191,7 +185,7 @@ $def with (pins,presentuser,board_name,id)
     $$(function () {
          var idx=$:id-1;
         $$("#pin_board_id option").eq(idx).attr("selected","selected");
-
+        $$("#vedio_board_id option").eq(idx).attr("selected","selected");
         var flowLock = false;
         var page = 1;
         function columnAccumulator() {

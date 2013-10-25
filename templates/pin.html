@@ -34,14 +34,16 @@ $def with (pin, userprofile,presentuser)
 
     </div>
     <div style="height:300px;">
-        <div class="modal-body">
+        <div class="modal-body" style="float:left">
             <a href="/skip/bigimg/$pin['key']"><img style="height: 300px; margin-top: -15px;"
                  src="http://192.168.1.165:8080/attachments/source/$pin['key']"/>
             </a>
-        <span>$pin['introduction'][0:125]</span>
-        </div>  
-         
+        </div>
+        <div >
+            <span>$pin['introduction']</span>
+        </div>
     </div>
+
     <div class="modal-footer">
         <form id="comment_form_$pin['key']" action="" method="post">
             <div class="show_comment" id="show_comment_$pin['key']"
@@ -75,6 +77,9 @@ $def with (pin, userprofile,presentuser)
                     if (relationshipId.relationship_id == 'followed') {
                         $$("#attentions_" + $$keyid + "").text("取消关注");
                         flag = false;
+                    }else{
+                     $$("#attentions_" + $$keyid + "").text("关注");
+                    flag = true;
                     }
                 });
         $$.get("/comment/show",
