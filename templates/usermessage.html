@@ -286,6 +286,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len)
             autoUpload: false,//是否自动上传
             url: url,//上传地址
             dataType: 'json',
+            maxNumberOfFiles: 1,
             done: function (e, data) {//设置文件上传完毕事件的回调函数
                 var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
                 alert("上传成功！");
@@ -302,6 +303,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len)
             },
             add: function (e, data) {
                 $$("#id_file_name").html(data.files[0].name);
+                $$("#submitdata").unbind("click");
                 $$("#submitdata").click(function () {
                     var intro = $$("#introduction_pic");
                     var board = $$("#pin_board_id");

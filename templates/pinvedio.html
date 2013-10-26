@@ -2,14 +2,13 @@ $def with (pin, userprofile,presentuser)
 <script type="text/javascript" src="/static/js/jwplayer.js"></script>
 <div class="container-fluid pin" id="vediodelete_$pin['key']" onmouseover="showbutton(this)" onmouseout="hidebutton(this)" name="$pin['key']"  pinauthor="$userprofile['user']['key']">
     <center>
-        <b>Media Server Demo</b>
-
         <div id="$pin['movie_id']">This text will be replaced</div>
         <script type='text/javascript'>
             jwplayer("$pin['movie_id']").setup({
                 'flashplayer': '/static/swf/player.swf',
                 'file': "$pin['movie_id']",
                 'streamer': 'rtmp://192.168.1.165/oflaDemo',
+                'image': "http://content.bitsontherun.com/thumbs/i8oQD9zd-640.jpg",
                 'controlbar': 'bottom',
                 'width': '260',
                 'height': '200'
@@ -24,6 +23,7 @@ $def with (pin, userprofile,presentuser)
     <div id="download" style="top:30px;width:300px">
         <button class="btn" type="button" onclick="download(this)" name="$pin['movie_id']">下载</button>
      </div>
+
 
 </div>
 <div id="detail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
@@ -111,11 +111,9 @@ $def with (pin, userprofile,presentuser)
                         user_id: $$userid
                     },
                     function (data, textStatus) {
-                        alert(textStatus);
                         eval("var relationshipId = " + data + ";");
                         $$(obj).attr("name", relationshipId.relationship_id);
                     });
-
             $$(obj).text("取消关注");
             flag = false;
         } else {
@@ -127,7 +125,6 @@ $def with (pin, userprofile,presentuser)
                     function (textStatus) {
                         alert("取消成功");
                     });
-
             $$(obj).text("关注");
             flag = true;
         }

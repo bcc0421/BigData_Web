@@ -14,7 +14,26 @@ $def with (pin, userprofile,presentuser)
                     删除:所在板块=$pin['board_id']
                 </button>
             </a>
-            <button class="btn" type="button" name="$pin['key']">下载</button>
+            <!--<button class="btn" type="button" name="$pin['key']" onclick="download(this)">下载</button>-->
+            <a class="btn" href="http://192.168.1.165:8080/attachments/download/$pin['key']" download="$pin['key']\.jpg">下载</a>
+                 <select name="board_id" id="pin_board_$pin['key']"style="width:114px ;border-right:none;border-color:black">
+                            <option>移动板块至</option>
+                            <option>校外教育</option>
+                            <option>远程办公</option>
+                            <option>智慧之门</option>
+                            <option>美容美体</option>
+                            <option>情感天地</option>
+                            <option>健康管理</option>
+                            <option>娱乐人生</option>
+                            <option>家政辅导</option>
+                            <option>购物天堂</option>
+                            <option>职业生涯</option>
+                            <option>社区服务</option>
+                            <option>公共信息</option>
+                        </select>
+            <button class="btn" style="height: 30px; margin-top: -11px; border-left: medium none; margin-left: -8px;border-color:black"onclick="move(this)"name="$pin['key']">
+                <i class="icon-share-alt"></i>
+            </button>
         </div>
 
     </div>
@@ -66,6 +85,20 @@ $def with (pin, userprofile,presentuser)
 
 </div>
 <script type="text/javascript">
+    function move(obj){
+     var $$keyid= $$(obj).attr("name");
+     var board_index = $$("#pin_board_" + $$keyid + "").get(0).selectedIndex;
+       $$.get("/move/pin/" + board_index + "",
+                {
+                    img_key_id: $$keyid
+                },
+               function (data, textStatus) {
+                        alert(textStatus);
+                       // $$("#showdelete_" + $$keyid + "").remove();
+                });
+
+
+    }
     function delete_a_pin(obj) {
         var $$keyid = $$(obj).attr("name");
         if (confirm("是否确认删除")) {

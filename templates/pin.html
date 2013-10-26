@@ -6,6 +6,7 @@ $def with (pin, userprofile,presentuser)
                                                            onclick="getid(this)" width="260px" height="180px"/>
     </a>
     <div>$pin['introduction'][0:125]</div>
+    <a class="btn" href="http://192.168.1.165:8080/attachments/download/$pin['key']" download="$pin['key']\.jpg">下载</a>
 </div>
 
 <div id="detail_$pin['key']" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -39,7 +40,7 @@ $def with (pin, userprofile,presentuser)
                  src="http://192.168.1.165:8080/attachments/source/$pin['key']"/>
             </a>
         </div>
-        <div >
+        <div style="overflow-y:scroll">
             <span>$pin['introduction']</span>
         </div>
     </div>

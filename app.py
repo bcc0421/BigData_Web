@@ -9,7 +9,7 @@ from mainpage import Mainpage
 from follow_or_not import Follow, UnFollow, GetMyAttention,CheckFollow
 from delete import DeleteOwnPin
 from checkcode import CheckCode
-from modify_update import ModifyUpdate
+from modify_update import ModifyUpdate ,MovePin
 
 urls = (
     '/', 'Index',
@@ -39,6 +39,7 @@ urls = (
     '/skip/ownmessage/(.*)','SkipOwnMessage',
     '/modify/message','ModifyUpdate',
     '/skip/bigimg/(.*)','SkipBigImg',
+    '/move/pin/(\d+)','MovePin',
     '/login_out','LoginOut'
 )
 

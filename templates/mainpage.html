@@ -194,8 +194,7 @@ $def with (username)
                 <a href="/controlskip/8" class="thumbnail">
                     <img src="./static/img/housekeeping1.png" alt="">
                 </a>
-            </li>
-
+            </li
         </ul>
     </div>
     <div class="imageblock_3">
@@ -234,6 +233,7 @@ $def with (username)
             autoUpload: false,//是否自动上传
             url: url,//上传地址
             dataType: 'json',
+            maxNumberOfFiles: 1,
             done: function (e, data) {//设置文件上传完毕事件的回调函数
                 var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
                 alert("上传成功！");
@@ -250,6 +250,7 @@ $def with (username)
             },
             add: function (e, data) {
                 $$("#id_file_name").html(data.files[0].name);
+                $$("#submitdata").unbind("click");
                 $$("#submitdata").click(function () {
                     var intro = $$("#introduction_pic");
                     var board = $$("#pin_board_id");

@@ -241,6 +241,7 @@ function check(){
             autoUpload: false,//是否自动上传
             url: url,//上传地址
             dataType: 'json',
+            maxNumberOfFiles: 1,
             done: function (e, data) {//设置文件上传完毕事件的回调函数
                 var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
                 alert("上传成功！");
@@ -259,22 +260,19 @@ function check(){
             },
             add: function (e, data) {
                 $$("#id_file_name").html(data.files[0].name);
-                $$("#submitdata").click(function () {
-
+                $$("#submitdata").unbind("click");
+                $$("#submitdata").click( function() {
                     var intro = $$("#introduction_pic");
                     var board = $$("#pin_board_id");
                     var textval = $$("#introduction_pic").val();
                     if (textval.length != 0) {
                         data.formData = {introduction: intro.val(), board_id: board.val()};
                         data.submit();//上传文件
-
                     }
                     else {
                         alert("请描述图片");
                         return false;
-
                     }
-
                 });
             },
             progressall: function (e, data) {//设置上传进度事件的回调函数
