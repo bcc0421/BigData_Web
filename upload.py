@@ -6,6 +6,7 @@ import conf
 render = web.template.render('templates/', base='base2')
 class UploadPin:
     def POST(self):
+        print "314123412341234"
         i = web.input()
         board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                       u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
@@ -24,15 +25,15 @@ class UploadPin:
                                    data=f,
                                    headers=headers2)
         uuid = simplejson.loads(upload_res.text)
-        uuid = uuid['id']
         payload = {
-            'introduction': i.introduction
+            'introduction': i.introduction,
+            'img_ext':uuid['ext']
         }
         headers = {
             'X-Token': web.cookies().get('token'),
             'Content-Type': 'application/json'
         }
-        res = requests.post(conf.locate('/pin/create/%s/%s' % (board_id, uuid)),
+        res = requests.post(conf.locate('/pin/create/%s/%s' % (board_id, uuid['id'])),
                             data=simplejson.dumps(payload),
                             headers=headers)
 
@@ -41,7 +42,6 @@ class UploadPin:
 class UploadComment:
     def POST(self):
         i = web.input()
-        
         payload = {
             'content': i.content,
         }
@@ -70,7 +70,6 @@ class UploadVideo:
                 data = {'type': media.type}
                 upload_res = requests.post(conf.media_server('/file_upload/'), files=files, data=data)
                 upload_res = simplejson.loads(upload_res.text)
-       
         key = upload_res['file_name']
         board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                       u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',

@@ -67,15 +67,20 @@ $def with (username)
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3>上传视频</h3>
             </div>
-            <form id="upload_video" action="/video/upload" enctype="multipart/form-data" method="POST">
+            <form id="uploadvedio" action="/video/upload" enctype="multipart/form-data" method="POST">
                 <div class="modal-body">
                     <div style="padding-bottom: 20px;">
-
-                        <input type="file" class="input" id="upload_video" name="upload_video"/>
+                        <input type="file" class="input" id="upload_vedio" name="upload_video"style="width:180px"/>
+                        <span><font color="red" size="2px">**视频支持flv/mp4格式！</font></span>
                     </div>
-
-                    <textarea rows="0" style="width: 420px" name="introduction"></textarea>
-                    <select name="board_id">
+                     <div style="padding-bottom: 20px;" id="id_vedio_name">
+                    </div>
+                    <!-- 进度条 -->
+                    <div id="progress_vedio" class="progress progress-striped active">
+                        <div class="bar"></div>
+                    </div>
+                    <textarea rows="0" style="width: 420px" name="introduction"id="introduction_vedio"></textarea>
+                    <select name="board_id"id="vedio_board_id">
                         <
                         <option>校外教育</option>
                         <option>远程办公</option>
@@ -93,21 +98,18 @@ $def with (username)
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
-                    <button id="submitdata" type="submit" class="btn btn-primary">创建</button>
+                    <button id="submitvedio" type="button" class="btn btn-primary">创建</button>
                 </div>
             </form>
         </div>
     </div>
-
     <div>
         <a style="float:right" href="/login_out" role="button" class="btn" data-toggle="modal">退出</a>
     </div>
     <div>
         <a style="float:right" href="/skipusermessage" role="button" class="btn" data-toggle="modal">$:username</a>
     </div>
-
 </div>
-
 <div style="margin-top:50px;margin-left:45px">
     <div class="navbar">
         <table>
@@ -194,7 +196,7 @@ $def with (username)
                 <a href="/controlskip/8" class="thumbnail">
                     <img src="./static/img/housekeeping1.png" alt="">
                 </a>
-            </li
+            </li>
         </ul>
     </div>
     <div class="imageblock_3">
@@ -254,8 +256,15 @@ $def with (username)
                 $$("#submitdata").click(function () {
                     var intro = $$("#introduction_pic");
                     var board = $$("#pin_board_id");
-                    data.formData = {introduction: intro.val(), board_id: board.val()};
-                    data.submit();//上传文件
+                    var textval = $$("#introduction_pic").val();
+                    if (textval.length != 0) {
+                        data.formData = {introduction: intro.val(), board_id: board.val()};
+                        data.submit();//上传文件
+                    }
+                    else {
+                        alert("请描述图片");
+                        return false;
+                    }
                 });
             },
             progressall: function (e, data) {//设置上传进度事件的回调函数
@@ -267,24 +276,63 @@ $def with (username)
             }
         });
     });
-    /*function search_content() {
-        var search_key = $$("#search_cont").val();
-        $$.post("/search/content",
-                {
-                    keyword: search_key
-                },
-                function (data, textStatus) {
-                    alert(textStatus);
-                    alert(data);
+     $$(function () {
+        //文件上传地址
+        var url = '/video/upload ';
+        //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
+        $$('#upload_vedio').fileupload({
+            autoUpload: false,//是否自动上传
+            url: url,//上传地址
+            dataType: 'json',
+            maxNumberOfFiles: 1,
+            done: function (e, data) {//设置文件上传完毕事件的回调函数
+                var board_index = $$("#vedio_board_id").get(0).selectedIndex + 1;
+                alert("上传成功！");
+                window.location.href = "/controlskip/" + board_index + "";
+            },
+            fail: function (e, data) {
+                if (data.jqXHR.status == 406) {
+                    alert("仅支持上传MP4和FLV文件！");
+                } else {
+                    var board_index = $$("#vedio_board_id").get(0).selectedIndex + 1;
+                    alert("上传成功！");
+                    window.location.href = "/controlskip/" + board_index + "";
                 }
-        );
-    }*/
+            },
+            add: function (e, data) {
+                $$("#id_vedio_name").html(data.files[0].name);
+                $$("#submitvedio").unbind("click");
+                $$("#submitvedio").click(function () {
+                    var intro = $$("#introduction_vedio");
+                    var board = $$("#vedio_board_id");
+                    if(intro.val().length!=0){
+                         data.formData = {introduction: intro.val(), board_id: board.val()};
+                         data.submit();//上传文件
+                    }
+                    else{
+                         alert("请描述视频");
+                         return false;
+                    }
+
+                });
+            },
+            progressall: function (e, data) {//设置上传进度事件的回调函数
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $$('#progress_vedio .bar').css(
+                        'width',
+                        progress + '%'
+                );
+            }
+        });
+    });
     function check(){
     
         var search_key = $$("#search_cont").val();
         if(search_key.length==0)
-        return false;
-
+               {
+                alert("请输入搜索内容");
+                return false;
+            }
     }
 </script>
 

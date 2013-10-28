@@ -44,7 +44,6 @@ class ControlSkip:
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_video())
             elif p['type'] == 'picture':
-
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 if res.status_code == 200:
                     profile = simplejson.loads(str(res.text))
@@ -71,7 +70,6 @@ class SkipUserMessage:
             elif p['type'] == 'picture':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
-                print profile
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_myself())
@@ -114,7 +112,6 @@ class SkipOwnMessage:
             elif p['type'] == 'picture':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
-                print profile
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_myself())
@@ -194,52 +191,6 @@ class SearchContent:
 class SkipMainPage:
     def GET(self):
         return web.seeother('/mainpage')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class SkipBigImg:
     def GET(self,imgkey):

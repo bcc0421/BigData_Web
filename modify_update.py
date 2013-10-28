@@ -3,8 +3,6 @@ import requests
 import simplejson
 import web
 import conf
-
-
 class ModifyUpdate:
     def POST(self):
         i = web.input()
@@ -22,11 +20,8 @@ class ModifyUpdate:
 class MovePin:
         def GET(self,boardid):
             i=web.input();
-            print i.img_key_id
-            print boardid
             payload = {
                 'board_id':boardid
-
             }
             headers = {
                 'X-Token': web.cookies().get('token'),
