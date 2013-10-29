@@ -6,7 +6,6 @@ import conf
 render = web.template.render('templates/', base='base')
 class Login:
     def GET(self):
-        print web.cookies().get('email')
         if web.cookies().get('email')!=None:
             email = web.cookies().get('email')
             password = web.cookies().get('password')

@@ -30,11 +30,15 @@ class ControlSkip:
                       '健康管理', '娱乐人生', '家政辅导', '购物天堂', '职业生涯',
                       '社区服务', '公共信息']
         board_id = int(id) - 1
+        last_pin_key=None
         board_name = board_list[board_id]
         res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
         present_user = simplejson.loads(res.text)
         res = requests.get(conf.locate('/pin/list/%s' % id))
         json = simplejson.loads(res.text)
+        pins_length=len(json['pins'])
+        if(pins_length==30):
+            last_pin_key=json['pins'][29]['key']
         pins = [[], [], [], []]
         for i, p in enumerate(json['pins']):
             if p['type'] == 'movie':
@@ -50,7 +54,7 @@ class ControlSkip:
                     i %= 4
                     pin_obj = Pin(p, profile, present_user)
                     pins[i].append(pin_obj.render())
-        return render.showboard(pins, present_user, board_name,id)
+        return render.showboard(pins, present_user, board_name,id,last_pin_key,pins_length)
 
 
 class SkipUserMessage:
@@ -196,7 +200,43 @@ class SkipBigImg:
     def GET(self,imgkey):
         return render.showbigimg(imgkey) 
 
-        
+class PinFlow:
+     def GET(self, id):
+        i=web.input()
+        board_list = ['校外教育', '远程办公', '智慧之门', '美容美体', '情感天地',
+                      '健康管理', '娱乐人生', '家政辅导', '购物天堂', '职业生涯',
+                      '社区服务', '公共信息']
+        board_id = int(id) - 1
+        last_pin_key=None
+        board_name = board_list[board_id]
+        res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
+        present_user = simplejson.loads(res.text)
+        res = requests.get(conf.locate('/pin/list/%s?%s' % (id,i.last_pin_key)))
+        json = simplejson.loads(res.text)
+        pins_length=len(json['pins'])
+        if(pins_length==30):
+            last_pin_key=json['pins'][29]['key']
+        pins = [[], [], [], []]
+        for i, p in enumerate(json['pins']):
+            if p['type'] == 'movie':
+                res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
+                profile = simplejson.loads(res.text)
+                i %= 4
+                pin_obj = Pin(p, profile, present_user)
+                pins[i].append(pin_obj)
+            elif p['type'] == 'picture':
+                res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
+                if res.status_code == 200:
+                    profile = simplejson.loads(str(res.text))
+                    i %= 4
+                    pin_obj = Pin(p, profile, present_user)
+                    pins[i].append(pin_obj)
+        return simplejson.dumps({
+                   "pins": pins,
+                    "last_pin_key":last_pin_key,
+                    "Apins_length":pins_length
+                })
+
 
 
 

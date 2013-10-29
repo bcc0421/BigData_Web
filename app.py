@@ -1,7 +1,7 @@
 import web
 from index import ShowComment, MyPin, Index
 from login import Login
-from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg
+from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg,PinFlow
 from register import Register,CheckEmail,CheckName
 from images import Thumbnail, SourceImage
 from upload import UploadPin, UploadComment, UploadVideo
@@ -40,6 +40,7 @@ urls = (
     '/modify/message','ModifyUpdate',
     '/skip/bigimg/(.*)','SkipBigImg',
     '/move/pin/(\d+)','MovePin',
+    '/pin_flow/(\d+)','PinFlow',
     '/login_out','LoginOut'
 )
 

@@ -35,15 +35,18 @@ $def with (pin, userprofile,presentuser)
 
     </div>
     <div style="height:300px;">
-        <div class="modal-body" style="float:left">
-            <a href="/skip/bigimg/$pin['key']"><img style="height: 300px; margin-top: -15px;"
-                 src="http://192.168.1.165:8080/attachments/source/$pin['key']"/>
+        <div class="modal-body"style="float:left">
+            <a href="/skip/bigimg/$pin['key']">
+                <img style="height: 300px; margin-top: -15px;width:400px" src="http://192.168.1.165:8080/attachments/source/$pin['key']"/>
+
             </a>
         </div>
-        <div style="overflow-y:scroll">
+         <div style="overflow-y:scroll;">
             <span>$pin['introduction']</span>
         </div>
+
     </div>
+
 
     <div class="modal-footer">
         <form id="comment_form_$pin['key']" action="" method="post">

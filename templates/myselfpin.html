@@ -88,7 +88,11 @@ $def with (pin, userprofile,presentuser)
     function move(obj){
      var $$keyid= $$(obj).attr("name");
      var board_index = $$("#pin_board_" + $$keyid + "").get(0).selectedIndex;
-       $$.get("/move/pin/" + board_index + "",
+     if(board_index==0){
+            alert("请选择模块");
+
+            }else{
+                $$.get("/move/pin/" + board_index + "",
                 {
                     img_key_id: $$keyid
                 },
@@ -96,6 +100,8 @@ $def with (pin, userprofile,presentuser)
                         alert("转移成功");
                        // $$("#showdelete_" + $$keyid + "").remove();
                 });
+               }
+
 
 
     }

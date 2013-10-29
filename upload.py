@@ -59,6 +59,7 @@ class UploadVideo:
         x = web.input(upload_video={})
         upload_res = None
         media = x.get('upload_video', None)
+        type = None
         if media is not None:
             type = media.filename.split('.')[-1]
             if type == 'flv':
@@ -78,6 +79,7 @@ class UploadVideo:
         payload = {
             'introduction': i.introduction,
             'movie_id': key
+
         }
         headers = {
             'X-Token': web.cookies().get('token'),
@@ -86,7 +88,6 @@ class UploadVideo:
         res = requests.post(conf.locate('/pin/create/%s' % board_id),
                             data=simplejson.dumps(payload),
                             headers=headers)
-        
         return web.seeother('/controlskip/%s' % board_id)
         
         
