@@ -6,7 +6,6 @@ import conf
 render = web.template.render('templates/', base='base2')
 class UploadPin:
     def POST(self):
-        print "314123412341234"
         i = web.input()
         board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                       u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
@@ -89,6 +88,22 @@ class UploadVideo:
                             data=simplejson.dumps(payload),
                             headers=headers)
         return web.seeother('/controlskip/%s' % board_id)
+class PortraitUpload:
+    def POST(self):
+        x = web.input(upload_portrait={})
+        f = None
+        if 'upload_portrait' in x:
+            f = x['upload_portrait'].value
+            # upload a file
+        headers2 = {
+            'X-Token': web.cookies().get('token')
+        }
+        upload_res = requests.post(conf.locate('/attachments/upload_avatar_small/%s' % web.cookies().get('key')),
+                                   data=f,
+                                   headers=headers2)
+        uuid = simplejson.loads(upload_res.text)
+
+
         
         
            

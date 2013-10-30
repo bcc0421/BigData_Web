@@ -44,6 +44,7 @@ class ControlSkip:
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
+                p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_video())
@@ -68,10 +69,18 @@ class SkipUserMessage:
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
+                p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_video())
             elif p['type'] == 'picture':
+                board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
+                      u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
+                      u'社区服务',u'公共信息']
+                board_id=str(p['board_id'])
+                board_id=int(board_id)-1
+                board_name = board_list[board_id]
+                p['bord_name']=board_name
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
                 i %= 4
@@ -94,7 +103,7 @@ class SkipUserMessage:
         for followd in result:
             followds.append(str(pure_render.followed_list(followd)))
         followds_len = len(followds)
-        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len)
+        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,web.cookies().get('key'))
 
 
 class SkipOwnMessage:
@@ -106,10 +115,10 @@ class SkipOwnMessage:
         present_user_pin = simplejson.loads(res.text)
         pins = [[], [], [], []]
         for i, p in enumerate(present_user_pin['pins']):
-
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
+                p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_video())
@@ -135,7 +144,7 @@ class SkipOwnMessage:
         for followd in result:
             followds.append(str(pure_render.followed_list(followd)))
         followds_len = len(followds)
-        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len)
+        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,web.cookies().get('key'))
 
 
 class SkipMainPage:
@@ -177,6 +186,7 @@ class SearchContent:
                 if p['type'] == 'movie':
                     res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                     profile = simplejson.loads(res.text)
+                    p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
                     i %= 4
                     pin_obj = Pin(p, profile, present_user)
                     pins[i].append(pin_obj.render_video())
@@ -221,6 +231,7 @@ class PinFlow:
             if p['type'] == 'movie':
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
+                p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj)

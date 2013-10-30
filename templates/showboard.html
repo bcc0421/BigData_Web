@@ -83,7 +83,14 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                     <div id="progress_pic" class="progress progress-striped active">
                         <div class="bar"></div>
                     </div>
-                    <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction"></textarea>
+                    <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction" onKeyDown="textCounter(introduction,remLen,250);"
+                              onKeyUp="textCounter(introduction,remLen,250);"></textarea>
+                        <p>
+                             <font color="red" size="2px">还可输入:</font>
+                            <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
+                             <font color="red" size="2px">个字符</font>
+                        </p>
+
                     <select name="board_id" id="pin_board_id">
                         <option>校外教育</option>
                         <option>远程办公</option>
@@ -122,7 +129,14 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                     <div id="progress_vedio" class="progress progress-striped active">
                         <div class="bar"></div>
                     </div>
-                    <textarea rows="0" style="width: 420px" name="introduction" id="introduction_vedio"></textarea>
+                    <textarea rows="0" style="width: 420px" name="introduction" id="introduction_vedio" onKeyDown="textCounter(introduction,remLen,250);"
+                              onKeyUp="textCounter(introduction,remLen,250);"></textarea>
+                     <p>
+                             <font color="red" size="2px">还可输入:</font>
+                            <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
+                             <font color="red" size="2px">个字符</font>
+                        </p>
+
                     <select name="board_id" id="vedio_board_id">
                         <option>校外教育</option>
                         <option>远程办公</option>
@@ -182,6 +196,17 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
     </div>
 </div>
 <script type="text/javascript">
+
+   function textCounter(field, countfield, maxlimit) {
+   // 函数，3个参数，表单名字，表单域元素名，限制字符；
+   if (field.value.length > maxlimit)
+   //如果元素区字符数大于最大字符数，按照最大字符数截断；
+   field.value = field.value.substring(0, maxlimit);
+   else
+   //在记数区文本框内显示剩余的字符数；
+   countfield.value = maxlimit - field.value.length;
+   }
+
 function defaultboard(){
         var idx=$:id-1;
         $$("#pin_board_id option").eq(idx).attr("selected","selected");
@@ -277,7 +302,7 @@ function check(){
                     alert("仅支持上传MP4和FLV文件！");
                 } else {
                     var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
-                    alert("上传成功！");
+                    alert("上传失败！");
 
                     window.location.href = "/controlskip/" + board_index + "";
                 }
@@ -327,7 +352,7 @@ function check(){
                     alert("仅支持上传MP4和FLV文件！");
                 } else {
                     var board_index = $$("#vedio_board_id").get(0).selectedIndex + 1;
-                    alert("上传成功！");
+                    alert("上传失败！");
                     window.location.href = "/controlskip/" + board_index + "";
                 }
             },
