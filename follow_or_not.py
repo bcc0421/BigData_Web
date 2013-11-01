@@ -15,15 +15,7 @@ class Follow:
         }
         res = requests.get(conf.locate('/fo/%s' % i.user_id), headers=headers)
         res = simplejson.loads(res.text)
-        print res
-        if res.has_key('id'):
-            return simplejson.dumps({
-                "relationship_id": res['id']
-            })
-        elif res.has_key('status'):
-            return simplejson.dumps({
-                "relationship_id": res['status']
-            })
+
 
 
 class UnFollow:

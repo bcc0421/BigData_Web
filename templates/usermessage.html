@@ -32,50 +32,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
 <script src="/static/js/jquery.iframe-transport.js"></script>
 <script src="/static/js/jquery.fileupload.js"></script>
 <script src="/static/js/jquery.imgreview.js"></script>
-<div id="modify_message" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 
-        <div class="wrap">
-            <form class="main form-horizontal" onsubmit="return check()" action="#" method="post"
-                  onsubmit="return check();">
-                <fieldset>
-                    <legend>用户修改</legend>
-                    <div class="control-group">
-                        <label class="control-label">用户名</label>
-                        <div class="controls">
-                            <input name="register_username" type="text" id="modify_name" onblur="checkname(this)"
-                                   class="input-xlarge">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">密码</label>
-                        <div class="controls">
-                            <input id="pwd" name="register_pwd" type="password" class="input-xlarge"
-                                   onchange="checkPasswords()">
-                            <span><font color="red">(>=6位)</font></span>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">确认密码</label>
-                        <div class="controls">
-                            <input style="margin-left:0px" id="pwd1" name="pwd1" type="password" class="input-xlarge"
-                                   onchange="checkPasswords()">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label"></label>
-                        <div class="controls">
-                            <button class="btn" type="button" id="modify_own_message" onclick="modify()">修改</button>
-                            <button class="btn" type="reset">重置</button>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
-</div>
 <div style="margin-left:45px">
     <div class="navbar">
         <table style="border:1px solid gray">
@@ -83,7 +40,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
                 <td align="center" style="padding-left:20px">
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <button class="btn"><i style="height:20px" class="icon-align-justify"></i></button>
+                            <button class="btn"style="border-radius: 0px 0px 0px 0px;"><i style="height:20px" class="icon-align-justify"></i></button>
                         </a>
                         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel"
                             style="width:520px">
@@ -107,24 +64,23 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
                         <form action="/search/content" method="post" onsubmit="return checkmessage()">
                             <input id="search_cont" style="width:300px; margin-top: 4px" type="text" class="search-query" placeholder="搜索"
                                    name="content_search">
-                            <button type="submit" class="btn btn-info" style="float: right;">搜索</button>
+                            <button type="submit" class="btn btn-info" style="float: right;border-radius: 0px 0px 0px 0px;">搜索</button>
                         </form>
                     </div>
                 </td>
                 <td style="width:820px"></td>
                 <td>
-                    <a href="#modify_message" role="button" class="btn btn-info" data-toggle="modal" style="width:90px">修改个人资料</a>
-
+                    <a href="/modify/usermessage/$presentuser['user']['key']"  class="btn btn-info"  style="width:90px;border-radius: 0px 0px 0px 0px;">账号设置</a>
                 </td>
                 <td>
                     <a href="/skipmainpage">
-                        <button style="width: 90px; margin-left: 10px; margin-top: 5px;" class="btn">返回主页</button>
+                        <button style="width: 90px; margin-left: 10px; margin-top: 5px;border-radius: 0px 0px 0px 0px;" class="btn">返回主页</button>
                     </a>
                 </td>
                         <td align="center" style="padding-right:20px">
                              <div style="float:left;" class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <button class="btn btn-info"><i style="height:20px" class="icon-plus"></i></button>
+                                        <button class="btn btn-info"style="border-radius: 0px 0px 0px 0px;"><i style="height:20px;" class="icon-plus"></i></button>
                                     </a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                         <li>
@@ -404,25 +360,14 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
             }
         });
     });
-    function modify() {
-        var modify_name = $$("#modify_name").val();
-        var modify_pass = $$("#pwd").val();
-        alert(modify_email);
-        $$.post("/modify/message",
-                {
-                    name: modify_name,
-                    password: modify_pass
-                }, function (data, textStatus) {
-                    alert(data);
-                }
-        );
-    }
 function checkmessage(){
     
         var search_key = $$("#search_cont").val();
         if(search_key.length==0)
-        alert("请输入搜索内容");
-        return false;
+            {
+                alert("请输入搜索内容");
+                return false;
+            }
 
     }
  $$(function () {

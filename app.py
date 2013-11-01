@@ -1,7 +1,7 @@
 import web
 from index import ShowComment, MyPin, Index
 from login import Login
-from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg,PinFlow
+from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg,PinFlow,ShowPinDetail
 from register import Register,CheckEmail,CheckName
 from images import Thumbnail, SourceImage
 from upload import UploadPin, UploadComment, UploadVideo,PortraitUpload
@@ -9,7 +9,7 @@ from mainpage import Mainpage
 from follow_or_not import Follow, UnFollow, GetMyAttention,CheckFollow
 from delete import DeleteOwnPin
 from checkcode import CheckCode
-from modify_update import ModifyUpdate ,MovePin
+from modify_update import ModifyUserMessage ,MovePin
 
 urls = (
     '/', 'Index',
@@ -36,12 +36,13 @@ urls = (
     '/check/code/(.*)','CheckCode',
     '/check/follow','CheckFollow',  
     '/search/content','SearchContent',
-    '/skip/ownmessage/(.*)','SkipOwnMessage',
-    '/modify/message','ModifyUpdate',
+    '/skip/ownmessage/','SkipOwnMessage',
+    '/modify/usermessage/(.*)','ModifyUserMessage',
     '/skip/bigimg/(.*)','SkipBigImg',
     '/move/pin/(\d+)','MovePin',
     '/pin_flow/(\d+)','PinFlow',
     '/portrait/upload','PortraitUpload',
+    '/showpin/detail/(.*)','ShowPinDetail',
     '/login_out','LoginOut'
 )
 

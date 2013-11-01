@@ -90,7 +90,6 @@ class SkipUserMessage:
         headers = {
             'X-Token': web.cookies().get('token')
         }
-
         res = requests.get(conf.locate('/following/%s' % web.cookies().get('key')), headers=headers)
         result = simplejson.loads(res.text)
         attentions = []
@@ -123,6 +122,13 @@ class SkipOwnMessage:
                 pin_obj = Pin(p, profile, present_user)
                 pins[i].append(pin_obj.render_video())
             elif p['type'] == 'picture':
+                board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
+                      u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
+                      u'社区服务',u'公共信息']
+                board_id=str(p['board_id'])
+                board_id=int(board_id)-1
+                board_name = board_list[board_id]
+                p['bord_name']=board_name
                 res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
                 profile = simplejson.loads(res.text)
                 i %= 4
@@ -168,7 +174,6 @@ class SearchContent:
         res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
         present_user = simplejson.loads(res.text)
         i = web.input()
-
         payload = {
             'keyword': i.content_search
         }
@@ -217,73 +222,44 @@ class PinFlow:
                       '健康管理', '娱乐人生', '家政辅导', '购物天堂', '职业生涯',
                       '社区服务', '公共信息']
         board_id = int(id) - 1
-        last_pin_key=None
-        board_name = board_list[board_id]
-        res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
-        present_user = simplejson.loads(res.text)
         res = requests.get(conf.locate('/pin/list/%s?%s' % (id,i.last_pin_key)))
         json = simplejson.loads(res.text)
-        pins_length=len(json['pins'])
-        if(pins_length==30):
-            last_pin_key=json['pins'][29]['key']
-        pins = [[], [], [], []]
-        for i, p in enumerate(json['pins']):
-            if p['type'] == 'movie':
-                res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
-                profile = simplejson.loads(res.text)
-                p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
-                i %= 4
-                pin_obj = Pin(p, profile, present_user)
-                pins[i].append(pin_obj)
-            elif p['type'] == 'picture':
-                res = requests.get(conf.locate('/user/%s/profile' % p['author_id']))
-                if res.status_code == 200:
-                    profile = simplejson.loads(str(res.text))
-                    i %= 4
-                    pin_obj = Pin(p, profile, present_user)
-                    pins[i].append(pin_obj)
+        for p in json['pins']:
+                if p['type'] == 'movie':
+                    p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
         return simplejson.dumps({
-                   "pins": pins,
-                    "last_pin_key":last_pin_key,
-                    "Apins_length":pins_length
-                })
+                'pins':json['pins']
+            })
 
+class ShowPinDetail:
+    def GET(self,pinkey):
+        res = requests.get(conf.locate('/pin/%s' % pinkey ))
+        pin_profile = simplejson.loads(res.text)
+        res = requests.get(conf.locate('/user/%s/profile' % pin_profile['pin']['author_id']))
+        author_profile = simplejson.loads(res.text)
+        res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
+        present_user = simplejson.loads(res.text)
+        headers = {
+            'X-Token': web.cookies().get('token')
+        }
+        res = requests.get(conf.locate('/comment/%s' % pin_profile['pin']['key']))
+        json = simplejson.loads(res.text)
+        comments = []
+        for c in (json['comments']):
+            comments.append(str(pure_render.comment(c, present_user)))
+        res = requests.get(conf.locate('/following/%s' % web.cookies().get('key')), headers=headers)
+        result = simplejson.loads(res.text)
+        if len(result):
+            for attention in result:
+                if attention['key'] ==pin_profile['pin']['author_id']:
+                    pin_profile['status']="followd"
+                    return render.pindetail(pin_profile,author_profile,present_user,comments)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            pin_profile['status']="unfollowd"
+            return render.pindetail(pin_profile,author_profile,present_user,comments)
+        else:
+            pin_profile['status']="unfollowd"
+            return render.pindetail(pin_profile,author_profile,present_user,comments)
 
 
 

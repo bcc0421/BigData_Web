@@ -37,7 +37,7 @@ $def with(email,password)
                             邮箱</label>
 
                         <div class="controls">
-                            <input onblur="checkemail(this)" name="email" type="email" placeholder="必填项"
+                            <input  onblur ="checkemail(this)" id="ckemail"name="email" type="email" placeholder="必填项"
                                    class="input-xlarge" title="邮箱正确格式：xxx@xxx.xxx" required>
 
                         </div>
@@ -46,7 +46,7 @@ $def with(email,password)
                         <label class="control-label">用户名</label>
 
                         <div class="controls">
-                            <input name="register_username" type="text" placeholder="必填项" onblur="checkname(this)"
+                            <input name="register_username" type="text" placeholder="必填项"  onblur="checkname(this)"
                                    class="input-xlarge" required>
                         </div>
                     </div>
@@ -142,11 +142,17 @@ function submit_message(){
                 function (data, textStatus) {
                     eval("var statu= " + data + ";");
                     if (statu.status != 'pass') {
+                        flag= false;
                         alert("该用户明已使用");
+
+                    }
+                    else{
+                        flag=true;
                     }
                 }
         );
     }
+   var flag=true;
     function checkemail(obj) {
         valu = $$(obj).val();
         $$.get("/check/email",
@@ -156,30 +162,15 @@ function submit_message(){
                 function (data, textStatus) {
                     eval("var statu= " + data + ";");
                     if (statu.status != 'pass') {
+                        flag=false;
                         alert("该邮箱已被注册");
+                    }else{
+                        flag=true;
                     }
                 }
         );
     }
 
-    function check_email(obj) {
-        valu = $$(obj).val();
-        $$.get("/check/email",
-                {
-                    email: valu
-                },
-                function (data, textStatus) {
-                    eval("var statu= " + data + ";");
-                    if (statu.status == 'pass') {
-                        alert("该邮箱错误");
-                        $$(obj).attr('error', '1');
-                    }
-                    else {
-                        $$(obj).attr('error', '2');
-                    }
-                }
-        );
-    }
 
     function checkPasswords() {
         var passl = document.getElementById("pwd");
@@ -194,13 +185,18 @@ function submit_message(){
     function check() {
         var reg = /^[a-zA-Z]\w{6,15}$$/;
         var password1 = document.getElementById("pwd");
-
-        if (!reg.test(password1.value)) {
-            password1.setCustomValidity("密码长度大于6位，第一个字符必须为字母！");
+        if(flag){
+            if (!reg.test(password1.value)) {
+                password1.setCustomValidity("密码长度大于6位，第一个字符必须为字母！");
+                return false;
+            } else {
+                password1.setCustomValidity('');
+                alert("注册成功")
+            }
+        }else{
+            alert("邮箱或用户名以被占用");
             return false;
-        } else {
-            password1.setCustomValidity('');
-            alert("注册成功")
+
         }
     }
 </script>

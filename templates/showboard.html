@@ -206,7 +206,6 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
    //在记数区文本框内显示剩余的字符数；
    countfield.value = maxlimit - field.value.length;
    }
-
 function defaultboard(){
         var idx=$:id-1;
         $$("#pin_board_id option").eq(idx).attr("selected","selected");
@@ -237,40 +236,40 @@ function defaultboard(){
             }
             return minID;
         }
-
-                    $$(window).scroll(function () {
-
-                        var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
-
-
-                                if (clientHeight + scrollTop >= scrollHeight) {
-                                     if(pins_length==30)
+           $$(window).scroll(function () {
+                var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
+                     if (clientHeight + scrollTop >= scrollHeight)
+                           {
+                               // alert(last_pin_key);
+                                if(pins_length==30){
+                                      $$.get("/pin_flow/" + $:id + "",
                                           {
-                                            $$.get("/pin_flow/" + $:id + "",{
-                                                    last_pin_key:last_pin_key
-                                                }, function (data,textStatus){
-                                                        alert(data);
-                                                        alert(textStatus);
-                                                        alert(data[last_pin_key]);
-                                                       eval("var json = " + data + ";");
-                                                      // last_pin_key=json.last_pin_key;
-                                                       // pins_length=json.pins_length;
-                                                       alert(json[last_pin_key]);
-                                                      // alert(json.pins_length);
-                                                      //  for (var i = 0; i < json.pins.length; i++) {
-                                                      //      size = columnAccumulator();
-                                                      //      var column = findMin(size) + 1;
-                                                   //         var jhtml = $$(json.pins[i]);
-                                                      //      $$("#col" + column).append(jhtml);
-                                                      //  }
-                                                  }
-                                            );
+                                             last_pin_key:last_pin_key
+                                          },
+                                           function (data,textStatus)
+                                           {
+                                                     //alert(data);
+                                                     eval("var json = " + data + ";");
+                                                     //alert(json['pins'].length);
+                                                     pins_length=json['pins'].length;
+                                                     if(pins_length==30){
+                                                        last_pin_key=json['pins'][pins_length-1].key;
+                                                      }                                                     ;
+                                                      for (var i = 0; i < pins_length; i++) {
+
+                                                            size = columnAccumulator();
+                                                            var column = findMin(size) + 1;
+                                                            if(json['pins'][i].type=='picture'){
+                                                             $$("#col" + column).append("<div class=\"container-fluid\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                                }
+                                                                                                          }
+
                                            }
-                                }
+                                         );
+                                      }
+                           }
 
                     });
-
-
     });
 </script>
 <script type="text/javascript">
@@ -294,7 +293,6 @@ function check(){
             done: function (e, data) {//设置文件上传完毕事件的回调函数
                 var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
                 alert("上传成功！");
-
                 window.location.href = "/controlskip/" + board_index + "";
             },
             fail: function (e, data) {
@@ -369,9 +367,7 @@ function check(){
                     else{
                          alert("请描述视频");
                          return false;
-
                     }
-
                 });
             },
             progressall: function (e, data) {//设置上传进度事件的回调函数
@@ -385,5 +381,4 @@ function check(){
     });
 
 </script>
-
 

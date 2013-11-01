@@ -51,7 +51,6 @@ class UploadComment:
         res = requests.post(conf.locate('/comment/%s/create' % i.img_key_id),
                             data=simplejson.dumps(payload),
                             headers=headers)
-        print res.text
 class UploadVideo:
     def POST(self):
         i = web.input()

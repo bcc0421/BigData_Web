@@ -1,0 +1,129 @@
+$def with (pin,userprofile,presentuser,comments)
+<style>
+.lu-nav {
+  border:solid 1px red;
+    height:50px;
+    background-color: #F5F5F5;
+    border-color: #F0F0F0;
+    color: #888888;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-top:40px;
+}
+#commentarea{
+    margin-left:120px;
+    margin-right: auto;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-top:40px
+
+
+    }
+</style>
+ <script type="text/javascript" src="/static/js/jwplayer.js"></script>
+<header class="lu-nav">
+</header>
+<div class="container" >
+
+         <div class="">
+
+                <img class="pull-left" src="http://192.168.1.165:8080/attachments/source/$pin['pin']['key']"/>
+                <div class="lu-image-button-wrapper clearfix pull-left">
+                    <a href="/skip/ownmessage/$userprofile['user']['key']">
+                        <button class="btn btn-info pull-left "type="button"style="border-radius: 0px 0px 0px 0px; width: 150px;  margin-left: 32px;">
+                        作者:$userprofile['user']['username']
+                        </button>
+                    </a>
+                        <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"
+                        style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注</button>
+
+                </div>
+
+
+        </div>
+
+ </div>
+ <div style="margin-left:125px;background-color: #F6F6F6;width:940px; margin-top: 8px;">
+     <span>$pin['pin']['introduction']</span>
+ </div>
+<div id="commentarea"  >
+           <div class="show_comment">
+                $for comment in comments:
+                    $:comment
+           </div>
+           <div class="write_comment"style="display:none" >
+                    <textarea id="comment_content" class="comment_content" rows="0" style="width: 420px"></textarea>
+           </div>
+          <p style="margin-left:120px;margin-top:10px ">
+                    <button class="btn comment" type="button" onclick="comment(this)"style="border-radius: 0px 0px 0px 0px;">添加评论</button>
+                    <button onclick="decide(this)" class="btn btn-info decide" type="button" style="border-radius: 0px 0px 0px 0px;">确认</button>
+          </p>
+
+
+</div>
+<script type="text/javascript">
+  var flag=true;
+    function comment(obj){
+        $$("#comment_content").val("");
+        $$(".write_comment").show();
+    }
+    function decide(obj) {
+        var username = "$presentuser['user']['username']";
+        var $$img_key_id = "$pin['pin']['key']";
+        var $$content = $$("#comment_content").val();
+        $$(".write_comment").hide();
+        if ($$content != "") {
+            var $$p = $$("<p style='text-align:left'><span>" + username + "</span>:&nbsp&nbsp" + $$content + "</p>");
+            $$(".show_comment").append($$p);
+            $$.post("/comment/upload",
+                    {
+                        img_key_id: $$img_key_id,
+                        content: $$content
+                    },
+                    function (data, textStatus) {
+                    }
+            );
+        }
+        $$(".comment_form").val("");
+    }
+$$(function(){
+    if("$pin['status']"=="followd")
+        {
+             $$("#attention").text("取消关注");
+             flag = false;
+        }
+     else{
+            $$("#attention").text("关注");
+             flag = true;
+         }
+})
+function watchit(obj) {
+        if (flag) {
+            var $$userid ="$userprofile['user']['key']";
+            $$.get("/follow/oneuser",
+                    {
+                        user_id: $$userid
+                    },
+                    function (data, textStatus) {
+                        $$(obj).text("取消关注");
+                        flag = false;
+                    });
+        }
+        else {
+            var $$userid ="$userprofile['user']['key']";
+            $$.get("/unfollow/oneuser",
+                    {
+                        user_id: $$userid
+                    },
+                    function (textStatus) {
+                        alert("取消成功");
+                        $$(obj).text("关注");
+                        flag = true;
+                    });
+        }
+    }
+</script>
