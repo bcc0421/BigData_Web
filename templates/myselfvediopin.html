@@ -1,0 +1,29 @@
+$def with (pin, userprofile,presentuser)
+<div class="pin" id="vediodelete_$pin['key']">
+    <a href="/showpin/detail/$pin['key']" data-toggle="modal" target="_blank"><img src="http://192.168.1.165:8081/thumbnail/$pin['thumbnail']"
+                  style="opacity:0.4;filter:alpha(opacity=40);" width="260px" height="180px"/></a>
+    <div>$pin['introduction'][0:125]</div>
+     <button style="width: 54px; border-radius: 0px 0px 0px 0px;" class="btn" onclick="delete_a_vedio(this)"name="$pin['key']">删除</button>
+     <button style="width: 54px; border-radius: 0px 0px 0px 0px;" class="btn" onclick="download(this)" name="$pin['movie_id']">下载</button>
+</div>
+
+<script type="text/javascript">
+    function download(obj) {
+        var filename = $$(obj).attr("name");
+        window.location = "http://192.168.1.165:8081/attachment/" + filename + "";
+    }
+
+    function delete_a_vedio(obj) {
+        var keyid= $$(obj).attr("name");
+        if (confirm("是否确认删除")) {
+            $$.post("/delete/ownpin",
+                    {pin_id: keyid},
+                    function (data, textStatus) {
+                        $$("#vediodelete_" +keyid + "").remove();
+                    }
+                )
+        }else{
+            return false;
+        }
+    }
+</script>

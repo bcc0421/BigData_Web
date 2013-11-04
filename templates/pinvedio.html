@@ -1,50 +1,6 @@
 $def with (pin, userprofile,presentuser)
-<script type="text/javascript" src="/static/js/jwplayer.js"></script>
-<div class="container-fluid pin" id="vediodelete_$pin['key']" onmouseover="showbutton(this)" onmouseout="hidebutton(this)" name="$pin['key']"  pinauthor="$userprofile['user']['key']">
-    <center>
-        <div id="$pin['movie_id']">This text will be replaced</div>
-        <script type='text/javascript'>
-            jwplayer("$pin['movie_id']").setup({
-                'flashplayer': '/static/swf/player.swf',
-                'file': "$pin['movie_id']",
-                'streamer': 'rtmp://192.168.1.165/oflaDemo',
-                'image': "http://192.168.1.165:8081/thumbnail/$pin['thumbnail']",
-                'controlbar': 'bottom',
-                'width': '260',
-                'height': '200'
-            });
-        </script>
-    </center>
+<div class="pin" id="showdelete_$pin['key']">
+    <a href="/showpin/detail/$pin['key']" data-toggle="modal" target="_blank"><img src="http://192.168.1.165:8081/thumbnail/$pin['thumbnail']"
+                  style="opacity:0.4;filter:alpha(opacity=40);" width="260px" height="180px"/></a>
     <div>$pin['introduction'][0:125]</div>
 </div>
-<script type="text/javascript">
-    function download(obj) {
-        var filename = $$(obj).attr("name");
-        window.location = "http://192.168.1.165:8081/attachment/" + filename + "";
-    }
-    function showbutton(obj){
-        var presentuser = ("$presentuser['user']['key']");
-        var pinauthor =  $$(obj).attr("pinauthor");
-        var keyid= $$(obj).attr("name");
-         if (presentuser == pinauthor) {
-            $$("#delete_" +keyid + "").show();
-        }
-      }
-    function hidebutton(obj){
-        var presentuser = ("$presentuser['user']['key']");
-        var pinauthor =  $$(obj).attr("pinauthor");
-        var keyid= $$(obj).attr("name");
-         if (presentuser == pinauthor) {
-            $$("#delete_" +keyid + "").hide();
-        }
-      }
-    function delete_a_vedio(obj) {
-        var keyid= $$(obj).attr("name");
-        $$.post("/delete/ownpin",
-                {pin_id: "$pin['key']"},
-                function (data, textStatus) {
-                    $$("#vediodelete_" +keyid + "").remove();
-                }
-        )
-    }
-</script>

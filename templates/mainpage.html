@@ -201,6 +201,7 @@ $def with (username)
             <li class="span3">
                 <a href="/controlskip/7" class="thumbnail">
                     <img src="./static/img/entertainment1.png" alt="">
+
                 </a>
             </li>
             <li class="span3">
@@ -317,7 +318,7 @@ $def with (username)
                 } else {
                     var board_index = $$("#vedio_board_id").get(0).selectedIndex + 1;
                     alert("上传失败！");
-                    return false;
+                    window.location.href = "/controlskip/" + board_index + "";
                 }
             },
             add: function (e, data) {

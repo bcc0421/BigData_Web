@@ -70,7 +70,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
                 </td>
                 <td style="width:820px"></td>
                 <td>
-                    <a href="/modify/usermessage/$presentuser['user']['key']"  class="btn btn-info"  style="width:90px;border-radius: 0px 0px 0px 0px;">账号设置</a>
+                    <a href="/modify/usermessage/$presentuser['user']['key']" target="_blank" class="btn btn-info"  style="width:90px;border-radius: 0px 0px 0px 0px;">账号设置</a>
                 </td>
                 <td>
                     <a href="/skipmainpage">
@@ -187,20 +187,20 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
     </div>
 </div>
 
- <div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px">
+ <div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
       <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$:present_user_key"/>
  </div>
- <div  id="reviewContent" style="border:solid 1px red;position:absolute;width:100px;height:100px;top:96px"></div>
+ <!--div  id="reviewContent" style="border:solid 1px red;position:absolute;width:100px;height:100px;top:96px"></div>
  <div>
      <form name="form1" id="form1">
         <div id="demo" style="height: 20px;">
-        <!--input type="file " id="upload_portrait"name="upload_portrait"/-->
+        <!--input type="file " id="upload_portrait"name="upload_portrait"/>
         <input style="width: 59px;" type="button" value="上传头像" class="btn" onclick="upload_portrait.click()"/><br>
          <input type="file" class=" input" style="display:none" id="upload_portrait"name="upload_portrait" target="#reviewContent" />
             <button id="submitportrait" type="button" class="btn "style="width: 54px; margin-top: -46px; margin-left: 60px;">创建</button>
         </div>
      </form>
- </div>
+ </div-->
 <div class="bs-docs-example">
     <ul id="myTab" class="nav nav-tabs">
         <li class="dropdown">

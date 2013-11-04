@@ -22,6 +22,8 @@ class Pin:
 
     def render_video(self):
         return pure_render.pinvedio(self.data, self.user_profile, self.present_user)
+    def render_myself_vedio(self):
+        return pure_render.myselfvediopin(self.data, self.user_profile, self.present_user)
 
 
 class ControlSkip:
@@ -72,7 +74,7 @@ class SkipUserMessage:
                 p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
-                pins[i].append(pin_obj.render_video())
+                pins[i].append(pin_obj.render_myself_vedio())
             elif p['type'] == 'picture':
                 board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                       u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
@@ -120,7 +122,7 @@ class SkipOwnMessage:
                 p['thumbnail']=p['movie_id'].split('.')[0]+'.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
-                pins[i].append(pin_obj.render_video())
+                pins[i].append(pin_obj.render_myself_vedio())
             elif p['type'] == 'picture':
                 board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                       u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
@@ -253,13 +255,25 @@ class ShowPinDetail:
             for attention in result:
                 if attention['key'] ==pin_profile['pin']['author_id']:
                     pin_profile['status']="followd"
-                    return render.pindetail(pin_profile,author_profile,present_user,comments)
+                    if pin_profile['pin']['type']=='picture':
+                        return render.pindetail(pin_profile,author_profile,present_user,comments)
+                    else:
+                        pin_profile['pin']['thumbnail']=pin_profile['pin']['movie_id'].split('.')[0]+'.jpg'
+                        return  render.vediodetail(pin_profile,author_profile,present_user,comments)
 
             pin_profile['status']="unfollowd"
-            return render.pindetail(pin_profile,author_profile,present_user,comments)
+            if pin_profile['pin']['type']=='picture':
+                        return render.pindetail(pin_profile,author_profile,present_user,comments)
+            else:
+                        pin_profile['pin']['thumbnail']=pin_profile['pin']['movie_id'].split('.')[0]+'.jpg'
+                        return  render.vediodetail(pin_profile,author_profile,present_user,comments)
         else:
             pin_profile['status']="unfollowd"
-            return render.pindetail(pin_profile,author_profile,present_user,comments)
+            if pin_profile['pin']['type']=='picture':
+                    return render.pindetail(pin_profile,author_profile,present_user,comments)
+            else:
+                    pin_profile['pin']['thumbnail']=pin_profile['pin']['movie_id'].split('.')[0]+'.jpg'
+                    return  render.vediodetail(pin_profile,author_profile,present_user,comments)
 
 
 

@@ -7,7 +7,9 @@ render = web.template.render('templates/', base='base2')
 pure_render = web.template.render('templates/')
 class ModifyUserMessage:
     def GET(self,ownkey):
-        return render.setaccount()
+        res = requests.get(conf.locate('/user/%s/profile' % ownkey))
+        present_user = simplejson.loads(res.text)
+        return render.setaccount(present_user)
 class MovePin:
         def GET(self,boardid):
             i=web.input();

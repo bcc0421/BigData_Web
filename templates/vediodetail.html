@@ -15,7 +15,7 @@ $def with (pin,userprofile,presentuser,comments)
     margin-top:40px;
 }
 #commentarea{
-    margin-left:120px;
+    margin-left:274px;
     margin-right: auto;
     padding-left: 2px;
     padding-right: 2px;
@@ -31,15 +31,34 @@ $def with (pin,userprofile,presentuser,comments)
 
          <div class="">
 
-                <img class="pull-left" src="http://192.168.1.165:8080/attachments/source/$pin['pin']['key']"/>
+                <script type="text/javascript" src="/static/js/jwplayer.js"></script>
+                    <div class="container-fluid pin" id="vediodelete_$pin['pin']['key']" onmouseover="showbutton(this)"
+                         onmouseout="hidebutton(this)"   pinauthor="$userprofile['user']['key']">
+                        <center>
+                            <div id="vedio">This text will be replaced</div>
+                            <script type='text/javascript'>
+                                jwplayer("vedio").setup({
+                                    'flashplayer': '/static/swf/player.swf',
+                                    'file': "$pin['pin']['movie_id']",
+                                    'streamer': 'rtmp://192.168.1.165/oflaDemo',
+                                    'image': "http://192.168.1.165:8081/thumbnail/$pin['pin']['thumbnail']",
+                                    'controlbar': 'bottom',
+                                    'width': '860',
+                                    'height': '400'
+                                });
+                            </script>
+                        </center>
+                    </div>
                 <div class="lu-image-button-wrapper clearfix pull-left">
                     <a href="/skip/ownmessage/$userprofile['user']['key']">
-                        <button class="btn btn-info pull-left "type="button"style="border-radius: 0px 0px 0px 0px; width: 150px;  margin-left: 32px;">
+                        <button class="btn btn-info pull-left "type="button"style="border-radius: 0px 0px 0px 0px; width: 150px;  margin-left: 154px;">
                         作者:$userprofile['user']['username']
                         </button>
                     </a>
-                        <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"
-                        style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注</button>
+                        <button onclick="download(this)" id="down_load" class="btn btn-info  "
+                        style="border-radius: 0px 0px 0px 0px; width:56px;  margin-left: 15px;">下载</button>
+                        <button onclick="watchit(this)" id="attention" class="btn btn-info  " type="button"
+                        style="border-radius: 0px 0px 0px 0px; width:84px;  margin-left: 15px;">关注</button>
 
                 </div>
 
@@ -47,7 +66,7 @@ $def with (pin,userprofile,presentuser,comments)
         </div>
 
  </div>
- <div style="margin-left:125px;background-color: #F6F6F6;width:940px; margin-top: 8px;">
+ <div style="margin-left:274px;background-color: #F6F6F6;width:940px; margin-top: 8px;">
      <span>$pin['pin']['introduction']</span>
  </div>
 <div id="commentarea"  >
@@ -67,6 +86,9 @@ $def with (pin,userprofile,presentuser,comments)
 </div>
 <script type="text/javascript">
   var flag=true;
+     function download(obj) {
+        window.location = "http://192.168.1.165:8081/attachment/$pin['pin']['movie_id']";
+    }
     function comment(obj){
         $$("#comment_content").val("");
         $$(".write_comment").show();
@@ -107,7 +129,6 @@ $$(function(){
          }
 })
 function watchit(obj) {
-
         if (flag) {
             var $$userid ="$userprofile['user']['key']";
             $$.get("/follow/oneuser",

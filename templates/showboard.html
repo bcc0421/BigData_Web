@@ -262,7 +262,10 @@ function defaultboard(){
                                                             if(json['pins'][i].type=='picture'){
                                                              $$("#col" + column).append("<div class=\"container-fluid\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
                                                                 }
-                                                                                                          }
+                                                             else{
+                                                              $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                             }
+                                                          }
 
                                            }
                                          );
@@ -350,7 +353,7 @@ function check(){
                     alert("仅支持上传MP4和FLV文件！");
                 } else {
                     var board_index = $$("#vedio_board_id").get(0).selectedIndex + 1;
-                    alert("上传失败！");
+                    alert("上传成功！");
                     window.location.href = "/controlskip/" + board_index + "";
                 }
             },
