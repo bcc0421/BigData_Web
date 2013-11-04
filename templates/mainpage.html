@@ -39,13 +39,16 @@ $def with (username)
                     <div id="progress_pic" class="progress progress-striped active">
                         <div class="bar"></div>
                     </div>
-                    <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction" onKeyDown="textCounter(introduction,remLen,250);"
+                    <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction"
+                              onKeyDown="textCounter(introduction,remLen,250);"
                               onKeyUp="textCounter(introduction,remLen,250);"></textarea>
-                      <p>
-                             <font color="red" size="2px">还可输入:</font>
-                            <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
-                             <font color="red" size="2px">个字符</font>
-                        </p>
+
+                    <p>
+                        <font color="red" size="2px">还可输入:</font>
+                        <input name="remLen" type="text" value="250" size="5" readonly="readonly"
+                               style="width:25px;height:10px">
+                        <font color="red" size="2px">个字符</font>
+                    </p>
                     <select name="board_id" id="pin_board_id">
                         <option>校外教育</option>
                         <option>远程办公</option>
@@ -76,23 +79,26 @@ $def with (username)
             <form id="uploadvedio" action="/video/upload" enctype="multipart/form-data" method="POST">
                 <div class="modal-body">
                     <div style="padding-bottom: 20px;">
-                        <input type="file" class="input" id="upload_vedio" name="upload_video"style="width:180px"/>
+                        <input type="file" class="input" id="upload_vedio" name="upload_video" style="width:180px"/>
                         <span><font color="red" size="2px">**视频支持flv/mp4格式！</font></span>
                     </div>
-                     <div style="padding-bottom: 20px;" id="id_vedio_name">
+                    <div style="padding-bottom: 20px;" id="id_vedio_name">
                     </div>
                     <!-- 进度条 -->
                     <div id="progress_vedio" class="progress progress-striped active">
                         <div class="bar"></div>
                     </div>
-                    <textarea rows="0" style="width: 420px" name="introduction"id="introduction_vedio" onKeyDown="textCounter(introduction,remLen,250);"
+                    <textarea rows="0" style="width: 420px" name="introduction" id="introduction_vedio"
+                              onKeyDown="textCounter(introduction,remLen,250);"
                               onKeyUp="textCounter(introduction,remLen,250);"></textarea>
-                      <p>
-                             <font color="red" size="2px">还可输入:</font>
-                            <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
-                             <font color="red" size="2px">个字符</font>
-                        </p>
-                    <select name="board_id"id="vedio_board_id">
+
+                    <p>
+                        <font color="red" size="2px">还可输入:</font>
+                        <input name="remLen" type="text" value="250" size="5" readonly="readonly"
+                               style="width:25px;height:10px">
+                        <font color="red" size="2px">个字符</font>
+                    </p>
+                    <select name="board_id" id="vedio_board_id">
                         <option>校外教育</option>
                         <option>远程办公</option>
                         <option>智慧之门</option>
@@ -150,7 +156,7 @@ $def with (username)
                         </ul>
                     </div>
                 </td>
-        <td align="center" style="padding-left:200px">
+                <td align="center" style="padding-left:200px">
                     <form action="/search/content" method="post" onsubmit="return check()">
                         <input id="search_cont" style="width:500px" type="text" class="search-query" placeholder="搜索"
                                name="content_search">
@@ -240,15 +246,15 @@ $def with (username)
 </div>
 <script type="text/javascript">
 
- function textCounter(field, countfield, maxlimit) {
-   // 函数，3个参数，表单名字，表单域元素名，限制字符；
-   if (field.value.length > maxlimit)
-   //如果元素区字符数大于最大字符数，按照最大字符数截断；
-   field.value = field.value.substring(0, maxlimit);
-   else
-   //在记数区文本框内显示剩余的字符数；
-   countfield.value = maxlimit - field.value.length;
-   }
+    function textCounter(field, countfield, maxlimit) {
+        // 函数，3个参数，表单名字，表单域元素名，限制字符；
+        if (field.value.length > maxlimit)
+        //如果元素区字符数大于最大字符数，按照最大字符数截断；
+            field.value = field.value.substring(0, maxlimit);
+        else
+        //在记数区文本框内显示剩余的字符数；
+            countfield.value = maxlimit - field.value.length;
+    }
     $$(function () {
         //文件上传地址
         var url = '/pin/upload ';
@@ -298,7 +304,7 @@ $def with (username)
             }
         });
     });
-     $$(function () {
+    $$(function () {
         //文件上传地址
         var url = '/video/upload ';
         //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
@@ -327,13 +333,13 @@ $def with (username)
                 $$("#submitvedio").click(function () {
                     var intro = $$("#introduction_vedio");
                     var board = $$("#vedio_board_id");
-                    if(intro.val().length!=0){
-                         data.formData = {introduction: intro.val(), board_id: board.val()};
-                         data.submit();//上传文件
+                    if (intro.val().length != 0) {
+                        data.formData = {introduction: intro.val(), board_id: board.val()};
+                        data.submit();//上传文件
                     }
-                    else{
-                         alert("请描述视频");
-                         return false;
+                    else {
+                        alert("请描述视频");
+                        return false;
                     }
 
                 });
@@ -347,14 +353,13 @@ $def with (username)
             }
         });
     });
-    function check(){
-    
+    function check() {
+
         var search_key = $$("#search_cont").val();
-        if(search_key.length==0)
-               {
-                alert("请输入搜索内容");
-                return false;
-            }
+        if (search_key.length == 0) {
+            alert("请输入搜索内容");
+            return false;
+        }
     }
 </script>
 

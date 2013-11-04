@@ -17,7 +17,6 @@ class Follow:
         res = simplejson.loads(res.text)
 
 
-
 class UnFollow:
     def GET(self):
         i = web.input()

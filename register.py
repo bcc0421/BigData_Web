@@ -23,8 +23,8 @@ class Register:
             'Content-Type': 'application/json'
         }
         results = requests.post(conf.locate("/user/create"),
-                            data=simplejson.dumps(payload),
-                            headers=headers)
+                                data=simplejson.dumps(payload),
+                                headers=headers)
         result = simplejson.loads(results.text)
         if result.has_key('validation_code'):
             return web.seeother('/check/code/%s' % result['validation_code'])

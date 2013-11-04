@@ -4,10 +4,12 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
         float: left;
         padding-left: 30px
     }
+
     body {
-       margin: 0 auto;
-       width: 1250px;
+        margin: 0 auto;
+        width: 1250px;
     }
+
     .pin {
         margin-bottom: 20px;
         border: 1px solid;
@@ -15,13 +17,16 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
         padding: 10px;
         text-align: center;
     }
+
     #scrollpaginationdemo .one {
         float: left;
         margin-left: -39px;
     }
+
     .span3 {
         list-style: none;
     }
+
     #scrollpaginationdemo .one li {
         list-style: none;
         margin-top: 30px
@@ -40,7 +45,9 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
                 <td align="center" style="padding-left:20px">
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <button class="btn"style="border-radius: 0px 0px 0px 0px;"><i style="height:20px" class="icon-align-justify"></i></button>
+                            <button class="btn" style="border-radius: 0px 0px 0px 0px;"><i style="height:20px"
+                                                                                           class="icon-align-justify"></i>
+                            </button>
                         </a>
                         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel"
                             style="width:520px">
@@ -60,147 +67,164 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
                     </div>
                 </td>
                 <td align="center" style="padding-left:10px;padding-top:20px;width:600px">
-                     <div >
+                    <div>
                         <form action="/search/content" method="post" onsubmit="return checkmessage()">
-                            <input id="search_cont" style="width:300px; margin-top: 4px" type="text" class="search-query" placeholder="搜索"
+                            <input id="search_cont" style="width:300px; margin-top: 4px" type="text"
+                                   class="search-query" placeholder="搜索"
                                    name="content_search">
-                            <button type="submit" class="btn btn-info" style="float: right;border-radius: 0px 0px 0px 0px;">搜索</button>
+                            <button type="submit" class="btn btn-info"
+                                    style="float: right;border-radius: 0px 0px 0px 0px;">搜索
+                            </button>
                         </form>
                     </div>
                 </td>
                 <td style="width:820px"></td>
                 <td>
-                    <a href="/modify/usermessage/$presentuser['user']['key']" target="_blank" class="btn btn-info"  style="width:90px;border-radius: 0px 0px 0px 0px;">账号设置</a>
+                    <a href="/modify/usermessage/$presentuser['user']['key']" target="_blank" class="btn btn-info"
+                       style="width:90px;border-radius: 0px 0px 0px 0px;">账号设置</a>
                 </td>
                 <td>
                     <a href="/skipmainpage">
-                        <button style="width: 90px; margin-left: 10px; margin-top: 5px;border-radius: 0px 0px 0px 0px;" class="btn">返回主页</button>
+                        <button style="width: 90px; margin-left: 10px; margin-top: 5px;border-radius: 0px 0px 0px 0px;"
+                                class="btn">返回主页
+                        </button>
                     </a>
                 </td>
-                        <td align="center" style="padding-right:20px">
-                             <div style="float:left;" class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <button class="btn btn-info"style="border-radius: 0px 0px 0px 0px;"><i style="height:20px;" class="icon-plus"></i></button>
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <li>
-                                            <a href="#add_new" data-toggle="modal" data-target="#add_new">上传素材</a>
-                                            <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio">上传视频</a>
-                                        </li>
-                                    </ul>
-                                    <div id="add_new" class="modal hide fade">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h3>新建素材</h3>
-                                        </div>
-                                        <form id="upload_pin" action="" enctype="multipart/form-data" method="POST">
-                                            <div class="modal-body">
-                                                <div style="padding-bottom: 20px;">
-
-                                                    <input type="file" class="input" id="upload_pic" name="upload_pic"/>
-                                                </div>
-                                                <div style="padding-bottom: 20px;" id="id_file_name">
-
-                                                </div>
-                                                <!-- 进度条 -->
-                                                <div id="progress_pic" class="progress progress-striped active">
-                                                    <div class="bar"></div>
-                                                </div>
-                                                <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction" onKeyDown="textCounter(introduction,remLen,250);"
-                              onKeyUp="textCounter(introduction,remLen,250);"></textarea>
-                                                     <p>
-                                                         <font color="red" size="2px">还可输入:</font>
-                                                        <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
-                                                         <font color="red" size="2px">个字符</font>
-                                                      </p>
-                                                <select name="board_id" id="pin_board_id">
-                                                    <option>校外教育</option>
-                                                    <option>远程办公</option>
-                                                    <option>智慧之门</option>
-                                                    <option>美容美体</option>
-                                                    <option>情感天地</option>
-                                                    <option>健康管理</option>
-                                                    <option>娱乐人生</option>
-                                                    <option>家政辅导</option>
-                                                    <option>购物天堂</option>
-                                                    <option>职业生涯</option>
-                                                    <option>社区服务</option>
-                                                    <option>公共信息</option>
-                                                </select>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
-                                                <button id="submitdata" type="button" class="btn btn-primary">创建</button>
-                                            </div>
-                                     </form>
-                                    </div>
-
-                                <div id="add_new_vedio" class="modal hide fade">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h3>上传视频</h3>
-                                    </div>
-                                    <form id="uploadvedio" action="/video/upload" enctype="multipart/form-data" method="POST">
-                                        <div class="modal-body">
-                                            <div style="padding-bottom: 20px;">
-                                                <input type="file" class="input" id="upload_vedio" name="upload_video"style="width:180px"/>
-                                                <span><font color="red" size="2px">**视频支持flv/mp4格式！</font></span>
-                                            </div>
-                                            <div style="padding-bottom: 20px;" id="id_vedio_name">
-                                            </div>
-                                                <!-- 进度条 -->
-                                                <div id="progress_vedio" class="progress progress-striped active">
-                                                    <div class="bar"></div>
-                                                </div>
-                                            <textarea rows="0" style="width: 420px" name="introduction" id="introduction_vedio"onKeyDown="textCounter(introduction,remLen,250);"
-                              onKeyUp="textCounter(introduction,remLen,250);"></textarea>
-                                                 <p>
-                                                     <font color="red" size="2px">还可输入:</font>
-                                                    <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
-                                                     <font color="red" size="2px">个字符</font>
-                                                </p>
-                                            <select name="board_id" id="vedio_board_id">
-                                                <option>校外教育</option>
-                                                <option>远程办公</option>
-                                                <option>智慧之门</option>
-                                                <option>美容美体</option>
-                                                <option>情感天地</option>
-                                                <option>健康管理</option>
-                                                <option>娱乐人生</option>
-                                                <option>家政辅导</option>
-                                                <option>购物天堂</option>
-                                                <option>职业生涯</option>
-                                                <option>社区服务</option>
-                                                <option>公共信息</option>
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
-                                            <button id="submitvedio" type="button" class="btn btn-primary">创建</button>
-                                        </div>
-                                    </form>
-                                </div>
+                <td align="center" style="padding-right:20px">
+                    <div style="float:left;" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <button class="btn btn-info" style="border-radius: 0px 0px 0px 0px;"><i style="height:20px;"
+                                                                                                    class="icon-plus"></i>
+                            </button>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li>
+                                <a href="#add_new" data-toggle="modal" data-target="#add_new">上传素材</a>
+                                <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio">上传视频</a>
+                            </li>
+                        </ul>
+                        <div id="add_new" class="modal hide fade">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h3>新建素材</h3>
                             </div>
-                      </td>
-                </tr>
+                            <form id="upload_pin" action="" enctype="multipart/form-data" method="POST">
+                                <div class="modal-body">
+                                    <div style="padding-bottom: 20px;">
+
+                                        <input type="file" class="input" id="upload_pic" name="upload_pic"/>
+                                    </div>
+                                    <div style="padding-bottom: 20px;" id="id_file_name">
+
+                                    </div>
+                                    <!-- 进度条 -->
+                                    <div id="progress_pic" class="progress progress-striped active">
+                                        <div class="bar"></div>
+                                    </div>
+                                    <textarea rows="0" style="width: 420px" id="introduction_pic" name="introduction"
+                                              onKeyDown="textCounter(introduction,remLen,250);"
+                                              onKeyUp="textCounter(introduction,remLen,250);"></textarea>
+
+                                    <p>
+                                        <font color="red" size="2px">还可输入:</font>
+                                        <input name="remLen" type="text" value="250" size="5" readonly="readonly"
+                                               style="width:25px;height:10px">
+                                        <font color="red" size="2px">个字符</font>
+                                    </p>
+                                    <select name="board_id" id="pin_board_id">
+                                        <option>校外教育</option>
+                                        <option>远程办公</option>
+                                        <option>智慧之门</option>
+                                        <option>美容美体</option>
+                                        <option>情感天地</option>
+                                        <option>健康管理</option>
+                                        <option>娱乐人生</option>
+                                        <option>家政辅导</option>
+                                        <option>购物天堂</option>
+                                        <option>职业生涯</option>
+                                        <option>社区服务</option>
+                                        <option>公共信息</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                                    <button id="submitdata" type="button" class="btn btn-primary">创建</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="add_new_vedio" class="modal hide fade">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h3>上传视频</h3>
+                            </div>
+                            <form id="uploadvedio" action="/video/upload" enctype="multipart/form-data" method="POST">
+                                <div class="modal-body">
+                                    <div style="padding-bottom: 20px;">
+                                        <input type="file" class="input" id="upload_vedio" name="upload_video"
+                                               style="width:180px"/>
+                                        <span><font color="red" size="2px">**视频支持flv/mp4格式！</font></span>
+                                    </div>
+                                    <div style="padding-bottom: 20px;" id="id_vedio_name">
+                                    </div>
+                                    <!-- 进度条 -->
+                                    <div id="progress_vedio" class="progress progress-striped active">
+                                        <div class="bar"></div>
+                                    </div>
+                                    <textarea rows="0" style="width: 420px" name="introduction" id="introduction_vedio"
+                                              onKeyDown="textCounter(introduction,remLen,250);"
+                                              onKeyUp="textCounter(introduction,remLen,250);"></textarea>
+
+                                    <p>
+                                        <font color="red" size="2px">还可输入:</font>
+                                        <input name="remLen" type="text" value="250" size="5" readonly="readonly"
+                                               style="width:25px;height:10px">
+                                        <font color="red" size="2px">个字符</font>
+                                    </p>
+                                    <select name="board_id" id="vedio_board_id">
+                                        <option>校外教育</option>
+                                        <option>远程办公</option>
+                                        <option>智慧之门</option>
+                                        <option>美容美体</option>
+                                        <option>情感天地</option>
+                                        <option>健康管理</option>
+                                        <option>娱乐人生</option>
+                                        <option>家政辅导</option>
+                                        <option>购物天堂</option>
+                                        <option>职业生涯</option>
+                                        <option>社区服务</option>
+                                        <option>公共信息</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                                    <button id="submitvedio" type="button" class="btn btn-primary">创建</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
         </table>
     </div>
 </div>
 
- <div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
-      <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$:present_user_key"/>
- </div>
- <!--div  id="reviewContent" style="border:solid 1px red;position:absolute;width:100px;height:100px;top:96px"></div>
- <div>
-     <form name="form1" id="form1">
-        <div id="demo" style="height: 20px;">
-        <!--input type="file " id="upload_portrait"name="upload_portrait"/>
-        <input style="width: 59px;" type="button" value="上传头像" class="btn" onclick="upload_portrait.click()"/><br>
-         <input type="file" class=" input" style="display:none" id="upload_portrait"name="upload_portrait" target="#reviewContent" />
-            <button id="submitportrait" type="button" class="btn "style="width: 54px; margin-top: -46px; margin-left: 60px;">创建</button>
-        </div>
-     </form>
- </div-->
+<div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
+    <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$:present_user_key"/>
+</div>
+<!--div  id="reviewContent" style="border:solid 1px red;position:absolute;width:100px;height:100px;top:96px"></div>
+<div>
+    <form name="form1" id="form1">
+       <div id="demo" style="height: 20px;">
+       <!--input type="file " id="upload_portrait"name="upload_portrait"/>
+       <input style="width: 59px;" type="button" value="上传头像" class="btn" onclick="upload_portrait.click()"/><br>
+        <input type="file" class=" input" style="display:none" id="upload_portrait"name="upload_portrait" target="#reviewContent" />
+           <button id="submitportrait" type="button" class="btn "style="width: 54px; margin-top: -46px; margin-left: 60px;">创建</button>
+       </div>
+    </form>
+</div-->
 <div class="bs-docs-example">
     <ul id="myTab" class="nav nav-tabs">
         <li class="dropdown">
@@ -222,6 +246,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
         </div>
         <div class="tab-pane fade" id="profile1">
             <h4>关注列表:</h4>
+
             <div class="span3">
                 $for i in range(attentions_len):
                 $:attentions[i]
@@ -229,6 +254,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
         </div>
         <div class="tab-pane fade" id="profile2">
             <h4>粉丝列表:</h4>
+
             <div class="span3">
                 $for i in range(followds_len):
                 $:followds[i]
@@ -270,16 +296,16 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
 
 <script type="text/javascript">
 
- function textCounter(field, countfield, maxlimit) {
-   // 函数，3个参数，表单名字，表单域元素名，限制字符；
-   if (field.value.length > maxlimit)
-   //如果元素区字符数大于最大字符数，按照最大字符数截断；
-   field.value = field.value.substring(0, maxlimit);
-   else
-   //在记数区文本框内显示剩余的字符数；
-   countfield.value = maxlimit - field.value.length;
-   }
-     $$(function () {
+    function textCounter(field, countfield, maxlimit) {
+        // 函数，3个参数，表单名字，表单域元素名，限制字符；
+        if (field.value.length > maxlimit)
+        //如果元素区字符数大于最大字符数，按照最大字符数截断；
+            field.value = field.value.substring(0, maxlimit);
+        else
+        //在记数区文本框内显示剩余的字符数；
+            countfield.value = maxlimit - field.value.length;
+    }
+    $$(function () {
         //文件上传地址
         var url = '/portrait/upload ';
         //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
@@ -299,14 +325,14 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
                 }
             },
             add: function (e, data) {
-               // $$("#id_vedio_name").html(data.files[0].name);
+                // $$("#id_vedio_name").html(data.files[0].name);
                 $$("#submitportrait").unbind("click");
                 $$("#submitportrait").click(function () {
-                   // var intro = $$("#introduction_vedio");
+                    // var intro = $$("#introduction_vedio");
                     //var board = $$("#vedio_board_id");
                     //data.formData = {introduction: intro.val(), board_id: board.val()};
                     data.submit();//上传文件
-                   });
+                });
             }
         });
     });
@@ -360,18 +386,18 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pres
             }
         });
     });
-function checkmessage(){
-    
+    function checkmessage() {
+
         var search_key = $$("#search_cont").val();
-        if(search_key.length==0)
-            {
-                alert("请输入搜索内容");
-                return false;
-            }
+        if (search_key.length == 0) {
+            alert("请输入搜索内容");
+            return false;
+        }
 
     }
- $$(function () {
+    $$(function () {
         var page = 1;
+
         function columnAccumulator() {
             var col1_h = 0, col2_h = 0, col3_h = 0, col4_h = 0;
             col1_h = parseInt($$("#col1").height());
@@ -394,7 +420,7 @@ function checkmessage(){
             return minID;
         }
     });
-      $$(function () {
+    $$(function () {
         //文件上传地址
         var url = '/pin/upload ';
         //初始化，主要是设置上传参数，以及事件处理方法(回调函数)

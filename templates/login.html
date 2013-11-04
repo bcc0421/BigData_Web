@@ -6,7 +6,8 @@ $def with(email,password)
         padding-bottom: 20px;
         background-color: #9E9F77;
     }
-   #picture {
+
+    #picture {
         margin-top: -20px;
         background-color: #C9CCDA;
         background-image: url(/static/img/1.jpg);
@@ -14,6 +15,7 @@ $def with(email,password)
         height: 430px;
         background-position: 45%;
     }
+
     .onError {
         color: red;
 
@@ -37,7 +39,7 @@ $def with(email,password)
                             邮箱</label>
 
                         <div class="controls">
-                            <input  onblur ="checkemail(this)" id="ckemail"name="email" type="email" placeholder="必填项"
+                            <input onblur="checkemail(this)" id="ckemail" name="email" type="email" placeholder="必填项"
                                    class="input-xlarge" title="邮箱正确格式：xxx@xxx.xxx" required>
 
                         </div>
@@ -46,7 +48,7 @@ $def with(email,password)
                         <label class="control-label">用户名</label>
 
                         <div class="controls">
-                            <input name="register_username" type="text" placeholder="必填项"  onblur="checkname(this)"
+                            <input name="register_username" type="text" placeholder="必填项" onblur="checkname(this)"
                                    class="input-xlarge" required>
                         </div>
                     </div>
@@ -90,9 +92,11 @@ $def with(email,password)
     <form class="form-inline" action="" method="POST">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-envelope"></i></span>
-            <input id="checkemail" type="text" class="input" placeholder="Email" name="email" onblur="check_email(this)"value="$:email"/>
+            <input id="checkemail" type="text" class="input" placeholder="Email" name="email" onblur="check_email(this)"
+                   value="$:email"/>
         </div>
-        <input id="pass_word" type="password" class="input-small" placeholder="Password" name="password" value="$:password"/>
+        <input id="pass_word" type="password" class="input-small" placeholder="Password" name="password"
+               value="$:password"/>
         <label class="checkbox">
             <input id="check" type="checkbox" value="keep" name="remember"> 记住用户
         </label>
@@ -105,22 +109,22 @@ $def with(email,password)
 
 </div>
 <script type="text/javascript">
-document.getElementById("check").checked=true;
-function submit_message(){
-    var email=\$("#checkemail").val();
-    var password=\$("#pass_word").val();
-    var keep=null;
-    if($$("#check").is(":checked")){
-            keep="keep";
+    document.getElementById("check").checked = true;
+    function submit_message() {
+        var email =$$("#checkemail").val();
+        var password =$$("#pass_word").val();
+        var keep = null;
+        if ($$("#check").is(":checked")) {
+            keep = "keep";
         }
-         \$.post("/login",
-                
-                     {
-                        email:email,
-                        password: password,
-                        remember:keep
+         $$.post("/login",
 
-                    }, 
+                {
+                    email: email,
+                    password: password,
+                    remember: keep
+
+                },
                 function (data, textStatus) {
                     eval("var att = " + data + ";");
                     //alert(att.attentions);
@@ -142,17 +146,17 @@ function submit_message(){
                 function (data, textStatus) {
                     eval("var statu= " + data + ";");
                     if (statu.status != 'pass') {
-                        flag= false;
+                        flag = false;
                         alert("该用户明已使用");
 
                     }
-                    else{
-                        flag=true;
+                    else {
+                        flag = true;
                     }
                 }
         );
     }
-   var flag=true;
+    var flag = true;
     function checkemail(obj) {
         valu = $$(obj).val();
         $$.get("/check/email",
@@ -162,10 +166,10 @@ function submit_message(){
                 function (data, textStatus) {
                     eval("var statu= " + data + ";");
                     if (statu.status != 'pass') {
-                        flag=false;
+                        flag = false;
                         alert("该邮箱已被注册");
-                    }else{
-                        flag=true;
+                    } else {
+                        flag = true;
                     }
                 }
         );
@@ -185,7 +189,7 @@ function submit_message(){
     function check() {
         var reg = /^[a-zA-Z]\w{6,15}$$/;
         var password1 = document.getElementById("pwd");
-        if(flag){
+        if (flag) {
             if (!reg.test(password1.value)) {
                 password1.setCustomValidity("密码长度大于6位，第一个字符必须为字母！");
                 return false;
@@ -193,7 +197,7 @@ function submit_message(){
                 password1.setCustomValidity('');
                 alert("注册成功")
             }
-        }else{
+        } else {
             alert("邮箱或用户名以被占用");
             return false;
 

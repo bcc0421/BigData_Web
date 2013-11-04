@@ -3,10 +3,13 @@ import requests
 import simplejson
 import web
 import conf
+
 render = web.template.render('templates/', base='base')
+
+
 class Login:
     def GET(self):
-        if web.cookies().get('email')!=None:
+        if web.cookies().get('email') != None:
             email = web.cookies().get('email')
             password = web.cookies().get('password')
             return render.login(email, password)
@@ -23,8 +26,8 @@ class Login:
                 web.setcookie('password', i.password, expires=3600 * 24 * 30)
             else:
                 web.setcookie('email', '', expires=-1)
-                web.setcookie('password','',expires=-1)
-            # Get the data
+                web.setcookie('password', '', expires=-1)
+                # Get the data
         payload = {
             'email': i.email,
             'password': i.password

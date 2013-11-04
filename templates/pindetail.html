@@ -1,73 +1,80 @@
 $def with (pin,userprofile,presentuser,comments)
 <style>
-.lu-nav {
-  border:solid 1px red;
-    height:50px;
-    background-color: #F5F5F5;
-    border-color: #F0F0F0;
-    color: #888888;
-}
-.container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 2px;
-    padding-right: 2px;
-    margin-top:40px;
-}
-#commentarea{
-    margin-left:120px;
-    margin-right: auto;
-    padding-left: 2px;
-    padding-right: 2px;
-    margin-top:40px
+    .lu-nav {
+        border: solid 1px red;
+        height: 50px;
+        background-color: #F5F5F5;
+        border-color: #F0F0F0;
+        color: #888888;
+    }
 
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2px;
+        padding-right: 2px;
+        margin-top: 40px;
+    }
+
+    #commentarea {
+        margin-left: 120px;
+        margin-right: auto;
+        padding-left: 2px;
+        padding-right: 2px;
+        margin-top: 40px
 
     }
 </style>
- <script type="text/javascript" src="/static/js/jwplayer.js"></script>
+<script type="text/javascript" src="/static/js/jwplayer.js"></script>
 <header class="lu-nav">
 </header>
-<div class="container" >
+<div class="container">
 
-         <div class="">
+    <div class="">
 
-                <img class="pull-left" src="http://192.168.1.165:8080/attachments/source/$pin['pin']['key']"/>
-                <div class="lu-image-button-wrapper clearfix pull-left">
-                    <a href="/skip/ownmessage/$userprofile['user']['key']">
-                        <button class="btn btn-info pull-left "type="button"style="border-radius: 0px 0px 0px 0px; width: 150px;  margin-left: 32px;">
-                        作者:$userprofile['user']['username']
-                        </button>
-                    </a>
-                        <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"
-                        style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注</button>
+        <img class="pull-left" src="http://192.168.1.165:8080/attachments/source/$pin['pin']['key']"/>
 
-                </div>
-
+        <div class="lu-image-button-wrapper clearfix pull-left">
+            <a href="/skip/ownmessage/$userprofile['user']['key']">
+                <button class="btn btn-info pull-left " type="button"
+                        style="border-radius: 0px 0px 0px 0px; width: 150px;  margin-left: 32px;">
+                    作者:$userprofile['user']['username']
+                </button>
+            </a>
+            <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"
+                    style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注
+            </button>
 
         </div>
 
- </div>
- <div style="margin-left:125px;background-color: #F6F6F6;width:940px; margin-top: 8px;">
-     <span>$pin['pin']['introduction']</span>
- </div>
-<div id="commentarea"  >
-           <div class="show_comment">
-                $for comment in comments:
-                    $:comment
-           </div>
-           <div class="write_comment"style="display:none" >
-                    <textarea id="comment_content" class="comment_content" rows="0" style="width: 420px"></textarea>
-           </div>
-          <p style="margin-left:120px;margin-top:10px ">
-                    <button class="btn comment" type="button" onclick="comment(this)"style="border-radius: 0px 0px 0px 0px;">添加评论</button>
-                    <button onclick="decide(this)" class="btn btn-info decide" type="button" style="border-radius: 0px 0px 0px 0px;">确认</button>
-          </p>
+
+    </div>
+
+</div>
+<div style="margin-left:125px;background-color: #F6F6F6;width:940px; margin-top: 8px;">
+    <span>$pin['pin']['introduction']</span>
+</div>
+<div id="commentarea">
+    <div class="show_comment">
+        $for comment in comments:
+        $:comment
+    </div>
+    <div class="write_comment" style="display:none">
+        <textarea id="comment_content" class="comment_content" rows="0" style="width: 420px"></textarea>
+    </div>
+    <p style="margin-left:120px;margin-top:10px ">
+        <button class="btn comment" type="button" onclick="comment(this)" style="border-radius: 0px 0px 0px 0px;">添加评论
+        </button>
+        <button onclick="decide(this)" class="btn btn-info decide" type="button"
+                style="border-radius: 0px 0px 0px 0px;">确认
+        </button>
+    </p>
 
 
 </div>
 <script type="text/javascript">
-  var flag=true;
-    function comment(obj){
+    var flag = true;
+    function comment(obj) {
         $$("#comment_content").val("");
         $$(".write_comment").show();
     }
@@ -90,26 +97,25 @@ $def with (pin,userprofile,presentuser,comments)
         }
         $$(".comment_form").val("");
     }
-$$(function(){
-    var presentuser="$presentuser['user']['key']";
-    var pinauthor="$userprofile['user']['key']";
-    if(presentuser===pinauthor){
-        $$("#attention").hide();
+    $$(function () {
+        var presentuser = "$presentuser['user']['key']";
+        var pinauthor = "$userprofile['user']['key']";
+        if (presentuser === pinauthor) {
+            $$("#attention").hide();
         }
-    if("$pin['status']"=="followd")
-        {
-             $$("#attention").text("取消关注");
-             flag = false;
+        if ("$pin['status']" == "followd") {
+            $$("#attention").text("取消关注");
+            flag = false;
         }
-     else{
+        else {
             $$("#attention").text("关注");
-             flag = true;
-         }
-})
-function watchit(obj) {
+            flag = true;
+        }
+    })
+    function watchit(obj) {
 
         if (flag) {
-            var $$userid ="$userprofile['user']['key']";
+            var $$userid = "$userprofile['user']['key']";
             $$.get("/follow/oneuser",
                     {
                         user_id: $$userid
@@ -120,7 +126,7 @@ function watchit(obj) {
                     });
         }
         else {
-            var $$userid ="$userprofile['user']['key']";
+            var $$userid = "$userprofile['user']['key']";
             $$.get("/unfollow/oneuser",
                     {
                         user_id: $$userid
