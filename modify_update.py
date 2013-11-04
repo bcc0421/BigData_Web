@@ -17,7 +17,7 @@ class ModifyUserMessage:
 
 class MovePin:
     def GET(self, boardid):
-        i = web.input();
+        i = web.input()
         payload = {
             'board_id': boardid
         }
