@@ -1,0 +1,206 @@
+$def with(presentuser)
+<style>
+ body{
+    background-color: #F5F5F5;
+    }
+.lu-nav {
+  border:solid 1px red;
+    height:50px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    border-color: #F0F0F0;
+    color: #888888;
+}
+</style>
+<link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
+<script src="/static/js/jquery.ui.widget.js"></script>
+<script src="/static/js/jquery.iframe-transport.js"></script>
+<script src="/static/js/jquery.fileupload.js"></script>
+<script src="/static/js/jquery.imgreview.js"></script>
+<header class="lu-nav">
+</header>
+    <div style="margin:10px auto;width:900px;">
+        <h1>帐号设置</h1>
+        <div class="set_profile" style="margin-top:30px;border:1px solid gray;height:60px">
+             <div class="title"style="">
+                <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">个人资料</span></div>
+                <div class="preview" style="opacity:1;float: left; margin-top: -22px; margin-left: 200px;">$presentuser['user']['username']</div>
+             </div>
+             <div style="float:right;margin-right:40px;margin-top:-19px"><a href="#" ><span id="controlshow">编辑</span></a></div>
+
+        </div>
+        <div  id="inner1" class="inner"style="margin-top: -1px;padding:50px;display:none;background-color:#FFFFFF">
+                <table>
+                    <tr>
+                        <td><textarea rows="0" style="width: 420px" id="introduction"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>用户名：<input name="username" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>性别：<input name="username" type="text"></td>
+                    </tr>
+                </table>
+                 <div><button style="width: 90px;border-radius: 0px 0px 0px 0px;" class="btn">保存</button></div>
+           </div>
+        <div class="set_profile" style="margin-top:30px;border:1px solid gray;height:60px">
+             <div class="title"style="">
+                <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">头像</span></div>
+                <div class="preview" style="opacity:1;float: left; margin-top: -35px; margin-left: 200px;">
+                     <div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:50px;height:50px;">
+                          <img style="width:50px;height:50px" src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
+                     </div>
+                </div>
+             </div>
+             <div style="float:right;margin-right:40px;margin-top:-19px"><a href="#" ><span id="controlshow2">编辑</span></a></div>
+
+        </div>
+        <div  id="inner2" class="inner"style="margin-top: -1px;padding:50px;display:none;background-color:#FFFFFF">
+                   <div  id="reviewContent" style="border:solid 1px red;background-image:url('http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']');background-repeat:no-repeat;width:100px;height:100px">
+
+                   </div>
+                     <div>
+                         <form name="form1" id="form1">
+                            <div id="demo" style="height: 20px;">
+                            <!--input type="file " id="upload_portrait"name="upload_portrait"/-->
+                            <input  style="width: 90px;border-radius: 0px 0px 0px 0px;margin-left: 135px;margin-top:-199px" type="button" value="上传头像" class="btn" onclick="upload_portrait.click()"/><br>
+                             <input type="file" class=" input" style="display:none" id="upload_portrait"name="upload_portrait" target="#reviewContent" />
+
+                             <button id="submitportrait" style="width: 90px;border-radius: 0px 0px 0px 0px;margin-left: 135px;margin-top:-132px" class="btn">保存</button>
+                            </div>
+                         </form>
+                     </div>
+
+
+        </div>
+         <div class="set_profile" style="margin-top:30px;border:1px solid gray;height:60px">
+             <div class="title"style="">
+                <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">密码</span></div>
+                <div class="preview" style="opacity:1;float: left; margin-top: -22px; margin-left: 200px;">*******</div>
+             </div>
+             <div style="float:right;margin-right:40px;margin-top:-19px"><a href="#" ><span id="controlshow3">编辑</span></a></div>
+
+        </div>
+        <div  id="inner3" class="inner"style="margin-top: -1px;padding:50px;display:none;background-color:#FFFFFF">
+                        <form class="main form-horizontal" onsubmit="return check()" action="" method="post"
+                  onsubmit="return check();">
+
+                <fieldset>
+
+                    <div class="control-group">
+                        <label class="control-label">当前密码</label>
+
+                        <div class="controls">
+                            <input name="register_username" type="password" class="input-xlarge" >
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">新密码</label>
+
+                        <div class="controls">
+                            <input id="pwd" name="register_pwd" type="password" class="input-xlarge"onchange="checkPasswords()">
+
+                        </div>
+                    </div>
+                    <div style="margin-left: 209px; margin-top: -21px;">
+                        <span><font color="red" size="2px">**密码长度大于6位，第一个字符必须为字母！</font></span>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">确认密码</label>
+
+                        <div class="controls">
+                            <input style="margin-left:0px" id="pwd1" name="pwd1" type="password"
+                                   class="input-xlarge"onchange="checkPasswords()">
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+
+                        <div class="controls">
+                           <button style="width: 90px;border-radius: 0px 0px 0px 0px;" class="btn"id="ok">保存</button>
+                            <button class="btn" type="reset" style="width: 90px;border-radius: 0px 0px 0px 0px;">重置</button>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+    $$(function(){
+        $$("#controlshow").click(function(){
+            if($$("#inner1").is(":visible")){
+                   $$("#inner1").slideUp();
+            }else{
+                $$("#inner1").slideDown();
+            }
+        });
+         $$("#controlshow2").click(function(){
+            if($$("#inner2").is(":visible")){
+                   $$("#inner2").slideUp();
+            }else{
+                $$("#inner2").slideDown();
+            }
+        });
+         $$("#controlshow3").click(function(){
+            if($$("#inner3").is(":visible")){
+                   $$("#inner3").slideUp();
+            }else{
+                $$("#inner3").slideDown();
+            }
+        });
+
+    })
+  $$(function () {
+        //文件上传地址
+        var url = '/portrait/upload ';
+        //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
+        $$('#upload_portrait').fileupload({
+            autoUpload: false,//是否自动上传
+            url: url,//上传地址
+            dataType: 'json',
+            maxNumberOfFiles: 1,
+            done: function (e, data) {//设置文件上传完毕事件的回调函数
+                alert("上传成功！");
+            },
+            fail: function (e, data) {
+                    alert("上传失败！");
+            },
+            add: function (e, data) {
+                $$("#submitportrait").unbind("click");
+                $$("#submitportrait").click(function () {
+                    data.submit();//上传文件
+                   });
+            }
+        });
+    });
+        function checkPasswords() {
+        var passl = document.getElementById("pwd");
+        var pass2 = document.getElementById("pwd1");
+        if (passl.value != pass2.value)
+            passl.setCustomValidity("两次密码必须输入一致！");
+        else
+            passl.setCustomValidity('');
+    }
+
+
+    function check() {
+        var reg = /^[a-zA-Z]\w{6,15}$$/;
+        var password1 = document.getElementById("pwd");
+
+            if (!reg.test(password1.value)) {
+                password1.setCustomValidity("密码长度大于6位，第一个字符必须为字母！");
+                return false;
+            } else {
+                password1.setCustomValidity('');
+                alert("修改成功")
+            }
+
+    }
+</script>
