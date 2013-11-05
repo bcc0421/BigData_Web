@@ -5,30 +5,26 @@ $def with (pin, userprofile,presentuser)
     </a>
 
     <div>$pin['introduction'][0:125]</div>
-    <button style=" border-radius: 0px 0px 0px 0px" class="btn" type="button" name="$pin['key']"
-            onclick="delete_a_pin(this)"> 删除:所在板块=$pin['bord_name']
-    </button>
-    <select name="board_id" id="pin_board_$pin['key']"
-            style="border-radius: 0px 0px 0px 0px;width:114px ;border-right:none;border-color:gray">
-        <option>移动板块至</option>
-        <option>校外教育</option>
-        <option>远程办公</option>
-        <option>智慧之门</option>
-        <option>美容美体</option>
-        <option>情感天地</option>
-        <option>健康管理</option>
-        <option>娱乐人生</option>
-        <option>家政辅导</option>
-        <option>购物天堂</option>
-        <option>职业生涯</option>
-        <option>社区服务</option>
-        <option>公共信息</option>
-    </select>
-    <button class="btn"
-            style=" border-radius: 0px 0px 0px 0px;height: 30px; margin-top: -11px; border-left: medium none; margin-left: -34px;border-color:black"
-            onclick="move(this)" name="$pin['key']">
-        <i class="icon-share-alt"></i>
-    </button>
+    <div><a href="/edit/pin/$pin['key']" style=" border-radius: 0px 0px 0px 0px;width:222px" class="btn" type="button">编辑</a></div>
+    <button style=" border-radius: 0px 0px 0px 0px" class="btn" type="button" name="$pin['key']" onclick="delete_a_pin(this)"> 删除:所在板块=$pin['bord_name']</button>
+    <select name="board_id" id="pin_board_$pin['key']"style="border-radius: 0px 0px 0px 0px;width:114px ;border-right:none;border-color:gray">
+                            <option>移动板块至</option>
+                            <option>校外教育</option>
+                            <option>远程办公</option>
+                            <option>智慧之门</option>
+                            <option>美容美体</option>
+                            <option>情感天地</option>
+                            <option>健康管理</option>
+                            <option>娱乐人生</option>
+                            <option>家政辅导</option>
+                            <option>购物天堂</option>
+                            <option>职业生涯</option>
+                            <option>社区服务</option>
+                            <option>公共信息</option>
+                        </select>
+            <button class="btn" style=" border-radius: 0px 0px 0px 0px;height: 30px; margin-top: -11px; border-left: medium none; margin-left: -34px;border-color:black"onclick="move(this)"name="$pin['key']">
+                <i class="icon-share-alt"></i>
+            </button>
 
 </div>
 

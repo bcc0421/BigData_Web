@@ -7,7 +7,6 @@ import conf
 render = web.template.render('templates/', base='base2')
 pure_render = web.template.render('templates/')
 
-
 class Pin:
     def __init__(self, data, user_profile, present_user):
         self.data = data
@@ -33,15 +32,14 @@ class ControlSkip:
                       '健康管理', '娱乐人生', '家政辅导', '购物天堂', '职业生涯',
                       '社区服务', '公共信息']
         board_id = int(id) - 1
-        last_pin_key = None
+
         board_name = board_list[board_id]
         res = requests.get(conf.locate('/user/%s/profile' % web.cookies().get('key')))
         present_user = simplejson.loads(res.text)
         res = requests.get(conf.locate('/pin/list/%s' % id))
         json = simplejson.loads(res.text)
-        pins_length = len(json['pins'])
-        if (pins_length == 30):
-            last_pin_key = json['pins'][29]['key']
+        pins_length=len(json['pins'])
+        last_pin_key=json['pins'][pins_length-1]['key']
         pins = [[], [], [], []]
         for i, p in enumerate(json['pins']):
             if p['type'] == 'movie':
@@ -280,6 +278,7 @@ class ShowPinDetail:
             else:
                 pin_profile['pin']['thumbnail'] = pin_profile['pin']['movie_id'].split('.')[0] + '.jpg'
                 return render.vediodetail(pin_profile, author_profile, present_user, comments)
+
 
 
 

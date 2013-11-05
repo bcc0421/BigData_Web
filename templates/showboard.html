@@ -195,6 +195,10 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
         </div>
     </div>
 </div>
+<div style="position:fixed;top:700px;left:1400px;width:20px;height:20px;background-color: red;">
+    <a href="javascript:scroll(0,0)"><i class="icon-chevron-up icon-red"style="margin-left:4px"></i></a>
+</div>
+
 <script type="text/javascript">
 
    function textCounter(field, countfield, maxlimit) {
@@ -215,7 +219,6 @@ function defaultboard(){
         var idx=$:id-1;
         $$("#pin_board_id option").eq(idx).attr("selected","selected");
         $$("#vedio_board_id option").eq(idx).attr("selected","selected");
-        var flowLock = false;
         var last_pin_key ="$:last_pin_key";
         var pins_length="$:pins_length";
         function columnAccumulator() {
@@ -240,8 +243,8 @@ function defaultboard(){
                 var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
                      if (clientHeight + scrollTop >= scrollHeight)
                            {
-                               // alert(last_pin_key);
-                                if(pins_length==30){
+                              // alert(last_pin_key);
+                                if(pins_length!=0){
                                       $$.get("/pin_flow/" + $:id + "",
                                           {
                                              last_pin_key:last_pin_key
@@ -250,23 +253,21 @@ function defaultboard(){
                                            {
                                                      //alert(data);
                                                      eval("var json = " + data + ";");
-                                                     //alert(json['pins'].length);
+                                                   // alert(json['pins'].length);
                                                      pins_length=json['pins'].length;
-                                                     if(pins_length==30){
+                                                     if(pins_length!=0){
                                                         last_pin_key=json['pins'][pins_length-1].key;
                                                       }                                                     ;
                                                       for (var i = 0; i < pins_length; i++) {
-
                                                             size = columnAccumulator();
                                                             var column = findMin(size) + 1;
                                                             if(json['pins'][i].type=='picture'){
-                                                             $$("#col" + column).append("<div class=\"container-fluid\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                             $$("#col" + column).append("<div class=\"container-fluid pin\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
                                                                 }
                                                              else{
                                                               $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
                                                              }
                                                           }
-
                                            }
                                          );
                                       }
@@ -299,14 +300,9 @@ function check(){
                 window.location.href = "/controlskip/" + board_index + "";
             },
             fail: function (e, data) {
-                if (data.jqXHR.status == 406) {
-                    alert("仅支持上传MP4和FLV文件！");
-                } else {
-                    var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
-                    alert("上传失败！");
-
-                    window.location.href = "/controlskip/" + board_index + "";
-                }
+                 var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
+                alert("上传成功！");
+                window.location.href = "/controlskip/" + board_index + "";
             },
             add: function (e, data) {
                 $$("#id_file_name").html(data.files[0].name);
