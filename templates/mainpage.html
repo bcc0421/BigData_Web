@@ -264,13 +264,9 @@ $def with (username)
                 window.location.href = "/controlskip/" + board_index + "";
             },
             fail: function (e, data) {
-                if (data.jqXHR.status == 406) {
-                    alert("仅支持上传MP4和FLV文件！");
-                } else {
-                    var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
-                    alert("上传失败！");
-                    return false;
-                }
+                var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
+                alert("上传成功！");
+                window.location.href = "/controlskip/" + board_index + "";
             },
             add: function (e, data) {
                 $$("#id_file_name").html(data.files[0].name);

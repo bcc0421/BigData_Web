@@ -25,8 +25,7 @@ class UploadPin:
                                    headers=headers2)
         uuid = simplejson.loads(upload_res.text)
         payload = {
-            'introduction': i.introduction,
-            'img_ext':uuid['ext']
+            'introduction': i.introduction
         }
         headers = {
             'X-Token': web.cookies().get('token'),

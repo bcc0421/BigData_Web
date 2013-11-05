@@ -3,6 +3,7 @@ $def with (pin, userprofile,presentuser)
     <a href="/showpin/detail/$pin['key']" data-toggle="modal" target="_blank"><img src="/thumbnail/$pin['key']" width="260px" height="180px"/>
     </a>
     <div>$pin['introduction'][0:125]</div>
+    <div><a href="/edit/pin/$pin['key']" style=" border-radius: 0px 0px 0px 0px;width:222px" class="btn" type="button">编辑</a></div>
     <button style=" border-radius: 0px 0px 0px 0px" class="btn" type="button" name="$pin['key']" onclick="delete_a_pin(this)"> 删除:所在板块=$pin['bord_name']</button>
     <select name="board_id" id="pin_board_$pin['key']"style="border-radius: 0px 0px 0px 0px;width:114px ;border-right:none;border-color:gray">
                             <option>移动板块至</option>
