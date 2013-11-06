@@ -9,7 +9,7 @@ from mainpage import Mainpage
 from follow_or_not import Follow, UnFollow, GetMyAttention,CheckFollow
 from delete import DeleteOwnPin
 from checkcode import CheckCode
-from modify_update import ModifyUserMessage, MovePin, ModifyPassword,EditPin
+from modify_update import ModifyUserMessage, MovePin, ModifyPassword,EditPin ,ModifyDescription
 
 urls = (
     '/', 'Index',
@@ -36,7 +36,7 @@ urls = (
     '/check/code/(.*)','CheckCode',
     '/check/follow','CheckFollow',  
     '/search/content','SearchContent',
-    '/skip/ownmessage/','SkipOwnMessage',
+    '/skip/ownmessage/(.*)','SkipOwnMessage',
     '/modify/usermessage/(.*)','ModifyUserMessage',
     '/skip/bigimg/(.*)','SkipBigImg',
     '/move/pin/(\d+)','MovePin',
@@ -45,6 +45,8 @@ urls = (
     '/showpin/detail/(.*)','ShowPinDetail',
     '/modify/password','ModifyPassword',
     '/edit/pin/(.*)','EditPin',
+    '/modify/description','ModifyDescription',
+    '/pin_flow/myself','PinFlowMyself',
     '/login_out','LoginOut'
 )
 

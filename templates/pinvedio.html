@@ -1,8 +1,9 @@
 $def with (pin, userprofile,presentuser)
 <div class="pin" id="showdelete_$pin['key']">
-    <a href="/showpin/detail/$pin['key']" data-toggle="modal" target="_blank"><img
-            src="http://192.168.1.165:8081/thumbnail/$pin['thumbnail']"
-            style="opacity:0.4;filter:alpha(opacity=40);" width="260px" height="180px"/></a>
+    <a href="/showpin/detail/$pin['key']" data-toggle="modal" target="_blank">
 
-    <div>$pin['introduction'][0:125]</div>
+        <img src="http://192.168.1.165:8081/thumbnail/$pin['thumbnail']"/>
+        <img src="../static/img/media_video.png" style="margin-top: -208px;">
+    </a>
+    <div >$pin['introduction'][0:125]</div>
 </div>

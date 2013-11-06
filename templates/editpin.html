@@ -1,3 +1,4 @@
+$def with(pinkey)
 <style>
     body{
     background-color: #F5F5F5;
@@ -20,21 +21,39 @@
 </header>
 <div style="margin:10px auto;width:900px;">
     <h1>图片编辑</h1>
-    <div class="set_profile" style="margin-top:30px;border:1px solid gray;height:60px">
-        <div class="title" style="">
-            <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">描述</span></div>
-            <div class="preview" style="opacity:1;float: left; margin-top: -22px; margin-left: 200px;">
+    <div class="set_profile" style="margin-top:30px;border:1px solid gray;">
 
+            <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">描述</span></div>
+            <div class="preview" style="opacity:1; margin-top: -22px; margin-left: 200px;">
+                <textarea id="id_description" class="clear-input" name="description" cols="40" rows="3"style="width:350px"></textarea>
+                 <button  style=" border-radius: 0px 0px 0px 0px;width:54px;margin-top: 47px;" class="btn" type="button" onclick="modify_pin_description()" >更改</button>
             </div>
-        </div>
 
     </div>
 
     <div class="set_profile" style="margin-top:30px;border:1px solid gray;height:60px">
         <div class="title" style="">
             <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">分类</span></div>
-            <div class="preview" style="opacity:1;float: left; margin-top: -35px; margin-left: 200px;">
-
+            <div class="preview" style="opacity:1; margin-top: -26px; margin-left: 200px;">
+                     <select name="board_id" id="selectbox" style="border-radius: 0px 0px 0px 0px;width:114px ;border-right:none;border-color:gray">
+                            <option>移动板块至</option>
+                            <option>校外教育</option>
+                            <option>远程办公</option>
+                            <option>智慧之门</option>
+                            <option>美容美体</option>
+                            <option>情感天地</option>
+                            <option>健康管理</option>
+                            <option>娱乐人生</option>
+                            <option>家政辅导</option>
+                            <option>购物天堂</option>
+                            <option>职业生涯</option>
+                            <option>社区服务</option>
+                            <option>公共信息</option>
+                     </select>
+                    <button class="btn" style=" border-radius: 0px 0px 0px 0px;
+                        height: 30px; margin-top: -11px; border-left: medium none; margin-left: -34px;border-color:black"onclick="movepin(this)">
+                        <i class="icon-share-alt"></i>
+                    </button>
             </div>
         </div>
     </div>
@@ -42,9 +61,58 @@
     <div class="set_profile" style="margin-top:30px;border:1px solid gray;height:60px">
         <div class="title" style="">
             <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">删除</span></div>
-            <div class="preview" style="opacity:1;float: left; margin-top: -22px; margin-left: 200px;"></div>
+            <div class="preview" style="opacity:1; margin-top: -22px; margin-left: 200px;">
+                <button  style=" border-radius: 0px 0px 0px 0px;width:103px" class="btn" type="button" onclick="delete_a_pin(this)">删除画板</button>
+            </div>
         </div>
 
     </div>
 
 </div>
+<script type="text/javascript">
+     function delete_a_pin(obj) {
+        var $$keyid = "$:pinkey";
+        if (confirm("是否确认删除")) {
+            $$.post("/delete/ownpin",
+                    {pin_id: $$keyid},
+                    function (data, textStatus) {
+                        //$$("#showdelete_" + $$keyid + "").remove();
+                    });
+        }
+        else
+            return false;
+    }
+  function movepin(obj) {
+        var $$keyid = "$:pinkey";
+        var board_index = $$("#selectbox").get(0).selectedIndex;
+        if (board_index == 0) {
+            alert("请选择模块");
+
+        } else {
+            $$.get("/move/pin/" + board_index + "",
+                    {
+                        img_key_id: $$keyid
+                    },
+                    function (data, textStatus) {
+                        alert("转移成功");
+                        // $$("#showdelete_" + $$keyid + "").remove();
+                    });
+        }
+    }
+ function modify_pin_description(){
+        var description=$$("#id_description").val();
+        var $$img_key_id= "$:pinkey";
+         if (description != "") {
+            $$.post("/modify/description",
+                    {
+                        img_key_id: $$img_key_id,
+                        description: description
+                    },
+                    function (data, textStatus) {
+                        alert("更改成功");
+                        $$("#id_description").val("");
+                    }
+                );
+            }
+ }
+</script>

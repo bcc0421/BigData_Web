@@ -18,6 +18,7 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
         float: left;
         padding-left: 30px
     }
+
 </style>
 <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
 <script src="/static/js/jquery.ui.widget.js"></script>
@@ -215,65 +216,67 @@ function defaultboard(){
         $$("#pin_board_id option").eq(idx).attr("selected","selected");
         $$("#vedio_board_id option").eq(idx).attr("selected","selected");
         }
-    $$(function () {
-        var idx=$:id-1;
-        $$("#pin_board_id option").eq(idx).attr("selected","selected");
-        $$("#vedio_board_id option").eq(idx).attr("selected","selected");
-        var last_pin_key ="$:last_pin_key";
-        var pins_length="$:pins_length";
-        function columnAccumulator() {
-            var col1_h = 0, col2_h = 0, col3_h = 0, col4_h = 0;
-            col1_h = parseInt($$("#col1").height());
-            col2_h = parseInt($$("#col2").height());
-            col3_h = parseInt($$("#col3").height());
-            col4_h = parseInt($$("#col4").height());
-            return [col1_h, col2_h, col3_h, col4_h];
-        }
-        function findMin(array) {
-            var minID = 0, minVal = array[0];
-            for (var i = 1; i < array.length; i++) {
-                if (array[i] < minVal) {
-                    minID = i;
-                    minVal = array[i];
-                }
+$$(function () {
+    var idx=$:id-1;
+    $$("#pin_board_id option").eq(idx).attr("selected","selected");
+    $$("#vedio_board_id option").eq(idx).attr("selected","selected");
+    var last_pin_key ="$:last_pin_key";
+    var pins_length="$:pins_length";
+    function columnAccumulator() {
+        var col1_h = 0, col2_h = 0, col3_h = 0, col4_h = 0;
+        col1_h = parseInt($$("#col1").height());
+        col2_h = parseInt($$("#col2").height());
+        col3_h = parseInt($$("#col3").height());
+        col4_h = parseInt($$("#col4").height());
+        return [col1_h, col2_h, col3_h, col4_h];
+    }
+    function findMin(array) {
+        var minID = 0, minVal = array[0];
+        for (var i = 1; i < array.length; i++) {
+            if (array[i] < minVal) {
+                minID = i;
+                minVal = array[i];
             }
-            return minID;
         }
-           $$(window).scroll(function () {
-                var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
-                     if (clientHeight + scrollTop >= scrollHeight)
-                           {
-                              // alert(last_pin_key);
-                                if(pins_length!=0){
-                                      $$.get("/pin_flow/" + $:id + "",
+        return minID;
+    }
+    $$(window).scroll(function () {
+        var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
+             if (clientHeight + scrollTop >= scrollHeight)
+                   {
+                      // alert(last_pin_key);
+                        if(pins_length!=0)
+                        {
+                              $$.get("/pin_flow/" + $:id + "",
+                                  {
+                                     last_pin_key:last_pin_key
+                                  },
+                                   function (data,textStatus)
+                                   {
+                                     //alert(data);
+                                     eval("var json = " + data + ";");
+                                     //alert(json['pins'].length);
+                                     pins_length=json['pins'].length;
+                                     if(pins_length!=0){
+                                        last_pin_key=json['pins'][pins_length-1].key;
+                                      }                                                     ;
+                                      for (var i = 0; i < pins_length; i++)
                                           {
-                                             last_pin_key:last_pin_key
-                                          },
-                                           function (data,textStatus)
-                                           {
-                                                     //alert(data);
-                                                     eval("var json = " + data + ";");
-                                                   // alert(json['pins'].length);
-                                                     pins_length=json['pins'].length;
-                                                     if(pins_length!=0){
-                                                        last_pin_key=json['pins'][pins_length-1].key;
-                                                      }                                                     ;
-                                                      for (var i = 0; i < pins_length; i++) {
-                                                            size = columnAccumulator();
-                                                            var column = findMin(size) + 1;
-                                                            if(json['pins'][i].type=='picture'){
-                                                             $$("#col" + column).append("<div class=\"container-fluid pin\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
-                                                                }
-                                                             else{
-                                                              $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\" width=\"260px\" height=\"180px\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
-                                                             }
-                                                          }
-                                           }
-                                         );
-                                      }
-                           }
+                                                size = columnAccumulator();
+                                                var column = findMin(size) + 1;
+                                                if(json['pins'][i].type=='picture'){
+                                                 $$("#col" + column).append("<div class=\"container-fluid pin\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                    }
+                                                 else{
+                                                  $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -208px;\"></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                 }
+                                          }
+                                   }
+                                 );
+                        }
+                   }
 
-                    });
+            });
     });
 </script>
 <script type="text/javascript">

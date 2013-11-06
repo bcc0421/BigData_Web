@@ -69,9 +69,11 @@ $def with (pin,userprofile,presentuser,comments)
     function decide(obj) {
         var username = "$presentuser['user']['username']";
         var $$img_key_id = "$pin['pin']['key']";
-        var $$content = $$("#comment_content").val();
+        var content = $$("#comment_content").val();
         $$(".write_comment").hide();
-        if ($$content != "") {
+        var $$content=content.replace(/(^\s*)|(\s*\$)/g, "");
+
+        if ($$content.length != 0) {
             var $$p = $$("<p style='text-align:left'><span>" + username + "</span>:&nbsp&nbsp" + $$content + "</p>");
             $$(".show_comment").append($$p);
             $$.post("/comment/upload",

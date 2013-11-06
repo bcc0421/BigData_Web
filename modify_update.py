@@ -44,4 +44,21 @@ class MovePin:
                                headers=headers)
 class EditPin:
     def GET(self,pinkey):
-        return render.editpin()
+        pinkey=pinkey
+        return render.editpin(pinkey)
+
+class ModifyDescription:
+    def POST(self):
+        i=web.input()
+        payload = {
+            'introduction':i.description,
+        }
+        headers = {
+            'X-Token': web.cookies().get('token'),
+            'Content-Type': 'application/json'
+        }
+        res = requests.post(conf.locate("/pin/%s/update" % i.img_key_id),
+                           data=simplejson.dumps(payload),
+                           headers=headers)
+        print "@@@@@@@@@"
+        print res.text

@@ -95,6 +95,8 @@
                 display: "inline-block",
                 width: options.width,
                 height: options.height
+
+
             });
 
             var template = img;

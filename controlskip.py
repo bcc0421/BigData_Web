@@ -65,6 +65,8 @@ class SkipUserMessage:
         present_user = simplejson.loads(res.text)
         res = requests.get(conf.locate('/pin/user/%s' % web.cookies().get('key')))
         present_user_pin = simplejson.loads(res.text)
+        pins_length=len(present_user_pin['pins'])
+        last_pin_key=present_user_pin['pins'][pins_length-1]['key']
         pins = [[], [], [], []]
         for i, p in enumerate(present_user_pin['pins']):
             if p['type'] == 'movie':
@@ -103,7 +105,7 @@ class SkipUserMessage:
         for followd in result:
             followds.append(str(pure_render.followed_list(followd)))
         followds_len = len(followds)
-        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,
+        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,pins_length,last_pin_key,
                                   web.cookies().get('key'))
 
 
@@ -114,6 +116,8 @@ class SkipOwnMessage:
         present_user = simplejson.loads(res.text)
         res = requests.get(conf.locate('/pin/user/%s' % ownkey))
         present_user_pin = simplejson.loads(res.text)
+        pins_length=len(present_user_pin['pins'])
+        last_pin_key=present_user_pin['pins'][pins_length-1]['key']
         pins = [[], [], [], []]
         for i, p in enumerate(present_user_pin['pins']):
             if p['type'] == 'movie':
@@ -152,7 +156,7 @@ class SkipOwnMessage:
         for followd in result:
             followds.append(str(pure_render.followed_list(followd)))
         followds_len = len(followds)
-        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,
+        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,pins_length,last_pin_key,
                                   web.cookies().get('key'))
 
 
@@ -209,7 +213,6 @@ class SearchContent:
         else:
             return render.searchnothing()
 
-
 class SkipMainPage:
     def GET(self):
         return web.seeother('/mainpage')
@@ -218,7 +221,17 @@ class SkipMainPage:
 class SkipBigImg:
     def GET(self, imgkey):
         return render.showbigimg(imgkey)
-
+class PinFlowMyself:
+    def GET(self):
+        i = web.input()
+        res = requests.get(conf.locate('/pin/user/%s?%s' % (web.cookies().get('key'),i.last_pin_key)))
+        present_user_pin = simplejson.loads(res.text)
+        for p in present_user_pin['pins']:
+            if p['type'] == 'movie':
+                p['thumbnail'] = p['movie_id'].split('.')[0] + '.jpg'
+        return simplejson.dumps({
+            'pins': present_user_pin['pins']
+        })
 
 class PinFlow:
     def GET(self, id):
@@ -235,7 +248,6 @@ class PinFlow:
         return simplejson.dumps({
             'pins': json['pins']
         })
-
 
 class ShowPinDetail:
     def GET(self, pinkey):
