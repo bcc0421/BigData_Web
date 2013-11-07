@@ -92,7 +92,8 @@ $def with(email,password)
     <form class="form-inline" action="" method="POST">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-envelope"></i></span>
-            <input id="checkemailval" type="text" class="input" placeholder="Email" name="email" onblur="check_email(this)"
+            <input id="checkemailval" type="text" class="input" placeholder="Email" name="email"
+                   onblur="check_email(this)"
                    value="$:email"/>
         </div>
         <input id="pass_word" type="password" class="input-small" placeholder="Password" name="password"
@@ -111,13 +112,13 @@ $def with(email,password)
 <script type="text/javascript">
     document.getElementById("check").checked = true;
     function submit_message() {
-        var email =$$("#checkemailval").val();
-        var password =$$("#pass_word").val();
+        var email = $$("#checkemailval").val();
+        var password = $$("#pass_word").val();
         var keep = null;
         if ($$("#check").is(":checked")) {
             keep = "keep";
         }
-         $$.post("/login",
+        $$.post("/login",
 
                 {
                     email: email,

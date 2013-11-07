@@ -212,7 +212,8 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
 </div>
 
 <div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
-    <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
+    <img style="width:100px;height:100px"
+         src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
 </div>
 <div class="bs-docs-example">
     <ul id="myTab" class="nav nav-tabs">
@@ -285,109 +286,110 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
 
 <script type="text/javascript">
 
-    function textCounter(field, countfield, maxlimit) {
-        // 函数，3个参数，表单名字，表单域元素名，限制字符；
-        if (field.value.length > maxlimit)
-        //如果元素区字符数大于最大字符数，按照最大字符数截断；
-            field.value = field.value.substring(0, maxlimit);
-        else
-        //在记数区文本框内显示剩余的字符数；
-            countfield.value = maxlimit - field.value.length;
-    }
-    $$(function () {
-        //文件上传地址
-        var url = '/portrait/upload ';
-        //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
-        $$('#upload_portrait').fileupload({
-            autoUpload: false,//是否自动上传
-            url: url,//上传地址
-            dataType: 'json',
-            maxNumberOfFiles: 1,
-            done: function (e, data) {//设置文件上传完毕事件的回调函数
+function textCounter(field, countfield, maxlimit) {
+    // 函数，3个参数，表单名字，表单域元素名，限制字符；
+    if (field.value.length > maxlimit)
+    //如果元素区字符数大于最大字符数，按照最大字符数截断；
+        field.value = field.value.substring(0, maxlimit);
+    else
+    //在记数区文本框内显示剩余的字符数；
+        countfield.value = maxlimit - field.value.length;
+}
+$$(function () {
+    //文件上传地址
+    var url = '/portrait/upload ';
+    //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
+    $$('#upload_portrait').fileupload({
+        autoUpload: false,//是否自动上传
+        url: url,//上传地址
+        dataType: 'json',
+        maxNumberOfFiles: 1,
+        done: function (e, data) {//设置文件上传完毕事件的回调函数
+            alert("上传成功！");
+        },
+        fail: function (e, data) {
+            if (data.jqXHR.status == 406) {
+                alert("仅支持上传MP4和FLV文件！");
+            } else {
                 alert("上传成功！");
-            },
-            fail: function (e, data) {
-                if (data.jqXHR.status == 406) {
-                    alert("仅支持上传MP4和FLV文件！");
-                } else {
-                    alert("上传成功！");
-                }
-            },
-            add: function (e, data) {
-                // $$("#id_vedio_name").html(data.files[0].name);
-                $$("#submitportrait").unbind("click");
-                $$("#submitportrait").click(function () {
-                    // var intro = $$("#introduction_vedio");
-                    //var board = $$("#vedio_board_id");
-                    //data.formData = {introduction: intro.val(), board_id: board.val()};
-                    data.submit();//上传文件
-                });
             }
-        });
-    });
-
-    $$(function () {
-        //文件上传地址
-        var url = '/pin/upload ';
-        //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
-        $$('#upload_pic').fileupload({
-            autoUpload: false,//是否自动上传
-            url: url,//上传地址
-            dataType: 'json',
-            maxNumberOfFiles: 1,
-            done: function (e, data) {//设置文件上传完毕事件的回调函数
-                var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
-                alert("上传成功！");
-                window.location.href = "/controlskip/" + board_index + "";
-            },
-            fail: function (e, data) {
-                if (data.jqXHR.status == 406) {
-                    alert("仅支持上传MP4和FLV文件！");
-                } else {
-                    var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
-                    alert("上传失败！");
-                    window.location.href = "/controlskip/" + board_index + "";
-                }
-            },
-            add: function (e, data) {
-                $$("#id_file_name").html(data.files[0].name);
-                $$("#submitdata").unbind("click");
-                $$("#submitdata").click(function () {
-                    var intro = $$("#introduction_pic");
-                    var board = $$("#pin_board_id");
-                    var textval = $$("#introduction_pic").val();
-                    if (textval.length != 0) {
-                        data.formData = {introduction: intro.val(), board_id: board.val()};
-                        data.submit();//上传文件
-                    }
-                    else {
-                        alert("请描述图片");
-                        return false;
-                    }
-                });
-            },
-            progressall: function (e, data) {//设置上传进度事件的回调函数
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $$('#progress_pic .bar').css(
-                        'width',
-                        progress + '%'
-                );
-            }
-        });
-    });
-    function checkmessage() {
-
-        var search_key = $$("#search_cont").val();
-        if (search_key.length == 0) {
-            alert("请输入搜索内容");
-            return false;
+        },
+        add: function (e, data) {
+            // $$("#id_vedio_name").html(data.files[0].name);
+            $$("#submitportrait").unbind("click");
+            $$("#submitportrait").click(function () {
+                // var intro = $$("#introduction_vedio");
+                //var board = $$("#vedio_board_id");
+                //data.formData = {introduction: intro.val(), board_id: board.val()};
+                data.submit();//上传文件
+            });
         }
+    });
+});
 
+$$(function () {
+    //文件上传地址
+    var url = '/pin/upload ';
+    //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
+    $$('#upload_pic').fileupload({
+        autoUpload: false,//是否自动上传
+        url: url,//上传地址
+        dataType: 'json',
+        maxNumberOfFiles: 1,
+        done: function (e, data) {//设置文件上传完毕事件的回调函数
+            var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
+            alert("上传成功！");
+            window.location.href = "/controlskip/" + board_index + "";
+        },
+        fail: function (e, data) {
+            if (data.jqXHR.status == 406) {
+                alert("仅支持上传MP4和FLV文件！");
+            } else {
+                var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
+                alert("上传失败！");
+                window.location.href = "/controlskip/" + board_index + "";
+            }
+        },
+        add: function (e, data) {
+            $$("#id_file_name").html(data.files[0].name);
+            $$("#submitdata").unbind("click");
+            $$("#submitdata").click(function () {
+                var intro = $$("#introduction_pic");
+                var board = $$("#pin_board_id");
+                var textval = $$("#introduction_pic").val();
+                if (textval.length != 0) {
+                    data.formData = {introduction: intro.val(), board_id: board.val()};
+                    data.submit();//上传文件
+                }
+                else {
+                    alert("请描述图片");
+                    return false;
+                }
+            });
+        },
+        progressall: function (e, data) {//设置上传进度事件的回调函数
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $$('#progress_pic .bar').css(
+                    'width',
+                    progress + '%'
+            );
+        }
+    });
+});
+function checkmessage() {
+
+    var search_key = $$("#search_cont").val();
+    if (search_key.length == 0) {
+        alert("请输入搜索内容");
+        return false;
     }
+
+}
 $$(function () {
 
-    var last_pin_key ="$:last_pin_key";
-    var pins_length="$:pins_length";
+    var last_pin_key = "$:last_pin_key";
+    var pins_length = "$:pins_length";
+
     function columnAccumulator() {
         var col1_h = 0, col2_h = 0, col3_h = 0, col4_h = 0;
         col1_h = parseInt($$("#col1").height());
@@ -396,6 +398,7 @@ $$(function () {
         col4_h = parseInt($$("#col4").height());
         return [col1_h, col2_h, col3_h, col4_h];
     }
+
     function findMin(array) {
         var minID = 0, minVal = array[0];
         for (var i = 1; i < array.length; i++) {
@@ -406,93 +409,91 @@ $$(function () {
         }
         return minID;
     }
+
     $$(window).scroll(function () {
         var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
-             if (clientHeight + scrollTop >= scrollHeight)
-                   {
-                      // alert(last_pin_key);
-                        if(pins_length!=0)
+        if (clientHeight + scrollTop >= scrollHeight) {
+            // alert(last_pin_key);
+            if (pins_length != 0) {
+                $$.get("/pin_flow/myself",
                         {
-                              $$.get("/pin_flow/myself",
-                                  {
-                                     last_pin_key:last_pin_key
-                                  },
-                                   function (data,textStatus)
-                                   {
-                                     //alert(data);
-                                     eval("var json = " + data + ";");
-                                     //alert(json['pins'].length);
-                                     pins_length=json['pins'].length;
-                                     if(pins_length!=0){
-                                        last_pin_key=json['pins'][pins_length-1].key;
-                                      }                                                     ;
-                                      for (var i = 0; i < pins_length; i++)
-                                          {
-                                                size = columnAccumulator();
-                                                var column = findMin(size) + 1;
-                                                if(json['pins'][i].type=='picture'){
-                                                 $$("#col" + column).append("<div class=\"container-fluid pin\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"]</div> <div><a href=\"/edit/pin/"+json['pins'][i].key+"\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
-                                                    }
-                                                 else{
-                                                  $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -160px;\"></a><div>"+json['pins'][i].introduction+"</div><div><a href=\"/edit/pin/"+json['pins'][i].key+"\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
-                                                 }
-                                          }
-                                   }
-                                 );
+                            last_pin_key: last_pin_key
+                        },
+                        function (data, textStatus) {
+                            //alert(data);
+                            eval("var json = " + data + ";");
+                            //alert(json['pins'].length);
+                            pins_length = json['pins'].length;
+                            if (pins_length != 0) {
+                                last_pin_key = json['pins'][pins_length - 1].key;
+                            }
+                            ;
+                            for (var i = 0; i < pins_length; i++) {
+                                size = columnAccumulator();
+                                var column = findMin(size) + 1;
+                                if (json['pins'][i].type == 'picture') {
+                                    $$("#col" + column).append("<div class=\"container-fluid pin\"><a href=\"/showpin/detail/" + json['pins'][i].key + "\"  target=\"_blank\"><img src=\"/thumbnail/" + json['pins'][i].key + "\"/></a><div>" + json['pins'][i].introduction + "]</div> <div><a href=\"/edit/pin/" + json['pins'][i].key + "\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
+                                }
+                                else {
+                                    $$("#col" + column).append("<div class=\"pin\" id=\"showdelete_" + json['pins'][i].key + "\"><a href=\"/showpin/detail/" + json['pins'][i].key + "\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/" + json['pins'][i].thumbnail + "\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -160px;\"></a><div>" + json['pins'][i].introduction + "</div><div><a href=\"/edit/pin/" + json['pins'][i].key + "\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
+                                }
+                            }
                         }
-                   }
+                );
+            }
+        }
 
-            });
     });
-    $$(function () {
-        //文件上传地址
-        var url = '/pin/upload ';
-        //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
-        $$('#upload_pic').fileupload({
-            autoUpload: false,//是否自动上传
-            url: url,//上传地址
-            dataType: 'json',
-            maxNumberOfFiles: 1,
-            done: function (e, data) {//设置文件上传完毕事件的回调函数
+});
+$$(function () {
+    //文件上传地址
+    var url = '/pin/upload ';
+    //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
+    $$('#upload_pic').fileupload({
+        autoUpload: false,//是否自动上传
+        url: url,//上传地址
+        dataType: 'json',
+        maxNumberOfFiles: 1,
+        done: function (e, data) {//设置文件上传完毕事件的回调函数
+            var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
+            alert("上传成功！");
+            window.location.href = "/controlskip/" + board_index + "";
+        },
+        fail: function (e, data) {
+            if (data.jqXHR.status == 406) {
+                alert("仅支持上传MP4和FLV文件！");
+            } else {
                 var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
                 alert("上传成功！");
                 window.location.href = "/controlskip/" + board_index + "";
-            },
-            fail: function (e, data) {
-                if (data.jqXHR.status == 406) {
-                    alert("仅支持上传MP4和FLV文件！");
-                } else {
-                    var board_index = $$("#pin_board_id").get(0).selectedIndex + 1;
-                    alert("上传成功！");
-                    window.location.href = "/controlskip/" + board_index + "";
-                }
-            },
-            add: function (e, data) {
-                $$("#id_file_name").html(data.files[0].name);
-                $$("#submitdata").unbind("click");
-                $$("#submitdata").click(function () {
-                    var intro = $$("#introduction_pic");
-                    var board = $$("#pin_board_id");
-                    var textval = $$("#introduction_pic").val();
-                    if (textval.length != 0) {
-                        data.formData = {introduction: intro.val(), board_id: board.val()};
-                        data.submit();//上传文件
-                    }
-                    else {
-                        alert("请描述图片");
-                        return false;
-                    }
-                });
-            },
-            progressall: function (e, data) {//设置上传进度事件的回调函数
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $$('#progress_pic .bar').css(
-                        'width',
-                        progress + '%'
-                );
             }
-        });
+        },
+        add: function (e, data) {
+            $$("#id_file_name").html(data.files[0].name);
+            $$("#submitdata").unbind("click");
+            $$("#submitdata").click(function () {
+                var intro = $$("#introduction_pic");
+                var board = $$("#pin_board_id");
+                var textval = $$("#introduction_pic").val();
+                if (textval.length != 0) {
+                    data.formData = {introduction: intro.val(), board_id: board.val()};
+                    data.submit();//上传文件
+                }
+                else {
+                    alert("请描述图片");
+                    return false;
+                }
+            });
+        },
+        progressall: function (e, data) {//设置上传进度事件的回调函数
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $$('#progress_pic .bar').css(
+                    'width',
+                    progress + '%'
+            );
+        }
     });
+});
 </script>
 
 

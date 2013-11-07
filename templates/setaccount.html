@@ -1,15 +1,16 @@
 $def with(presentuser)
 <style>
-    body{
-    background-color: #F5F5F5;
+    body {
+        background-color: #F5F5F5;
     }
+
     .lu-nav {
-    border:solid 1px red;
-    height:50px;
-    background: none repeat scroll 0 0 #FFFFFF;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-    border-color: #F0F0F0;
-    color: #888888;
+        border: solid 1px red;
+        height: 50px;
+        background: none repeat scroll 0 0 #FFFFFF;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        border-color: #F0F0F0;
+        color: #888888;
     }
 </style>
 <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
@@ -21,6 +22,7 @@ $def with(presentuser)
 </header>
 <div style="margin:10px auto;width:900px;">
     <h1>帐号设置</h1>
+
     <div class="set_profile" style="margin-top:30px;border:1px solid gray;height:60px">
         <div class="title" style="">
             <div style="margin-top:20px;width:100px"><span style="font-size: 18px;">个人资料</span></div>
@@ -61,7 +63,8 @@ $def with(presentuser)
         <div id="reviewContent"
              style="border:solid 1px red;80/attachments/avatar_small/$presentuser['user']['key']');
              background-repeat:no-repeat;width:100px;height:100px">
-            <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
+            <img style="width:100px;height:100px"
+                 src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
         </div>
         <div>
             <form name="form1" id="form1">
@@ -88,71 +91,72 @@ $def with(presentuser)
         </div>
     </div>
     <div id="inner3" class="inner" style="margin-top: -1px;padding:50px;display:none;background-color:#FFFFFF">
-            <fieldset>
-                <div class="control-group">
-                    <label class="control-label">当前密码</label>
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label">当前密码</label>
 
-                    <div class="controls">
-                        <input type="password" class="input-xlarge" id="oldpwd">
-                    </div>
+                <div class="controls">
+                    <input type="password" class="input-xlarge" id="oldpwd">
                 </div>
-                <div class="control-group">
-                    <label class="control-label">新密码</label>
+            </div>
+            <div class="control-group">
+                <label class="control-label">新密码</label>
 
-                    <div class="controls">
-                        <input id="pwd" type="password" class="input-xlarge">
-                    </div>
+                <div class="controls">
+                    <input id="pwd" type="password" class="input-xlarge">
                 </div>
-                <div style="margin-left: 29px; margin-top: -21px;">
-                    <span><font color="red" size="2px">**密码长度大于6位，第一个字符必须为字母！</font></span>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">确认密码</label>
+            </div>
+            <div style="margin-left: 29px; margin-top: -21px;">
+                <span><font color="red" size="2px">**密码长度大于6位，第一个字符必须为字母！</font></span>
+            </div>
+            <div class="control-group">
+                <label class="control-label">确认密码</label>
 
-                    <div class="controls">
-                        <input style="margin-left:0px" id="pwd1" name="pwd1" type="password"
-                               class="input-xlarge">
-                    </div>
+                <div class="controls">
+                    <input style="margin-left:0px" id="pwd1" name="pwd1" type="password"
+                           class="input-xlarge">
                 </div>
-                <div class="control-group">
-                    <label class="control-label"></label>
-                    <div>
-                        <button style="width: 90px;border-radius: 0px 0px 0px 0px;" class="btn"  id="id_btn_submit">
-                            保存
-                        </button>
-                    </div>
-                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"></label>
 
-            </fieldset>
+                <div>
+                    <button style="width: 90px;border-radius: 0px 0px 0px 0px;" class="btn" id="id_btn_submit">
+                        保存
+                    </button>
+                </div>
+            </div>
+
+        </fieldset>
     </div>
 </div>
 <script type="text/javascript">
-    $$(function(){
-        $$("#controlshow").click(function(){
-            if($$("#inner1").is(":visible")){
-                   $$("#inner1").slideUp();
-            }else{
+    $$(function () {
+        $$("#controlshow").click(function () {
+            if ($$("#inner1").is(":visible")) {
+                $$("#inner1").slideUp();
+            } else {
                 $$("#inner1").slideDown();
             }
         });
-         $$("#controlshow2").click(function(){
-            if($$("#inner2").is(":visible")){
-                   $$("#inner2").slideUp();
-            }else{
+        $$("#controlshow2").click(function () {
+            if ($$("#inner2").is(":visible")) {
+                $$("#inner2").slideUp();
+            } else {
                 $$("#inner2").slideDown();
             }
         });
-         $$("#controlshow3").click(function(){
-            if($$("#inner3").is(":visible")){
-                   $$("#inner3").slideUp();
-            }else{
+        $$("#controlshow3").click(function () {
+            if ($$("#inner3").is(":visible")) {
+                $$("#inner3").slideUp();
+            } else {
                 $$("#inner3").slideDown();
             }
         });
-         $$("#id_btn_submit").click(function(){
-            var email="$presentuser['user']['email']";
-            var new_pass=$$("#pwd").val();
-            var old_pass=$$("#oldpwd").val();
+        $$("#id_btn_submit").click(function () {
+            var email = "$presentuser['user']['email']";
+            var new_pass = $$("#pwd").val();
+            var old_pass = $$("#oldpwd").val();
             var reg = /^[a-zA-Z]\w{6,15}$$/;
             var passl = document.getElementById("pwd");
             var pass2 = document.getElementById("pwd1");
@@ -161,29 +165,29 @@ $def with(presentuser)
                 return false;
             } else {
                 passl.setCustomValidity('');
-                if (passl.value != pass2.value){
-                     alert("两次密码必须输入一致！");
-                     return false;
-                     }
-                else{
+                if (passl.value != pass2.value) {
+                    alert("两次密码必须输入一致！");
+                    return false;
+                }
+                else {
                     passl.setCustomValidity('');
-                      $$.post("/modify/password",
+                    $$.post("/modify/password",
                             {
                                 email: email,
                                 newpwd: new_pass,
-                                oldpwd:old_pass
+                                oldpwd: old_pass
                             },
                             function (data, textStatus) {
-                                        alert("修改成功");
-                                    }
-                            );
-                         }
+                                alert("修改成功");
+                            }
+                    );
+                }
             }
-         });
+        });
 
     });
 
-  $$(function () {
+    $$(function () {
         //文件上传地址
         var url = '/portrait/upload ';
         //初始化，主要是设置上传参数，以及事件处理方法(回调函数)
@@ -192,22 +196,22 @@ $def with(presentuser)
             url: url,//上传地址
             dataType: 'json',
             maxNumberOfFiles: 1,
-           /* done: function (e, data) {//设置文件上传完毕事件的回调函数
+            /* done: function (e, data) {//设置文件上传完毕事件的回调函数
+             alert("上传成功！");
+             },
+             fail: function (e, data) {
+             alert(data.errorThrown);
+             alert(data.textStatus);
+             alert(data.jqXHR);
+             },*/
+            always: function (e, data) {
                 alert("上传成功！");
             },
-            fail: function (e, data) {
-              alert(data.errorThrown);
-              alert(data.textStatus);
-               alert(data.jqXHR);
-            },*/
-            always:function(e,data){
-                 alert("上传成功！");
-            },
             add: function (e, data) {
-               // $$("#submitportrait").unbind("click");
+                // $$("#submitportrait").unbind("click");
                 $$("#submitportrait").click(function () {
                     data.submit();//上传文件
-                   });
+                });
             }
         });
     });
