@@ -105,17 +105,16 @@ class SkipUserMessage:
         for followd in result:
             followds.append(str(pure_render.followed_list(followd)))
         followds_len = len(followds)
-        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,pins_length,last_pin_key,
-                                  web.cookies().get('key'))
+        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,pins_length,last_pin_key,web.cookies().get('key'))
 
 
 class SkipOwnMessage:
     def GET(self, ownkey):
-
         res = requests.get(conf.locate('/user/%s/profile' % ownkey))
         present_user = simplejson.loads(res.text)
         res = requests.get(conf.locate('/pin/user/%s' % ownkey))
         present_user_pin = simplejson.loads(res.text)
+        print present_user
         pins_length=len(present_user_pin['pins'])
         last_pin_key=present_user_pin['pins'][pins_length-1]['key']
         pins = [[], [], [], []]
@@ -156,8 +155,8 @@ class SkipOwnMessage:
         for followd in result:
             followds.append(str(pure_render.followed_list(followd)))
         followds_len = len(followds)
-        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,pins_length,last_pin_key,
-                                  web.cookies().get('key'))
+        return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,pins_length,last_pin_key,web.cookies().get('key'))
+
 
 
 class SkipMainPage:

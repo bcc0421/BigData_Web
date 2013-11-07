@@ -24,6 +24,9 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
 <script src="/static/js/jquery.ui.widget.js"></script>
 <script src="/static/js/jquery.iframe-transport.js"></script>
 <script src="/static/js/jquery.fileupload.js"></script>
+<div id="backtop"style="display:none;position:fixed;width:50px;height:50px;background-image: url(../static/img/outbacktop.png);">
+    <!--img src="../static/img/outbacktop.png"-->
+</div>
 <div id="header">
     <button class="btn ">
         所在板块：$:board_name
@@ -196,10 +199,6 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
         </div>
     </div>
 </div>
-<div style="position:fixed;top:700px;left:1400px;width:20px;height:20px;background-color: red;">
-    <a href="javascript:scroll(0,0)"><i class="icon-chevron-up icon-red"style="margin-left:4px"></i></a>
-</div>
-
 <script type="text/javascript">
 
    function textCounter(field, countfield, maxlimit) {
@@ -240,11 +239,47 @@ $$(function () {
         }
         return minID;
     }
+    function goTop()
+         {
+             $$(window).scroll(function(e) {
+                var clientHeight = $$(window).height();
+                var clientWidth=$$(window).width();
+                var realtop=clientHeight-50;
+                var realleft=clientWidth-60;
+                  //若滚动条离顶部大于1000元素
+                  if($$(window).scrollTop()> 1000){
+                       $$("#backtop").css(
+                            {
+                                "top":realtop +"px",
+                                "left":realleft +"px"
+                            });
+                      $$("#backtop").fadeIn(1000);//以1秒的间隔渐显id=backtop的元素
+                      }
+                  else
+                     $$("#backtop").fadeOut(1000);//以1秒的间隔渐隐id=backtop的元素
+             });
+         }
+     //点击回到顶部的元素
+     $$("#backtop").click(function(e) {
+             //以1秒的间隔返回顶部
+             $$('body,html').animate({scrollTop:0},500);
+    });
+     $$("#backtop").mouseover(function(e) {
+         $$(this).css("background","url(../static/img/onbacktop.png) no-repeat 0px 0px");
+     });
+     $$("#backtop").mouseout(function(e) {
+        $$(this).css("background","url(../static/img/outbacktop.png) no-repeat 0px 0px");
+     });
+     goTop();//实现回到顶部元素的渐显与渐隐
+
     $$(window).scroll(function () {
         var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
+        var clientWidth=$$(window).width();
+        var realtop=clientHeight-50;
+        var realleft=clientWidth-60;
+
              if (clientHeight + scrollTop >= scrollHeight)
                    {
-                      // alert(last_pin_key);
                         if(pins_length!=0)
                         {
                               $$.get("/pin_flow/" + $:id + "",
@@ -265,17 +300,19 @@ $$(function () {
                                                 size = columnAccumulator();
                                                 var column = findMin(size) + 1;
                                                 if(json['pins'][i].type=='picture'){
-                                                 $$("#col" + column).append("<div class=\"container-fluid pin\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                var picture=$$("<div class=\"container-fluid pin\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"</div></div>")
+                                                 $$("#col" + column).append(picture);
                                                     }
                                                  else{
                                                   $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -208px;\"></a><div>"+json['pins'][i].introduction+"</div></div>");
                                                  }
+
+
                                           }
                                    }
                                  );
                         }
                    }
-
             });
     });
 </script>

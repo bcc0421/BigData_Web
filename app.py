@@ -1,7 +1,7 @@
 import web
 from index import ShowComment, MyPin, Index
 from login import Login
-from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg,PinFlow,ShowPinDetail
+from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg,PinFlow,ShowPinDetail,PinFlowMyself
 from register import Register,CheckEmail,CheckName
 from images import Thumbnail, SourceImage
 from upload import UploadPin, UploadComment, UploadVideo,PortraitUpload

@@ -192,14 +192,19 @@ $def with(presentuser)
             url: url,//上传地址
             dataType: 'json',
             maxNumberOfFiles: 1,
-            done: function (e, data) {//设置文件上传完毕事件的回调函数
+           /* done: function (e, data) {//设置文件上传完毕事件的回调函数
                 alert("上传成功！");
             },
             fail: function (e, data) {
-                    alert("上传失败！");
+              alert(data.errorThrown);
+              alert(data.textStatus);
+               alert(data.jqXHR);
+            },*/
+            always:function(e,data){
+                 alert("上传成功！");
             },
             add: function (e, data) {
-                $$("#submitportrait").unbind("click");
+               // $$("#submitportrait").unbind("click");
                 $$("#submitportrait").click(function () {
                     data.submit();//上传文件
                    });

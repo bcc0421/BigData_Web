@@ -212,7 +212,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
 </div>
 
 <div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
-    <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$:present_user_key"/>
+    <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
 </div>
 <div class="bs-docs-example">
     <ul id="myTab" class="nav nav-tabs">
@@ -385,9 +385,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
 
     }
 $$(function () {
-    var idx=$:id-1;
-    $$("#pin_board_id option").eq(idx).attr("selected","selected");
-    $$("#vedio_board_id option").eq(idx).attr("selected","selected");
+
     var last_pin_key ="$:last_pin_key";
     var pins_length="$:pins_length";
     function columnAccumulator() {
@@ -412,7 +410,7 @@ $$(function () {
         var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
              if (clientHeight + scrollTop >= scrollHeight)
                    {
-                       //alert(last_pin_key);
+                      // alert(last_pin_key);
                         if(pins_length!=0)
                         {
                               $$.get("/pin_flow/myself",
