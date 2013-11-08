@@ -26,19 +26,6 @@ class UnFollow:
         r = requests.get(conf.locate('/unfo/%s' % i.user_id), headers=headers)
 
 
-class GetMyAttention:
-    def GET(self):
-        headers = {
-            'X-Token': web.cookies().get('token')
-        }
-        res = requests.get(conf.locate('/following/%s' % web.cookies().get('key')), headers=headers)
-        re = simplejson.loads(res.text)
-        attentions = []
-        for attention in re:
-            attentions.append(str(pure_render.attention_list(attention)))
-        return simplejson.dumps({
-            "attentions": attentions
-        })
 
 
 class CheckFollow:

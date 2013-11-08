@@ -57,8 +57,6 @@ class ModifyDescription:
             'X-Token': web.cookies().get('token'),
             'Content-Type': 'application/json'
         }
-        res = requests.post(conf.locate("/pin/%s/update" % i.img_key_id),
+        res = requests.put(conf.locate("/pin/%s/update" % i.img_key_id),
                            data=simplejson.dumps(payload),
                            headers=headers)
-        print "@@@@@@@@@"
-        print res.text

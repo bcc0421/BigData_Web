@@ -21,9 +21,15 @@ class Pin:
 
     def render_video(self):
         return pure_render.pinvedio(self.data, self.user_profile, self.present_user)
-
-    def render_myself_vedio(self):
+    def render_myself_video(self):
         return pure_render.myselfvediopin(self.data, self.user_profile, self.present_user)
+    def render_other_user(self):
+        return pure_render.otheruserpin(self.data, self.user_profile, self.present_user)
+    def render_other_user_video(self):
+        return pure_render.otheruservideo(self.data, self.user_profile, self.present_user)
+
+
+
 
 
 class ControlSkip:
@@ -75,7 +81,7 @@ class SkipUserMessage:
                 p['thumbnail'] = p['movie_id'].split('.')[0] + '.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
-                pins[i].append(pin_obj.render_myself_vedio())
+                pins[i].append(pin_obj.render_myself_video())
             elif p['type'] == 'picture':
                 board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                               u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
@@ -114,7 +120,6 @@ class SkipOwnMessage:
         present_user = simplejson.loads(res.text)
         res = requests.get(conf.locate('/pin/user/%s' % ownkey))
         present_user_pin = simplejson.loads(res.text)
-        print present_user
         pins_length=len(present_user_pin['pins'])
         last_pin_key=present_user_pin['pins'][pins_length-1]['key']
         pins = [[], [], [], []]
@@ -125,7 +130,7 @@ class SkipOwnMessage:
                 p['thumbnail'] = p['movie_id'].split('.')[0] + '.jpg'
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
-                pins[i].append(pin_obj.render_myself_vedio())
+                pins[i].append(pin_obj.render_other_user_video())
             elif p['type'] == 'picture':
                 board_list = [u'校外教育', u'远程办公', u'智慧之门', u'美容美体', u'情感天地',
                               u'健康管理', u'娱乐人生', u'家政辅导', u'购物天堂', u'职业生涯',
@@ -138,7 +143,7 @@ class SkipOwnMessage:
                 profile = simplejson.loads(res.text)
                 i %= 4
                 pin_obj = Pin(p, profile, present_user)
-                pins[i].append(pin_obj.render_myself())
+                pins[i].append(pin_obj.render_other_user())
 
         headers = {
             'X-Token': web.cookies().get('token')
@@ -223,7 +228,7 @@ class SkipBigImg:
 class PinFlowMyself:
     def GET(self):
         i = web.input()
-        res = requests.get(conf.locate('/pin/user/%s?%s' % (web.cookies().get('key'),i.last_pin_key)))
+        res = requests.get(conf.locate('/pin/user/%s?%s' % (i.pin_author_key,i.last_pin_key)))
         present_user_pin = simplejson.loads(res.text)
         for p in present_user_pin['pins']:
             if p['type'] == 'movie':

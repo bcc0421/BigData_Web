@@ -69,14 +69,19 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li>
+<<<<<<< HEAD
                 <a href="#add_new" data-toggle="modal" data-target="#add_new"><span onclick="defaultboard()">上传素材</span></a>
                 <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio"><span
                         onclick="defaultboard()">上传视频</span></a>
+=======
+                <a href="#add_new" data-toggle="modal" data-target="#add_new">上传素材</a>
+                <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio">上传视频</a>
+>>>>>>> local
             </li>
         </ul>
         <div id="add_new" class="modal hide fade">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
                 <h3>新建素材</h3>
             </div>
             <form id="upload_pin" action="" enctype="multipart/form-data" method="POST">
@@ -119,7 +124,7 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true" onclick="refresh_page()">关闭</a>
                     <button id="submitdata" type="button" class="btn btn-primary">创建</button>
                 </div>
             </form>
@@ -168,7 +173,7 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true" onclick="refresh_page()">关闭</a>
                     <button id="submitvedio" type="button" class="btn btn-primary">创建</button>
                 </div>
             </form>
@@ -212,15 +217,19 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
 </div>
 <script type="text/javascript">
 
-    function textCounter(field, countfield, maxlimit) {
-        // 函数，3个参数，表单名字，表单域元素名，限制字符；
-        if (field.value.length > maxlimit)
-        //如果元素区字符数大于最大字符数，按照最大字符数截断；
-            field.value = field.value.substring(0, maxlimit);
-        else
-        //在记数区文本框内显示剩余的字符数；
-            countfield.value = maxlimit - field.value.length;
-    }
+function refresh_page(){
+    window.location.reload();
+}
+   function textCounter(field, countfield, maxlimit) {
+   // 函数，3个参数，表单名字，表单域元素名，限制字符；
+   if (field.value.length > maxlimit)
+   //如果元素区字符数大于最大字符数，按照最大字符数截断；
+   field.value = field.value.substring(0, maxlimit);
+   else
+   //在记数区文本框内显示剩余的字符数；
+   countfield.value = maxlimit - field.value.length;
+   }
+
     function defaultboard() {
         var idx = "$:id-1";
         $$("#pin_board_id option").eq(idx).attr("selected", "selected");
@@ -266,13 +275,12 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                                 "top": realtop + "px",
                                 "left": realleft + "px"
                             });
-                    $$("#backtop").fadeIn(1000);//以1秒的间隔渐显id=backtop的元素
-                }
-                else
-                    $$("#backtop").fadeOut(1000);//以1秒的间隔渐隐id=backtop的元素
-            });
-        }
-
+                      $$("#backtop").fadeIn(1000);//以1秒的间隔渐显id=backtop的元素
+                      }
+                  else
+                     $$("#backtop").fadeOut(1000);//以1秒的间隔渐隐id=backtop的元素
+             });
+         }
         //点击回到顶部的元素
         $$("#backtop").click(function (e) {
             //以1秒的间隔返回顶部
@@ -317,13 +325,13 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                                         $$("#col" + column).append("<div class=\"pin\" id=\"showdelete_" + json['pins'][i].key + "\"><a href=\"/showpin/detail/" + json['pins'][i].key + "\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/" + json['pins'][i].thumbnail + "\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -208px;\"></a><div>" + json['pins'][i].introduction + "</div></div>");
                                     }
 
+                                          }
+                                   }
 
-                                }
-                            }
-                    );
-                }
-            }
-        });
+                                 );
+                        }
+                   }
+            });
     });
 </script>
 <script type="text/javascript">
