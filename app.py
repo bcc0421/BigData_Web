@@ -6,7 +6,7 @@ from register import Register,CheckEmail,CheckName
 from images import Thumbnail, SourceImage
 from upload import UploadPin, UploadComment, UploadVideo,PortraitUpload
 from mainpage import Mainpage
-from follow_or_not import Follow, UnFollow, GetMyAttention,CheckFollow
+from follow_or_not import Follow, UnFollow, CheckFollow
 from delete import DeleteOwnPin
 from checkcode import CheckCode
 from modify_update import ModifyUserMessage, MovePin, ModifyPassword,EditPin ,ModifyDescription
@@ -26,7 +26,6 @@ urls = (
     '/ownpin/show','MyPin',
     '/follow/oneuser','Follow',
     '/unfollow/oneuser','UnFollow',
-    '/myattention/person','GetMyAttention',
     '/video/upload','UploadVideo',
     '/delete/ownpin','DeleteOwnPin',
     '/skipmainpage','SkipMainPage',

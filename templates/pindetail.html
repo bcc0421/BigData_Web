@@ -32,7 +32,7 @@ $def with (pin,userprofile,presentuser,comments)
                 <div  style="overfloat:auto;width:900px">
                 <img class="pull-left" src="http://192.168.1.165:8080/attachments/source/$pin['pin']['key']"/>
                 </div>
-                <div class="lu-image-button-wrapper clearfix pull-left">
+                <div id="pinnformation" class="lu-image-button-wrapper clearfix pull-left">
                     <a href="/skip/ownmessage/$userprofile['user']['key']">
                         <button class="btn btn-info pull-left "type="button"style="border-radius: 0px 0px 0px 0px; width: 150px;  margin-left: 32px;">
                         作者:$userprofile['user']['username']
@@ -72,7 +72,6 @@ $def with (pin,userprofile,presentuser,comments)
         var content = $$("#comment_content").val();
         $$(".write_comment").hide();
         var $$content=content.replace(/(^\s*)|(\s*\$)/g, "");
-
         if ($$content.length != 0) {
             var $$p = $$("<p style='text-align:left'><span>" + username + "</span>:&nbsp&nbsp" + $$content + "</p>");
             $$(".show_comment").append($$p);
@@ -92,7 +91,7 @@ $def with (pin,userprofile,presentuser,comments)
         var presentuser = "$presentuser['user']['key']";
         var pinauthor = "$userprofile['user']['key']";
         if (presentuser === pinauthor) {
-            $$("#attention").hide();
+            $$("#pinnformation").hide();
         }
         if ("$pin['status']" == "followd") {
             $$("#attention").text("取消关注");

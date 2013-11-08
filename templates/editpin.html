@@ -77,6 +77,7 @@ $def with(pinkey)
                     {pin_id: $$keyid},
                     function (data, textStatus) {
                         //$$("#showdelete_" + $$keyid + "").remove();
+                        alert("删除成功");
                     });
         }
         else
@@ -102,7 +103,8 @@ $def with(pinkey)
  function modify_pin_description(){
         var description=$$("#id_description").val();
         var $$img_key_id= "$:pinkey";
-         if (description != "") {
+        var description=description.replace(/(^\s*)|(\s*\$)/g, "");
+         if (description.length != 0) {
             $$.post("/modify/description",
                     {
                         img_key_id: $$img_key_id,
@@ -113,6 +115,8 @@ $def with(pinkey)
                         $$("#id_description").val("");
                     }
                 );
+            }else{
+                 $$("#id_description").val("");
             }
  }
 </script>

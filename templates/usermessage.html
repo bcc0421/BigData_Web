@@ -79,7 +79,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
                     </div>
                 </td>
                 <td style="width:820px"></td>
-                <td>
+                <td id="setaccount">
                     <a href="/modify/usermessage/$presentuser['user']['key']" target="_blank" class="btn btn-info"
                        style="width:90px;border-radius: 0px 0px 0px 0px;">账号设置</a>
                 </td>
@@ -211,7 +211,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
     </div>
 </div>
 
-<div style="background-image:url('./static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
+<div style="background-image:url('../static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
     <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
 </div>
 <div class="bs-docs-example">
@@ -224,7 +224,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
                 <li><a href="#dropdown3" data-toggle="tab">资源</a></li>
             </ul>
         </li>
-        <li class="active"><a href="#home" data-toggle="tab">我的消息</a></li>
+        <li id="mymessage" class="active"><a href="#home" data-toggle="tab">我的消息</a></li>
         <li><a href="#profile1" data-toggle="tab">关注的人</a></li>
         <li><a href="#profile2" data-toggle="tab">粉丝</a></li>
         <li><a href="#profile3" data-toggle="tab">更多</a></li>
@@ -385,7 +385,14 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
 
     }
 $$(function () {
-
+  var presentuser = "$presentuser['user']['key']";
+        var pinauthor = "$:present_user_key";
+        //alert(presentuser);
+        //alert(pinauthor);
+        if (presentuser !== pinauthor) {
+            $$("#setaccount").hide();
+            $$("#mymessage").hide();
+        }
     var last_pin_key ="$:last_pin_key";
     var pins_length="$:pins_length";
     function columnAccumulator() {
@@ -415,7 +422,8 @@ $$(function () {
                         {
                               $$.get("/pin_flow/myself",
                                   {
-                                     last_pin_key:last_pin_key
+                                     last_pin_key:last_pin_key,
+                                     pin_author_key:"$presentuser['user']['key']"
                                   },
                                    function (data,textStatus)
                                    {
@@ -431,10 +439,21 @@ $$(function () {
                                                 size = columnAccumulator();
                                                 var column = findMin(size) + 1;
                                                 if(json['pins'][i].type=='picture'){
-                                                 $$("#col" + column).append("<div class=\"container-fluid pin\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"]</div> <div><a href=\"/edit/pin/"+json['pins'][i].key+"\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
+                                                   if (presentuser !== pinauthor)
+                                                    {
+                                                        $$("#col" + column).append("<div class=\"container-fluid pin\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"]</div></div>");
                                                     }
+                                                    else{
+                                                        $$("#col" + column).append("<div class=\"container-fluid pin\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"]</div> <div><a href=\"/edit/pin/"+json['pins'][i].key+"\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
+                                                    }
+                                                  }
                                                  else{
-                                                  $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -160px;\"></a><div>"+json['pins'][i].introduction+"</div><div><a href=\"/edit/pin/"+json['pins'][i].key+"\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
+                                                    if (presentuser !== pinauthor){
+                                                          $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"/static/img/media_video.png\" style=\"margin-top: -160px;\"></a><div>"+json['pins'][i].introduction+"</div>s</div>");
+                                                    }
+                                                    else{
+                                                         $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"/static/img/media_video.png\" style=\"margin-top: -160px;\"></a><div>"+json['pins'][i].introduction+"</div><div><a href=\"/edit/pin/"+json['pins'][i].key+"\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
+                                                    }
                                                  }
                                           }
                                    }
