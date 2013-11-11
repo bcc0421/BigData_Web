@@ -11,6 +11,9 @@ $def with(presentuser)
     border-color: #F0F0F0;
     color: #888888;
     }
+.portrait_in_js{
+     margin-top: -123px;
+ }
 </style>
 <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
 <script src="/static/js/jquery.ui.widget.js"></script>
@@ -58,8 +61,7 @@ $def with(presentuser)
         </div>
     </div>
     <div id="inner2" class="inner" style="margin-top: -1px;padding:50px;display:none;background-color:#FFFFFF">
-        <div id="reviewContent"
-             style="border:solid 1px red;background-repeat:no-repeat;width:100px;height:100px">
+        <div id="reviewContent"style="border:solid 1px red;background-repeat:no-repeat;width:100px;height:100px">
             <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
         </div>
         <div>
@@ -90,14 +92,12 @@ $def with(presentuser)
             <fieldset>
                 <div class="control-group">
                     <label class="control-label">当前密码</label>
-
                     <div class="controls">
                         <input type="password" class="input-xlarge" id="oldpwd">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">新密码</label>
-
                     <div class="controls">
                         <input id="pwd" type="password" class="input-xlarge">
                     </div>
@@ -107,7 +107,6 @@ $def with(presentuser)
                 </div>
                 <div class="control-group">
                     <label class="control-label">确认密码</label>
-
                     <div class="controls">
                         <input style="margin-left:0px" id="pwd1" name="pwd1" type="password"
                                class="input-xlarge">
@@ -121,7 +120,6 @@ $def with(presentuser)
                         </button>
                     </div>
                 </div>
-
             </fieldset>
     </div>
 </div>

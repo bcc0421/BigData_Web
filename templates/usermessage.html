@@ -37,7 +37,6 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
 <script src="/static/js/jquery.iframe-transport.js"></script>
 <script src="/static/js/jquery.fileupload.js"></script>
 <script src="/static/js/jquery.imgreview.js"></script>
-
 <div style="margin-left:45px">
     <div class="navbar">
         <table style="border:1px solid gray">
@@ -45,8 +44,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
                 <td align="center" style="padding-left:20px">
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <button class="btn" style="border-radius: 0px 0px 0px 0px;"><i style="height:20px"
-                                                                                           class="icon-align-justify"></i>
+                            <button class="btn" style="border-radius: 0px 0px 0px 0px;"><i style="height:20px" class="icon-align-justify"></i>
                             </button>
                         </a>
                         <ul id="down_menu_1" class="dropdown-menu" role="menu" aria-labelledby="dLabel"
@@ -210,8 +208,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
         </table>
     </div>
 </div>
-
-<div style="background-image:url('../static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
+<div style="background-image:url('/static/img/portrait.png');background-repeat:no-repeat;width:100px;height:100px; margin-bottom: 12px;">
     <img style="width:100px;height:100px" src="http://192.168.1.165:8080/attachments/avatar_small/$presentuser['user']['key']"/>
 </div>
 <div class="bs-docs-example">
@@ -282,9 +279,7 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
-
     function textCounter(field, countfield, maxlimit) {
         // 函数，3个参数，表单名字，表单域元素名，限制字符；
         if (field.value.length > maxlimit)
@@ -325,7 +320,6 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
             }
         });
     });
-
     $$(function () {
         //文件上传地址
         var url = '/pin/upload ';
@@ -376,13 +370,11 @@ $def with (pins,presentuser,attentions,attentions_len,followds,followds_len,pins
         });
     });
     function checkmessage() {
-
         var search_key = $$("#search_cont").val();
         if (search_key.length == 0) {
             alert("请输入搜索内容");
             return false;
         }
-
     }
 $$(function () {
   var presentuser = "$presentuser['user']['key']";
@@ -434,11 +426,12 @@ $$(function () {
                                      if(pins_length!=0){
                                         last_pin_key=json['pins'][pins_length-1].key;
                                       }                                                     ;
-                                      for (var i = 0; i < pins_length; i++)
+                                        for (var i = 0; i < pins_length; i++)
                                           {
                                                 size = columnAccumulator();
                                                 var column = findMin(size) + 1;
-                                                if(json['pins'][i].type=='picture'){
+                                                if(json['pins'][i].type=='picture')
+                                                {
                                                    if (presentuser !== pinauthor)
                                                     {
                                                         $$("#col" + column).append("<div class=\"container-fluid pin\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"]</div></div>");
@@ -454,13 +447,12 @@ $$(function () {
                                                     else{
                                                          $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"/static/img/media_video.png\" style=\"margin-top: -160px;\"></a><div>"+json['pins'][i].introduction+"</div><div><a href=\"/edit/pin/"+json['pins'][i].key+"\" style=\" border-radius: 0px 0px 0px 0px;width:222px\" class=\"btn\" type=\"button\">编辑</a></div></div>");
                                                     }
-                                                 }
+                                                }
                                           }
                                    }
-                                 );
-                        }
+                              );
+                       }
                    }
-
             });
     });
     $$(function () {

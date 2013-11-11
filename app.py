@@ -1,7 +1,7 @@
 import web
 from index import ShowComment, MyPin, Index
 from login import Login
-from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg,PinFlow,ShowPinDetail,PinFlowMyself
+from controlskip import ControlSkip, SkipUserMessage, SkipMainPage, LoginOut, LoginIn, SearchContent, SkipOwnMessage, SkipBigImg,PinFlow,ShowPinDetail,PinFlowMyself ,PinSearchFlow
 from register import Register,CheckEmail,CheckName
 from images import Thumbnail, SourceImage
 from upload import UploadPin, UploadComment, UploadVideo,PortraitUpload
@@ -46,6 +46,7 @@ urls = (
     '/edit/pin/(.*)','EditPin',
     '/modify/description','ModifyDescription',
     '/pin_flow/myself','PinFlowMyself',
+    '/pin_flow/search','PinSearchFlow',
     '/login_out','LoginOut'
 )
 

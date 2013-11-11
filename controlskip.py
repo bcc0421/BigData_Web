@@ -12,13 +12,10 @@ class Pin:
         self.data = data
         self.user_profile = user_profile
         self.present_user = present_user
-
     def render(self):
         return pure_render.pin(self.data, self.user_profile, self.present_user)
-
     def render_myself(self):
         return pure_render.myselfpin(self.data, self.user_profile, self.present_user)
-
     def render_video(self):
         return pure_render.pinvedio(self.data, self.user_profile, self.present_user)
     def render_myself_video(self):
@@ -27,10 +24,6 @@ class Pin:
         return pure_render.otheruserpin(self.data, self.user_profile, self.present_user)
     def render_other_user_video(self):
         return pure_render.otheruservideo(self.data, self.user_profile, self.present_user)
-
-
-
-
 
 class ControlSkip:
     def GET(self, id):
@@ -162,8 +155,6 @@ class SkipOwnMessage:
         followds_len = len(followds)
         return render.usermessage(pins, present_user, attentions, attentions_len, followds, followds_len,pins_length,last_pin_key,web.cookies().get('key'))
 
-
-
 class SkipMainPage:
     def GET(self):
         return web.seeother('/mainpage')
@@ -196,6 +187,8 @@ class SearchContent:
                             data=simplejson.dumps(payload),
                             headers=headers)
         r = simplejson.loads(res.text)
+        pins_length=len(r['pins'])
+        last_pin_key=r['pins'][pins_length-1]['key']
         if len(r['pins']):
             pins = [[], [], [], []]
             for i, p in enumerate(r['pins']):
@@ -213,7 +206,7 @@ class SearchContent:
                         i %= 4
                         pin_obj = Pin(p, profile, present_user)
                         pins[i].append(pin_obj.render())
-            return render.searchshowboard(pins, present_user)
+            return render.searchshowboard(pins, present_user,pins_length,last_pin_key)
         else:
             return render.searchnothing()
 
@@ -252,7 +245,17 @@ class PinFlow:
         return simplejson.dumps({
             'pins': json['pins']
         })
-
+class PinSearchFlow:
+    def GET(self):
+        i=web.input()
+        res = requests.get(conf.locate('/pin/search?%s' % (i.last_pin_key)))
+        json = simplejson.loads(res.text)
+        for p in json['pins']:
+            if p['type'] == 'movie':
+                p['thumbnail'] = p['movie_id'].split('.')[0] + '.jpg'
+        return simplejson.dumps({
+            'pins': json['pins']
+        })
 class ShowPinDetail:
     def GET(self, pinkey):
         res = requests.get(conf.locate('/pin/%s' % pinkey))
@@ -280,7 +283,6 @@ class ShowPinDetail:
                     else:
                         pin_profile['pin']['thumbnail'] = pin_profile['pin']['movie_id'].split('.')[0] + '.jpg'
                         return render.vediodetail(pin_profile, author_profile, present_user, comments)
-
             pin_profile['status'] = "unfollowd"
             if pin_profile['pin']['type'] == 'picture':
                 return render.pindetail(pin_profile, author_profile, present_user, comments)

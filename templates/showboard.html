@@ -14,11 +14,9 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
         text-align: center;
     }
     #down_menu_1 li {
-
         float: left;
         padding-left: 30px
     }
-
 </style>
 <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
 <script src="/static/js/jquery.ui.widget.js"></script>
@@ -58,7 +56,6 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                             <li><a tabindex="12" href="/controlskip/12">公共信息</a></li>
 		</ul>
     </div>
-
     <div style="float:left;" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <button class="btn btn-info"><i style="height:20px" class="icon-plus"></i></button>
@@ -94,7 +91,6 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                             <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
                              <font color="red" size="2px">个字符</font>
                         </p>
-
                     <select name="board_id" id="pin_board_id">
                         <option>校外教育</option>
                         <option>远程办公</option>
@@ -139,8 +135,7 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                              <font color="red" size="2px">还可输入:</font>
                             <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
                              <font color="red" size="2px">个字符</font>
-                        </p>
-
+                     </p>
                     <select name="board_id" id="vedio_board_id">
                         <option>校外教育</option>
                         <option>远程办公</option>
@@ -213,12 +208,12 @@ function refresh_page(){
    countfield.value = maxlimit - field.value.length;
    }
 function defaultboard(){
-        var idx=$:id-1;
+        var idx=$id-1;
         $$("#pin_board_id option").eq(idx).attr("selected","selected");
         $$("#vedio_board_id option").eq(idx).attr("selected","selected");
         }
 $$(function () {
-    var idx=$:id-1;
+    var idx=$id-1;
     $$("#pin_board_id option").eq(idx).attr("selected","selected");
     $$("#vedio_board_id option").eq(idx).attr("selected","selected");
     var last_pin_key ="$:last_pin_key";
@@ -277,14 +272,11 @@ $$(function () {
     $$(window).scroll(function () {
         var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
         var clientWidth=$$(window).width();
-        var realtop=clientHeight-50;
-        var realleft=clientWidth-60;
-
              if (clientHeight + scrollTop >= scrollHeight)
                    {
                         if(pins_length!=0)
                         {
-                              $$.get("/pin_flow/" + $:id + "",
+                              $$.get("/pin_flow/" + $id + "",
                                   {
                                      last_pin_key:last_pin_key
                                   },
@@ -308,16 +300,13 @@ $$(function () {
                                                  else{
                                                   $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -208px;\"></a><div>"+json['pins'][i].introduction+"</div></div>");
                                                  }
-
-
                                           }
                                    }
-
                                  );
                         }
                    }
-            });
     });
+  });
 </script>
 <script type="text/javascript">
 function check(){

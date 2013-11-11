@@ -66,7 +66,7 @@
 
     $.fn.uploadReview.settings = {
         ext: '.jpg|.jpeg|.png|.bmp|.gif',
-        className: '',
+        className: 'portrait_in_js',
         target: '',
         width: 100,
         height: 100,

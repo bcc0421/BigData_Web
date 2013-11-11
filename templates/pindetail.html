@@ -1,6 +1,5 @@
 $def with (pin,userprofile,presentuser,comments)
 <style>
-
 .lu-nav {
   border:solid 1px red;
     height:50px;
@@ -25,7 +24,6 @@ $def with (pin,userprofile,presentuser,comments)
 </style>
 <script type="text/javascript" src="/static/js/jwplayer.js"></script>
 <header class="lu-nav">
-
 </header>
 <div class="container" >
          <div class="">
@@ -38,9 +36,7 @@ $def with (pin,userprofile,presentuser,comments)
                         作者:$userprofile['user']['username']
                         </button>
                     </a>
-                        <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"
-                        style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注</button>
-
+                        <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注</button>
                 </div>
         </div>
  </div>
@@ -86,7 +82,6 @@ $def with (pin,userprofile,presentuser,comments)
         }
         $$(".comment_form").val("");
     }
-
     $$(function () {
         var presentuser = "$presentuser['user']['key']";
         var pinauthor = "$userprofile['user']['key']";

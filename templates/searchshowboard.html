@@ -1,5 +1,4 @@
-$def with (pins,presentuser)
-
+$def with (pins,presentuser,pins_length,last_pin_key)
 <style>
     #header {
         background-color: #EFEFEF;
@@ -7,7 +6,6 @@ $def with (pins,presentuser)
         margin-bottom: 10px;
         padding-left: 20px;
     }
-
     .pin {
         margin-bottom: 20px;
         border: 1px solid;
@@ -15,9 +13,7 @@ $def with (pins,presentuser)
         padding: 10px;
         text-align: center;
     }
-
     #down_menu_1 li {
-
         float: left;
         padding-left: 30px
     }
@@ -58,7 +54,6 @@ $def with (pins,presentuser)
         </form>
     </div>
 </div>
-
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span3" id="col1">
@@ -81,9 +76,8 @@ $def with (pins,presentuser)
 </div>
 <script type="text/javascript">
     $$(function () {
-        var flowLock = false;
-        var page = 1;
-
+         var last_pin_key ="$:last_pin_key";
+         var pins_length="$:pins_length";
         function columnAccumulator() {
             var col1_h = 0, col2_h = 0, col3_h = 0, col4_h = 0;
             col1_h = parseInt($$("#col1").height());
@@ -92,7 +86,6 @@ $def with (pins,presentuser)
             col4_h = parseInt($$("#col4").height());
             return [col1_h, col2_h, col3_h, col4_h];
         }
-
         // return index
         function findMin(array) {
             var minID = 0, minVal = array[0];
@@ -104,26 +97,46 @@ $def with (pins,presentuser)
             }
             return minID;
         }
-
         $$(window).scroll(function () {
-            var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
-            if (clientHeight + scrollTop >= scrollHeight) {
-                $$.get("/pin_flow/" + page, {}, function (data) {
-                    eval("var json = " + data + ";");
-                    for (var i = 0; i < json.pins.length; i++) {
-                        size = columnAccumulator();
-                        var column = findMin(size) + 1;
-                        var jhtml = $$(json.pins[i]);
-                        $$("#col" + column).append(jhtml);
-                    }
-                });
-            }
-        });
+             var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
+             var clientWidth=$$(window).width();
+             if (clientHeight + scrollTop >= scrollHeight)
+                   {
+                        if(pins_length!=0)
+                        {
+                              $$.get("/pin_flow/search",
+                                  {
+                                     last_pin_key:last_pin_key
+                                  },
+                                   function (data,textStatus)
+                                   {
+                                     //alert(data);
+                                     eval("var json = " + data + ";");
+                                     //alert(json['pins'].length);
+                                     pins_length=json['pins'].length;
+                                     if(pins_length!=0){
+                                        last_pin_key=json['pins'][pins_length-1].key;
+                                      }                                                     ;
+                                      for (var i = 0; i < pins_length; i++)
+                                          {
+                                                size = columnAccumulator();
+                                                var column = findMin(size) + 1;
+                                                if(json['pins'][i].type=='picture'){
+                                                var picture=$$("<div class=\"container-fluid pin\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"</div></div>")
+                                                 $$("#col" + column).append(picture);
+                                                    }
+                                                 else{
+                                                  $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -208px;\"></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                 }
+                                          }
+                                   } );
+                            }
+                   }
+         });
     });
     function check() {
         var search_key = $$("#search_cont").val();
         if (search_key.length == 0)
-            return false;
-
+           return false;
     }
 </script>
