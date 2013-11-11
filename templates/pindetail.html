@@ -1,33 +1,31 @@
 $def with (pin,userprofile,presentuser,comments)
 <style>
 
-    .lu-nav {
-        border: solid 1px red;
-        height: 50px;
-        background-color: #F5F5F5;
-        border-color: #F0F0F0;
-        color: #888888;
-    }
+.lu-nav {
+  border:solid 1px red;
+    height:50px;
+    background-color: #F5F5F5;
+    border-color: #F0F0F0;
+    color: #888888;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-top:40px;
+}
+#commentarea{
+    margin-left:120px;
+    margin-right: auto;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-top:40px
 
-    .container {
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 2px;
-        padding-right: 2px;
-        margin-top: 40px;
-    }
-
-    #commentarea {
-        margin-left: 120px;
-        margin-right: auto;
-        padding-left: 2px;
-        padding-right: 2px;
-        margin-top: 40px
     }
 </style>
 <script type="text/javascript" src="/static/js/jwplayer.js"></script>
 <header class="lu-nav">
-
 </header>
 
 <div class="container" >
@@ -41,9 +39,8 @@ $def with (pin,userprofile,presentuser,comments)
                         作者:$userprofile['user']['username']
                         </button>
                     </a>
-                        <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"
-                        style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注</button>
-
+                        <button onclick="watchit(this)" id="attention" class="btn btn-info pull-left " type="button"style="border-radius: 0px 0px 0px 0px; width: 150px; margin-top: 36px; margin-left: -150px;">关注</button>
+                </div>
         </div>
     </div>
 </div>
@@ -92,7 +89,6 @@ $def with (pin,userprofile,presentuser,comments)
         }
         $$(".comment_form").val("");
     }
-
     $$(function () {
         var presentuser = "$presentuser['user']['key']";
         var pinauthor = "$userprofile['user']['key']";

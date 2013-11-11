@@ -16,11 +16,9 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
     }
 
     #down_menu_1 li {
-
         float: left;
         padding-left: 30px
     }
-
 </style>
 <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
 <script src="/static/js/jquery.ui.widget.js"></script>
@@ -62,21 +60,14 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
             <li><a tabindex="12" href="/controlskip/12">公共信息</a></li>
         </ul>
     </div>
-
     <div style="float:left;" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <button class="btn btn-info"><i style="height:20px" class="icon-plus"></i></button>
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li>
-<<<<<<< HEAD
-                <a href="#add_new" data-toggle="modal" data-target="#add_new"><span onclick="defaultboard()">上传素材</span></a>
-                <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio"><span
-                        onclick="defaultboard()">上传视频</span></a>
-=======
                 <a href="#add_new" data-toggle="modal" data-target="#add_new">上传素材</a>
-                <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio">上传视频</a>
->>>>>>> local
+                <a href="#add_new_vedio" data-toggle="modal" data-target="#add_new_vedio">上传视频</a>>>>>>>> local
             </li>
         </ul>
         <div id="add_new" class="modal hide fade">
@@ -101,12 +92,11 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                               onKeyDown="textCounter(introduction,remLen,250);"
                               onKeyUp="textCounter(introduction,remLen,250);"></textarea>
 
-                    <p>
-                        <font color="red" size="2px">还可输入:</font>
-                        <input name="remLen" type="text" value="250" size="5" readonly="readonly"
-                               style="width:25px;height:10px">
-                        <font color="red" size="2px">个字符</font>
-                    </p>
+                        <p>
+                             <font color="red" size="2px">还可输入:</font>
+                            <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
+                             <font color="red" size="2px">个字符</font>
+                        </p>
 
                     <select name="board_id" id="pin_board_id">
                         <option>校外教育</option>
@@ -150,12 +140,11 @@ $def with (pins,presentuser,board_name,id,last_pin_key,pins_length)
                               onKeyDown="textCounter(introduction,remLen,250);"
                               onKeyUp="textCounter(introduction,remLen,250);"></textarea>
 
-                    <p>
-                        <font color="red" size="2px">还可输入:</font>
-                        <input name="remLen" type="text" value="250" size="5" readonly="readonly"
-                               style="width:25px;height:10px">
-                        <font color="red" size="2px">个字符</font>
-                    </p>
+                     <p>
+                             <font color="red" size="2px">还可输入:</font>
+                            <input name="remLen" type="text" value="250" size="5" readonly="readonly"style="width:25px;height:10px">
+                             <font color="red" size="2px">个字符</font>
+                     </p>
 
                     <select name="board_id" id="vedio_board_id">
                         <option>校外教育</option>
@@ -230,26 +219,25 @@ function refresh_page(){
    countfield.value = maxlimit - field.value.length;
    }
 
-    function defaultboard() {
-        var idx = "$:id-1";
-        $$("#pin_board_id option").eq(idx).attr("selected", "selected");
-        $$("#vedio_board_id option").eq(idx).attr("selected", "selected");
-    }
-    $$(function () {
-        var idx = "$:id-1";
-        $$("#pin_board_id option").eq(idx).attr("selected", "selected");
-        $$("#vedio_board_id option").eq(idx).attr("selected", "selected");
-        var last_pin_key = "$:last_pin_key";
-        var pins_length = "$:pins_length";
-
-        function columnAccumulator() {
-            var col1_h = 0, col2_h = 0, col3_h = 0, col4_h = 0;
-            col1_h = parseInt($$("#col1").height());
-            col2_h = parseInt($$("#col2").height());
-            col3_h = parseInt($$("#col3").height());
-            col4_h = parseInt($$("#col4").height());
-            return [col1_h, col2_h, col3_h, col4_h];
+function defaultboard(){
+        var idx=$id-1;
+        $$("#pin_board_id option").eq(idx).attr("selected","selected");
+        $$("#vedio_board_id option").eq(idx).attr("selected","selected");
         }
+$$(function () {
+    var idx=$id-1;
+    $$("#pin_board_id option").eq(idx).attr("selected","selected");
+    $$("#vedio_board_id option").eq(idx).attr("selected","selected");
+    var last_pin_key ="$:last_pin_key";
+    var pins_length="$:pins_length";
+    function columnAccumulator() {
+        var col1_h = 0, col2_h = 0, col3_h = 0, col4_h = 0;
+        col1_h = parseInt($$("#col1").height());
+        col2_h = parseInt($$("#col2").height());
+        col3_h = parseInt($$("#col3").height());
+        col4_h = parseInt($$("#col4").height());
+        return [col1_h, col2_h, col3_h, col4_h];
+    }
 
         function findMin(array) {
             var minID = 0, minVal = array[0];
@@ -281,58 +269,58 @@ function refresh_page(){
                      $$("#backtop").fadeOut(1000);//以1秒的间隔渐隐id=backtop的元素
              });
          }
-        //点击回到顶部的元素
-        $$("#backtop").click(function (e) {
-            //以1秒的间隔返回顶部
-            $$('body,html').animate({scrollTop: 0}, 500);
-        });
-        $$("#backtop").mouseover(function (e) {
-            $$(this).css("background", "url(../static/img/onbacktop.png) no-repeat 0px 0px");
-        });
-        $$("#backtop").mouseout(function (e) {
-            $$(this).css("background", "url(../static/img/outbacktop.png) no-repeat 0px 0px");
-        });
-        goTop();//实现回到顶部元素的渐显与渐隐
 
-        $$(window).scroll(function () {
-            var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
-            var clientWidth = $$(window).width();
-            var realtop = clientHeight - 50;
-            var realleft = clientWidth - 60;
+     //点击回到顶部的元素
+     $$("#backtop").click(function(e) {
+             //以0.5秒的间隔返回顶部
+             $$('body,html').animate({scrollTop:0},500);
+    });
+     $$("#backtop").mouseover(function(e) {
+         $$(this).css("background","url(../static/img/onbacktop.png) no-repeat 0px 0px");
+     });
+     $$("#backtop").mouseout(function(e) {
+        $$(this).css("background","url(../static/img/outbacktop.png) no-repeat 0px 0px");
+     });
+     goTop();//实现回到顶部元素的渐显与渐隐
 
-            if (clientHeight + scrollTop >= scrollHeight) {
-                if (pins_length != 0) {
-                    $$.get("/pin_flow/" + "$:id" + "",
-                            {
-                                last_pin_key: last_pin_key
-                            },
-                            function (data, textStatus) {
-                                //alert(data);
-                                eval("var json = " + data + ";");
-                                //alert(json['pins'].length);
-                                pins_length = json['pins'].length;
-                                if (pins_length != 0) {
-                                    last_pin_key = json['pins'][pins_length - 1].key;
-                                }
-                                for (var i = 0; i < pins_length; i++) {
-                                    size = columnAccumulator();
-                                    var column = findMin(size) + 1;
-                                    if (json['pins'][i].type == 'picture') {
-                                        var picture = $$("<div class=\"container-fluid pin\" id=\"pinkey" + json['pins'][i].key + "\"><a href=\"/showpin/detail/" + json['pins'][i].key + "\"  target=\"_blank\"><img src=\"/thumbnail/" + json['pins'][i].key + "\"/></a><div>" + json['pins'][i].introduction + "</div></div>")
-                                        $$("#col" + column).append(picture);
-                                    }
-                                    else {
-                                        $$("#col" + column).append("<div class=\"pin\" id=\"showdelete_" + json['pins'][i].key + "\"><a href=\"/showpin/detail/" + json['pins'][i].key + "\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/" + json['pins'][i].thumbnail + "\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -208px;\"></a><div>" + json['pins'][i].introduction + "</div></div>");
-                                    }
-
+    $$(window).scroll(function () {
+        var clientHeight = $$(window).height(), scrollTop = $$(window).scrollTop(), scrollHeight = $$(document).height();
+        var clientWidth=$$(window).width();
+             if (clientHeight + scrollTop >= scrollHeight)
+                   {
+                        if(pins_length!=0)
+                        {
+                              $$.get("/pin_flow/" + $id + "",
+                                  {
+                                     last_pin_key:last_pin_key
+                                  },
+                                   function (data,textStatus)
+                                   {
+                                     //alert(data);
+                                     eval("var json = " + data + ";");
+                                     //alert(json['pins'].length);
+                                     pins_length=json['pins'].length;
+                                     if(pins_length!=0){
+                                        last_pin_key=json['pins'][pins_length-1].key;
+                                      }                                                     ;
+                                      for (var i = 0; i < pins_length; i++)
+                                          {
+                                                size = columnAccumulator();
+                                                var column = findMin(size) + 1;
+                                                if(json['pins'][i].type=='picture'){
+                                                var picture=$$("<div class=\"container-fluid pin\" id=\"pinkey"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\"  target=\"_blank\"><img src=\"/thumbnail/"+json['pins'][i].key+"\"/></a><div>"+json['pins'][i].introduction+"</div></div>")
+                                                 $$("#col" + column).append(picture);
+                                                    }
+                                                 else{
+                                                  $$("#col"+column).append("<div class=\"pin\" id=\"showdelete_"+json['pins'][i].key+"\"><a href=\"/showpin/detail/"+json['pins'][i].key+"\" target=\"_blank\"><img src=\"http://192.168.1.165:8081/thumbnail/"+json['pins'][i].thumbnail+"\"style=\"opacity:0.4;filter:alpha(opacity=40);\"/><img src=\"../static/img/media_video.png\" style=\"margin-top: -208px;\"></a><div>"+json['pins'][i].introduction+"</div></div>");
+                                                 }
                                           }
                                    }
-
                                  );
                         }
                    }
-            });
     });
+  });
 </script>
 <script type="text/javascript">
     function check() {
